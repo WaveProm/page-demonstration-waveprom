@@ -55,6 +55,9 @@ Never join two causes with `and`. Two causes are two decisions.
 
 ## Rules
 
+Don't take `isTypeSupported` as proof a codec will play : confirm the engine is not WebKit before choosing AV1.
+Incident : 2026-08-13, Safari answered the AV1 probe with true, then failed to append a single segment and served a page where nothing played, nothing errored and nothing was logged.
+
 Don't rebuild a committed map from the files present on the disk : merge into the existing one, and let the declaration table arbitrate removals.
 Incident : 2026-08-13, encoding the hero with only its own master visible rewrote `lib/media-manifest.json` down to that single entry, dropping the eight sequences the page is made of.
 
@@ -68,6 +71,9 @@ Don't count on `.gitignore` to keep a file out of a deploy : list it in `.vercel
 Incident : 2026-08-13, `vercel --prod` uploaded the 1.5 GB masters folder and died on the 100 MB file limit.
 
 ## Decisions
+
+The end-to-end suite runs on Chromium and on WebKit.
+Decided : 2026-08-13, because the two engines disagree about what they can decode and a suite on one of them signs off for both.
 
 The copy of a section is written in the JSX of that section.
 Decided : 2026-08-13, because the words and the markup carrying them are read in one place.

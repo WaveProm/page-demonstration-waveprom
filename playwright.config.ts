@@ -1,4 +1,4 @@
-import { defineConfig } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/test";
 
 // Taken from the environment so a second checkout can serve its own tree. The
 // port is pinned in one place because reuseExistingServer adopts whatever
@@ -14,6 +14,13 @@ export default defineConfig({
     baseURL: BASE_URL,
     trace: "retain-on-failure",
   },
+  // Two engines, because the two disagree about what they can decode and only
+  // one of them tells the truth. A suite that runs on Chromium alone signs off
+  // on a page that plays nothing in Safari.
+  projects: [
+    { name: "chromium", use: devices["Desktop Chrome"] },
+    { name: "webkit", use: devices["Desktop Safari"] },
+  ],
   webServer: {
     command: "npm run dev",
     url: BASE_URL,
