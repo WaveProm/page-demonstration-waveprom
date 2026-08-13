@@ -1,62 +1,64 @@
 ---
 name: pipeline-medias
-description: Chaîne médias de la page de démonstration WaveProm - comment une vidéo passe du master 4K au streaming HLS servi depuis Cloudflare R2, et comment en ajouter, remplacer ou réencoder une. À utiliser dès qu'il est question d'une vidéo du projet : ajouter une séquence, remonter un master, relancer un encodage, envoyer sur le bucket, comprendre pourquoi une vidéo ne joue pas ou d'où viennent les 200 ms.
+description: Media chain of the WaveProm demonstration page - how a video travels from a 4K master to HLS streaming served from Cloudflare R2, and how to add, replace or re-encode one. Use this whenever a video of this project is involved: adding a sequence, dropping in a new cut of a master, re-running an encode, uploading to the bucket, working out why a video does not play, or where the 200 ms come from.
 ---
 
-# Chaîne médias - la seule route
+# The media chain - the only road
 
-Personne n'improvise à côté de ce document, humain ou agent. Toute autre route casse une garantie.
+Nobody improvises beside this document, human or agent. Every other road breaks a guarantee.
 
-## Ce qu'on tient, et pourquoi
+## What we hold, and why
 
-La mission est une vidéo 4K qui démarre en moins de 200 ms au changement d'écran, sur mobile, sur une page qui en porte huit.
+The mission is a 4K video that is playing less than 200 ms after the screen switches, on mobile, on a page carrying eight of them.
 
-Le chiffre ne vient pas d'un encodage plus malin. Il vient de ceci : **au moment où l'écran bascule, le réseau est déjà sorti du chemin critique**. Pendant que le visiteur regarde l'écran courant, les quatre fichiers de démarrage de l'écran suivant (manifeste maître, playlist du palier retenu, init, premier segment) sont téléchargés et gardés en mémoire. À la bascule, le lecteur ne fait pas de requête, il lit une Map JavaScript. C'est pour cette raison que la mesure est la même en 4G moyenne qu'en fibre.
+The number does not come from a cleverer encode. It comes from this: **by the time the screen switches, the network is already out of the critical path**. While the visitor watches the current screen, the next one's four startup files (master playlist, chosen rung playlist, init segment, first segment) are downloaded and held in memory. At the switch the player makes no request, it reads a JavaScript Map. That is why the measurement is the same on average 4G as on fibre.
 
-Tout le reste sert cette idée : l'AV1 pour que ce premier segment soit minuscule, l'échelle de qualités pour ne jamais geler, le hash dans l'URL pour qu'un cache d'un an ne serve jamais du périmé.
+Everything else serves that idea: AV1 so the first segment is tiny, the quality ladder so it never stalls, the hash in the URL so a one-year cache can never serve something stale.
 
-## Les trois couches
+## The three layers
 
-**L'entrepôt** : le bucket R2 `waveprom-media`. Une vidéo y vit sous `video/<partenaire>/<slug>-<hash8>/`, avec ses deux échelles, `hls-av1/` et `hls/`. Le hash vient du contenu du master : un remontage change le hash, donc l'URL, donc le cache immutable d'un an ne peut jamais se tromper.
+**The warehouse**: the R2 bucket `waveprom-media`. A video lives under `video/<partner>/<slug>-<hash8>/`, with its two ladders, `hls-av1/` and `hls/`. The hash comes from the master's content: a new cut changes the hash, so the URL, so the one-year immutable cache can never be wrong.
 
-**La carte** : `lib/media-manifest.json`, slug vers préfixe versionné. **Générée. Ne jamais l'éditer à la main.**
+**The map**: `lib/media-manifest.json`, slug to versioned prefix. **Generated. Never edit it by hand.**
 
-**La page** : l'ordre de la page est l'ordre du JSX. Rien à déclarer ailleurs.
+**The page**: the order of the page is the order of the JSX. Nothing to declare anywhere else.
 
-## Ajouter ou remplacer une vidéo
+## Adding or replacing a video
 
-1. Dépose le master dans `MASTERS-PAGE-DEMONSTRATION/`. Version finale uniquement. Pour un remontage, garde le même nom de fichier : le nouveau hash fait le reste.
-2. Déclare-la dans la table `SEQUENCES` de `scripts/make-ladders.mts` : nom de fichier vers partenaire et slug. Une ligne.
-3. `bash scripts/encode-ladders.sh`. La commande ne traite que ce qui manque, et se relancer est toujours sûr.
-4. Vérifie que la carte a bougé, puis pose la vidéo dans la page.
+1. Drop the master into `MASTERS-PAGE-DEMONSTRATION/`. Final cut only. For a re-cut, keep the same file name: the new hash does the rest.
+2. Declare it in the `SEQUENCES` table of `scripts/make-ladders.mts`: file name to partner and slug. One line.
+3. `bash scripts/encode-ladders.sh`. It only handles what is missing, and re-running it is always safe.
+4. `bash scripts/upload-ladders.sh`. Same contract: it only sends ladders that are finished and not yet sent.
+5. Add a `<VideoSlot>` to `app/page.tsx` where it belongs in the order, with its slug as `sectionId` and its prefix read from the map.
 
-Le numéro de séquence du master n'entre jamais dans le slug : l'ordre de la page vit dans le JSX, le dupliquer dans une URL gelée pour un an créerait une seconde vérité.
+The sequence number of a master never enters its slug: the order of the page lives in the JSX, and duplicating it inside a URL frozen for a year would create a second truth.
 
-## Les réglages, et pourquoi on n'y touche pas
+## The settings, and why we leave them alone
 
-Segments de 4 s, échelle à cinq paliers de 432p à 2160p, AV1 en CRF 34 sur SVT-AV1 preset 7, H.264 de 900 à 16000 kbps. Ces valeurs ont été validées à l'œil et par VMAF, seuil de fidélité 95. Les changer sans revalider les deux, c'est perdre la garantie de qualité sans le savoir.
+Four-second segments, a five-rung ladder from 432p to 2160p, AV1 at CRF 34 on SVT-AV1 preset 7, H.264 from 900 to 16000 kbps. These values were validated by eye and by VMAF, fidelity threshold 95. Changing them without re-validating both means losing the quality guarantee without noticing.
 
-Deux réglages se calculent au lieu d'être fixes, et c'est voulu :
+Two settings are computed rather than fixed, deliberately:
 
-- **L'intervalle entre images-clés vaut 4 secondes de contenu**, donc quatre fois la cadence du master. Une valeur en dur alignée sur 25 images par seconde étirerait les segments à 5 s sur un master en 60.
-- **Le son est retiré** (`-an`) sur toute la chaîne. Aucun master de cette médiathèque n'en porte.
+- **The keyframe interval is worth 4 seconds of content**, so four times the master's frame rate. A value hard-wired for 25 frames per second would stretch segments to 5 s on a 60 fps master.
+- **Audio is dropped** (`-an`) across the chain. No master in this library carries a soundtrack.
 
-**Deux échelles par vidéo, jamais une seule.** L'AV1 est six fois plus léger à qualité égale, le H.264 est le seul lisible partout. Un iPhone sans décodeur AV1 matériel tombe sur le H.264 : supprimer le parachute casse une partie du parc.
+**Two ladders per video, never one.** AV1 is six times lighter at equal quality, H.264 is the only one readable everywhere. An iPhone without a hardware AV1 decoder falls back to H.264: removing the parachute breaks part of the fleet.
 
-## Ce qu'on ne fait jamais
+## What we never do
 
-- Éditer `lib/media-manifest.json` à la main.
-- Retoucher un fichier encodé. On retravaille le master, la chaîne régénère le reste.
-- Servir un média depuis autre chose que le bucket.
-- Changer un réglage d'encodage sans revalider à l'œil et au VMAF.
+- Edit `lib/media-manifest.json` by hand.
+- Retouch an encoded file. We rework the master and let the chain regenerate the rest.
+- Serve a medium from anywhere but the bucket.
+- Change an encoding setting without re-validating by eye and by VMAF.
 
-## Quand ça casse
+## When it breaks
 
-- Un encodage échoue : la fin du journal `MEDIA-BUILD/make-ladders.log` dit laquelle des deux dizaines d'invocations a lâché, et pourquoi.
-- Une vidéo ne joue pas : demande le manifeste au bucket. `curl -I "$NEXT_PUBLIC_MEDIA_URL/video/<préfixe>/hls-av1/master.m3u8"` doit répondre 200.
-- Elle joue en local mais pas en ligne : c'est le CORS du bucket. Une seule règle y vit, elle liste les origines autorisées.
-- Un agent a besoin de sonder un master : `ffprobe` avant d'écrire du code. Aucun type ne sait qu'un fichier sur le disque n'a pas de son ou tourne à 60 images par seconde.
+- An encode fails: the tail of `MEDIA-BUILD/make-ladders.log` says which invocation gave up, and why.
+- An upload fails: same story in `MEDIA-BUILD/upload-ladders.log`. The state files beside it record what is already done, which is what makes both scripts safe to re-run.
+- A video does not play: ask the bucket for its manifest. `curl -I "$NEXT_PUBLIC_MEDIA_URL/video/<prefix>/hls-av1/master.m3u8"` has to answer 200.
+- It plays locally but not online: that is the bucket's CORS. A single rule lives there, listing the allowed origins.
+- An agent needs to know what is inside a master: `ffprobe` before writing any code. No type knows that a file on disk has no soundtrack or runs at 60 frames per second.
 
-## Les preuves
+## The evidence
 
-Les mesures qui fondent ces choix vivent dans le POC `~/perf-pro-max` : `labo/bench/rapport-01.md` (le streaming adaptatif contre le fichier unique), `rapport-02-codec.md` (AV1 contre H.264, VMAF à l'appui), `rapport-03-orchestration.md` (les 200 ms sur 28 mesures), `protocole-05-hysteresis.md` (le zéro flash aux frontières du viewport). Cherche là avant de rediagnostiquer un problème déjà résolu.
+The measurements behind these choices live in the POC `~/perf-pro-max`: `labo/bench/rapport-01.md` (adaptive streaming against the single file), `rapport-02-codec.md` (AV1 against H.264, VMAF in hand), `rapport-03-orchestration.md` (the 200 ms over 28 measurements), `protocole-05-hysteresis.md` (zero flash at the viewport boundaries). Look there before re-diagnosing a problem that is already solved.
