@@ -12,14 +12,14 @@ const SectionAgis = () => (
           « Nos campagnes publicitaires ne marchaient pas »
         </h2>
 
-        <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-2">
+        <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-4">
           {/* biome-ignore lint/performance/noImgElement: a vector logotype has no width for next/image to pick */}
           <img
             src="/logotypes/logotype-agis.svg"
             alt="AGIS"
             width={264}
             height={112}
-            className="h-8 w-auto lg:h-10"
+            className="h-10 w-auto translate-y-[1.25%] lg:h-14"
           />
           <p className="font-medium text-[16px]">
             Association d’Intégration Sociale Genevoise

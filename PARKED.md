@@ -6,7 +6,7 @@ Newest first.
 
 ## The solution block
 
-Three steps under a `Solution` heading, in the AGIS section.
+Three steps under a `Solution` heading, in every partner section.
 
 Written in full, they made a wall of text right where the reader is looking for the result.
 

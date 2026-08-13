@@ -3,13 +3,51 @@ import VideoSlot from "@/components/media/VideoSlot";
 import mediaManifest from "@/lib/media-manifest.json";
 
 const SectionLabInno = () => (
-  <VideoSlot
-    sectionId="labinno"
-    prefix={mediaManifest.labinno.prefix}
-    poster={<Poster slug="labinno" />}
-    loop
-    className="w-full aspect-video bg-black"
-  />
+  <section className="mt-8 text-gray-400">
+    <div className="mx-4">
+      <header>
+        <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
+          Une entreprise nouvelle à installer auprès de son audience.
+        </h2>
+
+        <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-4">
+          {/* biome-ignore lint/performance/noImgElement: a vector logotype has no width for next/image to pick */}
+          <img
+            src="/logotypes/logotype-labinno.svg"
+            alt="LABINNO"
+            width={569}
+            height={127}
+            className="h-8 w-auto translate-y-[20.25%] lg:h-12"
+          />
+          <p className="font-medium text-[16px]">
+            Entreprise générale de construction
+          </p>
+        </div>
+      </header>
+
+      <p className="my-6 max-w-3xl font-medium text-[18px] text-black lg:my-8 lg:text-[24px]">
+        — Une publication par semaine, sur les normes, les lois et l’actualité
+        de la construction
+      </p>
+
+      <p className="max-w-3xl text-[16px] text-black lg:text-[18px]">
+        « Très bon service de la part d’Issao. Il prend le temps de bien cibler
+        les besoins et adapte son service de manière professionnelle et
+        efficace. Je recommande grandement WaveProm ! »
+      </p>
+      <p className="mt-4 text-[16px] lg:text-[14px]">
+        <span className="font-medium">Hanane Loumassine</span>, Directrice
+      </p>
+    </div>
+
+    <VideoSlot
+      sectionId="labinno"
+      prefix={mediaManifest.labinno.prefix}
+      poster={<Poster slug="labinno" />}
+      loop
+      className="mt-12 aspect-video w-full bg-black"
+    />
+  </section>
 );
 
 export default SectionLabInno;
