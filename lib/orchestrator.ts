@@ -140,12 +140,14 @@ export const createOrchestrator = ({
       const uriLine = lines
         .slice(i + 1)
         .find((line) => line.trim() && !line.startsWith("#"));
-      if (uriLine) {
-        variants.push({
-          bandwidthBps: Number(bandwidthMatch[1]),
-          uri: uriLine.trim(),
-        });
-      }
+      // Skipping a malformed entry would shift every index after it, and that
+      // index goes to hls.js as startLevel: it has to stay positional.
+      if (!uriLine)
+        throw new Error(`Master playlist entry without a URI: ${lines[i]}`);
+      variants.push({
+        bandwidthBps: Number(bandwidthMatch[1]),
+        uri: uriLine.trim(),
+      });
     }
     const budgetBps = bandwidthBps * STARTUP_BANDWIDTH_SAFETY_FACTOR;
     let startupLevelIndex = 0;
@@ -199,7 +201,7 @@ export const createOrchestrator = ({
 
     try {
       const section = sectionsById.get(sectionId);
-      if (!section) return;
+      if (!section) throw new Error(`Priming an unknown section: ${sectionId}`);
       const masterUrl = new URL(section.manifestUrl, window.location.href).href;
       const masterManifestText = (await fetchAsset(
         masterUrl,
@@ -264,9 +266,9 @@ export const createOrchestrator = ({
           const nowMs = performance.now();
           const stats = this.stats;
           const byteLength =
-            typeof preloadedAsset.data === "string"
-              ? preloadedAsset.data.length
-              : preloadedAsset.data.byteLength;
+            preloadedAsset.type === "text"
+              ? (preloadedAsset.data as string).length
+              : (preloadedAsset.data as ArrayBuffer).byteLength;
           // Artificial 5 ms duration: a zero duration would yield infinite or
           // NaN bandwidth and poison the hls.js ABR estimator.
           stats.loading.start = nowMs - 5;
@@ -415,6 +417,14 @@ export const createOrchestrator = ({
   };
 
   const mountPlayer = (sectionId: string, targetVideoElement: VideoElement) => {
+    // Resolved before anything is consumed or built: bailing out further down
+    // would burn the priming and leak an Hls instance nobody can destroy.
+    const section = sectionsById.get(sectionId);
+    if (!section) {
+      logTransition("SECTION_MISSING", sectionId, {});
+      return;
+    }
+
     // If THIS section's priming is still in flight, drop it: the player is
     // about to make those requests itself, no point doubling them.
     if (primingInFlightSectionId === sectionId) primingAbortController?.abort();
@@ -441,8 +451,6 @@ export const createOrchestrator = ({
       startPosition: playbackPositionSecondsBySectionId.get(sectionId) ?? -1,
       enableWorker: true,
     });
-    const section = sectionsById.get(sectionId);
-    if (!section) return;
     hlsPlayer.loadSource(section.manifestUrl);
     hlsPlayer.attachMedia(targetVideoElement);
     mountedPlayers.set(sectionId, {

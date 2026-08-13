@@ -33,6 +33,8 @@ Everything else serves that idea: AV1 so the first segment is tiny, the quality 
 
 The sequence number of a master never enters its slug: the order of the page lives in the JSX, and duplicating it inside a URL frozen for a year would create a second truth.
 
+**Partner folders and slugs stay ASCII kebab-case**: no space, no accent, no `%`, no `#`. The priming cache keys its four files with `new URL()`, while hls.js resolves the very same files with its own normaliser. One character the two encode differently and the lookup misses, so the player quietly falls back to the network. Nothing breaks, nothing is logged, the 200 ms simply become 800.
+
 ## The settings, and why we leave them alone
 
 Four-second segments, a five-rung ladder from 432p to 2160p, AV1 at CRF 34 on SVT-AV1 preset 7, H.264 from 900 to 16000 kbps. These values were validated by eye and by VMAF, fidelity threshold 95. Changing them without re-validating both means losing the quality guarantee without noticing.
