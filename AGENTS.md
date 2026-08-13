@@ -55,6 +55,9 @@ Never join two causes with `and`. Two causes are two decisions.
 
 ## Rules
 
+Don't rebuild a committed map from the files present on the disk : merge into the existing one, and let the declaration table arbitrate removals.
+Incident : 2026-08-13, encoding the hero with only its own master visible rewrote `lib/media-manifest.json` down to that single entry, dropping the eight sequences the page is made of.
+
 Don't let Biome format a generated file : exclude it in `biome.json`.
 Incident : 2026-08-13, `npm run format` reshaped `lib/media-manifest.json`, the next encode wrote it back, and lint stayed red on a file nobody is allowed to edit.
 
