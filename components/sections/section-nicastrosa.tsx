@@ -12,7 +12,7 @@ const SectionNicastrosa = () => (
         </h2>
 
         <p className="my-4 text-[18px] lg:text-[20px]">
-          <span className="font-medium text-gray-600">Nicastro SA</span>,{" "}
+          <span className="font-medium text-gray-600">NICASTRO SA</span>,{" "}
           Construction métallique
         </p>
       </header>
@@ -23,7 +23,7 @@ const SectionNicastrosa = () => (
             +250
           </p>
           <p className="text-[16px] lg:text-[14px]">
-            abonnés LinkedIn en 14 jours
+            Abonnés LinkedIn en 14 jours
           </p>
         </div>
       </div>

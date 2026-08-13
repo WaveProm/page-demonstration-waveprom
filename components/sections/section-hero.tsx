@@ -20,7 +20,7 @@ const PARTNERS = [
   { file: "logotype-btweenus.png", name: "BtweenUs", width: 512, height: 110 },
   {
     file: "logotype-chefs-goutatoo.png",
-    name: "Chefs Goutatoo",
+    name: "Chef’s Goutatoo",
     width: 220,
     height: 256,
   },

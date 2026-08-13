@@ -12,7 +12,7 @@ const SectionGoutatoo = () => (
         </h2>
 
         <p className="my-4 text-[18px] lg:text-[20px]">
-          <span className="font-medium text-gray-600">Chefs Goutatoo</span>,{" "}
+          <span className="font-medium text-gray-600">Chef’s Goutatoo</span>,{" "}
           Collectif de chefs étoilés
         </p>
       </header>

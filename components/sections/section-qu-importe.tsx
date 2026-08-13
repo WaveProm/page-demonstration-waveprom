@@ -10,14 +10,9 @@ const SectionQuImporte = () => (
           Une première impression mémorable, de jour et de nuit.
         </h2>
 
-        {/* items-baseline lands the BOTTOM of an image on the baseline of the
-            sector, and a logotype's own baseline sits higher than that by
-            whatever hangs below it. Each translate-y below is that distance,
-            measured on the file as a share of its height, so it survives every
-            rendered size. Groupe Chuard 0,75 %, Qu'importe 2,25 %. */}
         <p className="my-4 text-[18px] lg:text-[20px]">
           <span className="font-medium text-gray-600">
-            Qu’importe (Groupe Chuard)
+            Qu’importe - Groupe Chuard
           </span>
           , Bar à vin
         </p>
