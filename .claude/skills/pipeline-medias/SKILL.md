@@ -25,11 +25,12 @@ Everything else serves that idea: AV1 so the first segment is tiny, the quality 
 
 ## Adding or replacing a video
 
-1. Drop the master into `MASTERS-PAGE-DEMONSTRATION/`. Final cut only. For a re-cut, keep the same file name: the new hash does the rest.
-2. Declare it in the `SEQUENCES` table of `scripts/make-ladders.mts`: file name to partner and slug. One line.
+1. Drop the master into `MASTERS-PAGE-DEMONSTRATION/`, at the root of the tree the scripts are run from. Final cut only. For a re-cut, keep the same file name: the new hash does the rest. A tree without the masters reaches them with `MASTERS_DIR=<path>`.
+2. Declare it in the `SEQUENCES` table of `scripts/sequences.mjs`: file name to partner and slug. One line.
 3. `bash scripts/encode-ladders.sh`. It only handles what is missing, and re-running it is always safe.
 4. `bash scripts/upload-ladders.sh`. Same contract: it only sends ladders that are finished and not yet sent.
-5. Add a `<VideoSlot>` to `app/page.tsx` where it belongs in the order, with its slug as `sectionId` and its prefix read from the map.
+5. `node scripts/make-posters.mts`. It cuts the first non-black frame at three widths, and a unit test stays red until all three are on disk.
+6. Add a `<VideoSlot>` to `app/page.tsx` where it belongs in the order, with its slug as `sectionId` and its prefix read from the map.
 
 The sequence number of a master never enters its slug: the order of the page lives in the JSX, and duplicating it inside a URL frozen for a year would create a second truth.
 
