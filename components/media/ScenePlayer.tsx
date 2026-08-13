@@ -67,8 +67,18 @@ const ScenePlayer = ({ children }: { children: ReactNode }) => {
     // Children effects (the slots) run BEFORE the parent's: the registry is
     // complete by the time this code executes.
     const MediaSourceClass = window.ManagedMediaSource ?? window.MediaSource;
+    // WebKit answers this probe with true and then cannot append a single AV1
+    // segment: bufferAppendingError, mediaSourceRequiresReset, fatal, and a
+    // video element left at readyState 0 that reports paused false and no
+    // error. Nothing plays and nothing is logged. So the probe alone is not
+    // enough, and ManagedMediaSource, a WebKit-only API, is what identifies
+    // the engine that lies. Safari takes the H.264 parachute, which is the
+    // job it was built for. Native HLS would decode AV1 there, but it would
+    // also put hls.js out of the loop and take the priming with it.
+    const isWebKitMediaSource = "ManagedMediaSource" in window;
     const av1Supported =
       Hls.isSupported() &&
+      !isWebKitMediaSource &&
       Boolean(
         MediaSourceClass?.isTypeSupported?.(
           'video/mp4; codecs="av01.0.08M.10"',

@@ -55,14 +55,19 @@ const scrollToSlot = (page: Page, index: number) =>
       [slotIndex]?.parentElement?.scrollIntoView();
   }, index);
 
-const waitUntilPrimed = async (page: Page, sectionId: string) => {
+const waitForJournalEntry = async (
+  page: Page,
+  event: string,
+  sectionId: string,
+  timeout: number,
+) => {
   await expect
     .poll(
       async () =>
         (await readJournal(page)).some(
-          (entry) => entry.event === "PRIMED" && entry.sectionId === sectionId,
+          (entry) => entry.event === event && entry.sectionId === sectionId,
         ),
-      { timeout: PRIMING_TIMEOUT_MS },
+      { timeout },
     )
     .toBe(true);
 };
@@ -83,12 +88,24 @@ test("a read-through plays all nine sequences, every switch under 200 ms", async
     .poll(() => currentTimeOf(page, 0), { timeout: PLAYBACK_TIMEOUT_MS })
     .toBeGreaterThan(0);
 
+  // Waiting on the painted frame rather than on currentTime, because the two
+  // are not ordered: on a fast engine a switch lands in under 30 ms, the test
+  // scrolls on, and the orchestrator cancels a frame measurement that no
+  // longer describes what is on screen. Correct of it, and unmeasurable here.
   for (let index = 1; index < SEQUENCE_IDS.length; index++) {
-    await waitUntilPrimed(page, SEQUENCE_IDS[index]);
+    await waitForJournalEntry(
+      page,
+      "PRIMED",
+      SEQUENCE_IDS[index],
+      PRIMING_TIMEOUT_MS,
+    );
     await scrollToSlot(page, index);
-    await expect
-      .poll(() => currentTimeOf(page, index), { timeout: PLAYBACK_TIMEOUT_MS })
-      .toBeGreaterThan(0);
+    await waitForJournalEntry(
+      page,
+      "FIRST_FRAME",
+      SEQUENCE_IDS[index],
+      PLAYBACK_TIMEOUT_MS,
+    );
   }
 
   const journal = await readJournal(page);
