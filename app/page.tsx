@@ -14,11 +14,11 @@ import SectionQuImporte from "@/components/sections/section-qu-importe";
 // content lands on, and carries its slot as a client leaf.
 const Page = () => (
   <ScenePlayer>
+    <SectionAgis />
     <SectionQuImporte />
     <SectionBtweenUs />
     <SectionGoutatoo />
     <SectionLeCigalon />
-    <SectionAgis />
     <SectionNicastrosa />
     <SectionLabInno />
     <SectionMinotaures />

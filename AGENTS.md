@@ -66,6 +66,9 @@ Incident : 2026-08-13, `vercel --prod` uploaded the 1.5 GB masters folder and di
 
 ## Decisions
 
+The copy of a section is written in the JSX of that section.
+Decided : 2026-08-13, because the words and the markup carrying them are read in one place.
+
 A function is an arrow function, unless the `function` keyword is required.
 Decided : 2026-08-13, because one shape across a codebase reads faster than two.
 
