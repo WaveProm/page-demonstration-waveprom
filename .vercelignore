@@ -1,2 +1,5 @@
 # Masters video : sur le disque pour le traitement, jamais déployés
 MASTERS-PAGE-DEMONSTRATION/
+
+# Sorties d'encodage : elles partent dans le bucket, pas dans le déploiement
+MEDIA-BUILD/

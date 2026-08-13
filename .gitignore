@@ -23,6 +23,9 @@
 # masters video : de passage sur le disque pour le traitement, jamais dans git
 /MASTERS-PAGE-DEMONSTRATION/
 
+# sorties d'encodage : régénérables, destinées au bucket, jamais dans git
+/MEDIA-BUILD/
+
 # misc
 .DS_Store
 *.pem
