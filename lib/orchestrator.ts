@@ -95,6 +95,7 @@ export const createOrchestrator = ({
   let primingInFlightSectionId: string | null = null;
   let primingAbortController: AbortController | null = null;
   let lastBandwidthEstimateBps = DEFAULT_STARTUP_BANDWIDTH_BPS;
+  let travelDirection = 1; // down the page until the visitor says otherwise
   const playbackPositionSecondsBySectionId = new Map<string, number>();
   // Callbacks tied to the activation in flight (the playing slot's element)
   let pendingFirstFrame: { element: VideoElement; handle: number } | null =
@@ -117,10 +118,15 @@ export const createOrchestrator = ({
     });
   };
 
-  const nextSectionIdAfter = (sectionId: string) => {
+  // Priming follows the visitor rather than the page: a reader going back up
+  // deserves the screen above, and priming the one below would be bytes spent
+  // on the direction they just left.
+  const neighbourSectionId = (sectionId: string, direction: number) => {
     const index = sectionOrder.indexOf(sectionId);
-    return index >= 0 && index + 1 < sectionOrder.length
-      ? sectionOrder[index + 1]
+    if (index < 0) return null;
+    const neighbourIndex = index + direction;
+    return neighbourIndex >= 0 && neighbourIndex < sectionOrder.length
+      ? sectionOrder[neighbourIndex]
       : null;
   };
 
@@ -462,7 +468,12 @@ export const createOrchestrator = ({
       maxBufferSize: 3_000_000,
       maxMaxBufferLength: FORWARD_BUFFER_SECONDS,
       backBufferLength: BACK_BUFFER_SECONDS,
-      startPosition: playbackPositionSecondsBySectionId.get(sectionId) ?? -1,
+      // A revisited screen restarts from its first frame. Resuming where the
+      // visitor left off would ask for a segment from the middle of the video,
+      // which the priming cache does not hold: the player would serve the
+      // priming, then go to the network anyway, and the return would cost
+      // 370 ms instead of 130.
+      startPosition: -1,
       enableWorker: true,
     });
     hlsPlayer.loadSource(section.manifestUrl);
@@ -475,9 +486,20 @@ export const createOrchestrator = ({
     logTransition("MOUNT", sectionId, { primed: hasPrimedAssets });
   };
 
+  const rememberTravelDirection = (
+    fromSectionId: string | null,
+    toSectionId: string,
+  ) => {
+    if (!fromSectionId) return;
+    const delta =
+      sectionOrder.indexOf(toSectionId) - sectionOrder.indexOf(fromSectionId);
+    if (delta !== 0) travelDirection = delta > 0 ? 1 : -1;
+  };
+
   const activatePlayback = (sectionId: string) => {
     if (sectionId === playingSectionId) return;
     const enterAtMs = performance.now();
+    const departingSectionId = playingSectionId;
 
     const alreadyMounted = mountedPlayers.get(sectionId);
     const targetVideoElement = alreadyMounted
@@ -502,9 +524,10 @@ export const createOrchestrator = ({
     logTransition("ENTER", sectionId, { resumed: Boolean(alreadyMounted) });
     kickPlaybackAndMeasure(sectionId, targetVideoElement, enterAtMs);
     enforcePoolCap();
+    rememberTravelDirection(departingSectionId, sectionId);
     // Deliberately not awaited: priming runs behind the playback that just
     // started, and nothing downstream waits for it.
-    void primeSection(nextSectionIdAfter(sectionId));
+    void primeSection(neighbourSectionId(sectionId, travelDirection));
   };
 
   // ------------------------------------------------------------- public API

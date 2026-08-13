@@ -20,14 +20,7 @@ const VideoSlot = ({
   sectionId,
   prefix,
   poster,
-  // Per-section config, carried by the wrapper:
-  // - loop     : decorative loop (hero, backgrounds)
-  // - controls : production videos, where audio becomes reachable through a
-  //   user gesture. Autoplay always stays muted, browsers impose it.
-  // - muted    : true by default, required for autoplay.
   loop = false,
-  controls = false,
-  muted = true,
   className,
   children,
 }: {
@@ -35,8 +28,6 @@ const VideoSlot = ({
   prefix: string;
   poster?: ReactNode;
   loop?: boolean;
-  controls?: boolean;
-  muted?: boolean;
   className?: string;
   children?: ReactNode;
 }) => {
@@ -88,15 +79,15 @@ const VideoSlot = ({
           destruction (a video element with no stream is transparent). Rendered
           on the server, so the space is reserved from the HTML, zero shift. */}
       {poster}
-      {/* autoPlay and muted are declared even though the orchestrator calls
-          play() itself: they are what tells the browser this video is allowed
-          to start on its own, which is the condition for a muted autoplay. */}
+      {/* Muted is not a setting here, it is the contract: no master in this
+          library carries a soundtrack, and a muted video is the one thing a
+          browser lets start on its own. autoPlay states that intent even
+          though the orchestrator also calls play() at the right moment. */}
       <video
         ref={videoRef}
         autoPlay
-        muted={muted}
+        muted
         loop={loop}
-        controls={controls}
         playsInline
         className="absolute inset-0 h-full w-full object-cover"
       />
