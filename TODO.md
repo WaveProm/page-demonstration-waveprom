@@ -65,17 +65,6 @@ most likely fill a screen on mobile, which puts one video per screen again and
 restores the assumption the boundary is built on. Re-measure then, with
 `scripts` untouched and the end-to-end test as the judge.
 
-## Poster widths: our own srcset
-
-A 4K AVIF served as authored to a phone is bytes spent for nothing. Two roads.
-Let `next/image` scale it down, and the framework picks format, size and quality
-on its own. Or encode two or three widths ourselves and declare them in a
-`srcset` we control, carried by `picture` and `source`.
-
-The second one, which hands the control back without losing anything. `Poster`
-already renders a plain `img` for exactly that reason: it is the half of the
-markup that does not change when the widths arrive.
-
 ## no-mistakes: decide whether we adopt it
 
 The `no-mistakes` gate (github.com/kunchenguid/no-mistakes) installs through a

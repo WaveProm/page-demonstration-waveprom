@@ -69,6 +69,12 @@ Incident : 2026-08-13, `vercel --prod` uploaded the 1.5 GB masters folder and di
 The copy of a section is written in the JSX of that section.
 Decided : 2026-08-13, because the words and the markup carrying them are read in one place.
 
+A poster ships at three widths, named `<slug>-<width>.avif`.
+Decided : 2026-08-13, because the browser is the only party that knows which width a screen needs.
+
+A media script resolves the project directory from its own location.
+Decided : 2026-08-13, because a script has to work in the tree it was launched from.
+
 A function is an arrow function, unless the `function` keyword is required.
 Decided : 2026-08-13, because one shape across a codebase reads faster than two.
 

@@ -17,10 +17,20 @@ import {
   writeFileSync,
 } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { SEQUENCES } from "./sequences.mjs";
 
-const PROJECT_DIR = "/Users/graydafflon/page-demonstration-waveprom";
-const MASTERS_DIR = path.join(PROJECT_DIR, "MASTERS-PAGE-DEMONSTRATION");
+// Deduced from the script's own location, one level up from scripts/, so the
+// script reads and writes the tree it was launched from and never another one.
+const PROJECT_DIR = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+);
+// The masters are not versioned, so they only exist in the tree they were
+// dropped into. The override is how another checkout reaches them.
+const MASTERS_DIR =
+  process.env.MASTERS_DIR ??
+  path.join(PROJECT_DIR, "MASTERS-PAGE-DEMONSTRATION");
 const LADDERS_DIR = path.join(PROJECT_DIR, "MEDIA-BUILD/ladders");
 const MEDIA_MANIFEST_PATH = path.join(PROJECT_DIR, "lib/media-manifest.json");
 const STATE_PATH = path.join(

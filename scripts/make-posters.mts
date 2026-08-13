@@ -1,19 +1,35 @@
-// One poster per sequence: the master's first non-black frame, native
-// 3840x2160, in AVIF. It holds the screen before the player is mounted and
-// after it is torn down, so what the visitor sees there is the opening frame
-// and never black. A master that opens on a normal image keeps its frame zero;
-// one that opens on a fade takes the frame where there is something to see.
+// Three posters per sequence: the master's first non-black frame, in AVIF, at
+// 3840, 1920 and 960 pixels wide. One holds the screen before the player is
+// mounted and after it is torn down, so what the visitor sees there is the
+// opening frame and never black. A master that opens on a normal image keeps
+// its frame zero; one that opens on a fade takes the frame where there is
+// something to see. Which of the three widths a visitor downloads is the
+// browser's call, from the srcset Poster.tsx declares.
 // Resumable across invocations: a poster is re-encoded only when it is missing
-// or older than its master.
+// or older than its master, width by width.
 // Usage: node scripts/make-posters.mts
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, renameSync, rmSync, statSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { SEQUENCES } from "./sequences.mjs";
 
-const PROJECT_DIR = "/Users/graydafflon/page-demonstration-waveprom";
-const MASTERS_DIR = path.join(PROJECT_DIR, "MASTERS-PAGE-DEMONSTRATION");
+// Deduced from the script's own location, one level up from scripts/, so the
+// script reads and writes the tree it was launched from and never another one.
+const PROJECT_DIR = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+);
+// The masters are not versioned, so they only exist in the tree they were
+// dropped into. The override is how another checkout reaches them.
+const MASTERS_DIR =
+  process.env.MASTERS_DIR ??
+  path.join(PROJECT_DIR, "MASTERS-PAGE-DEMONSTRATION");
 const POSTERS_DIR = path.join(PROJECT_DIR, "public/posters");
+// The masters are 3840 wide, so the first width is the frame as authored and
+// the other two are halvings of it. A phone filling 400 CSS pixels has no use
+// for the 4K one, and the browser is the only party that knows which it needs.
+const WIDTHS = [3840, 1920, 960];
 // crf 30 sits at the knee of the curve on these masters: ~100 KB at 4K, with
 // no artefact visible at 100 % on glass edges or skin. Lower buys nothing the
 // eye can see, higher starts smearing specular highlights.
@@ -39,13 +55,16 @@ const BLACK_PICTURE_RATIO = "0.98";
 // blackdetect prints one line per interval, in order.
 const BLACK_INTERVAL_PATTERN = /black_start:([\d.]+) black_end:([\d.]+)/;
 
+// The probe below costs a decode of the master's opening, so it is paid once
+// per master and shared by every width still to encode.
 type PosterJob = {
   slug: string;
   masterPath: string;
-  posterPath: string;
+  widths: number[];
 };
 
-const posterPathFor = (slug: string) => path.join(POSTERS_DIR, `${slug}.avif`);
+const posterPathFor = (slug: string, width: number) =>
+  path.join(POSTERS_DIR, `${slug}-${width}.avif`);
 
 const isOutdated = (masterPath: string, posterPath: string) =>
   !existsSync(posterPath) ||
@@ -55,14 +74,16 @@ const jobs: PosterJob[] = [];
 for (const [name, { slug }] of Object.entries(SEQUENCES)) {
   const masterPath = path.join(MASTERS_DIR, name);
   // Masters only pass through the disk, so an absent one is not a failure:
-  // its poster was produced on an earlier run and lives on in the repo.
+  // its posters were produced on an earlier run and live on in the repo.
   if (!existsSync(masterPath)) {
     console.log(`⚠ ${name}: master absent - skipped`);
     continue;
   }
-  const posterPath = posterPathFor(slug);
-  if (isOutdated(masterPath, posterPath)) {
-    jobs.push({ slug, masterPath, posterPath });
+  const widths = WIDTHS.filter((width) =>
+    isOutdated(masterPath, posterPathFor(slug, width)),
+  );
+  if (widths.length > 0) {
+    jobs.push({ slug, masterPath, widths });
   }
 }
 
@@ -100,10 +121,11 @@ const firstNonBlackSeconds = (masterPath: string) => {
   return Number(match[2]);
 };
 
-const encodePoster = (job: PosterJob, offsetSeconds: number) => {
+const encodePoster = (job: PosterJob, width: number, offsetSeconds: number) => {
+  const posterPath = posterPathFor(job.slug, width);
   // Written aside then renamed: an interrupted encode must not leave a
   // truncated file that the next run would mistake for a finished poster.
-  const tempPath = `${job.posterPath}.part`;
+  const tempPath = `${posterPath}.part`;
   // Ahead of -i so the seek happens before decoding. ffmpeg still lands on the
   // exact frame, and an offset of zero is left out entirely.
   const seekArgs = offsetSeconds === 0 ? [] : ["-ss", String(offsetSeconds)];
@@ -119,6 +141,16 @@ const encodePoster = (job: PosterJob, offsetSeconds: number) => {
       "0:v:0",
       "-frames:v",
       "1",
+      // -2 keeps the master's ratio and lands on an even height, which yuv420p
+      // requires. At the master's own width the filter passes the frame
+      // through, so that poster stays the one that was measured.
+      // A width here is the master's long side, which every master in the set
+      // is: they are all 3840x2160. A portrait master would be upscaled past
+      // its own pixels, and the <slug>-<width>.avif contract Poster.tsx reads
+      // as a srcset descriptor has no answer for it. That is a decision to
+      // take when such a master arrives, not a filter to bend ahead of it.
+      "-vf",
+      `scale=${width}:-2`,
       "-c:v",
       "libaom-av1",
       "-still-picture",
@@ -142,38 +174,54 @@ const encodePoster = (job: PosterJob, offsetSeconds: number) => {
   if (result.status !== 0) {
     rmSync(tempPath, { force: true });
     console.log(
-      `FAILED ${job.slug}\n${(result.stderr ?? "").split("\n").slice(-6).join("\n")}`,
+      `FAILED ${job.slug}-${width}\n${(result.stderr ?? "").split("\n").slice(-6).join("\n")}`,
     );
     process.exit(1);
   }
-  renameSync(tempPath, job.posterPath);
+  renameSync(tempPath, posterPath);
+};
+
+const encodeJob = (job: PosterJob) => {
+  const offsetSeconds = firstNonBlackSeconds(job.masterPath);
+  for (const width of job.widths) {
+    const startedAtMs = Date.now();
+    encodePoster(job, width, offsetSeconds);
+    const sizeKb = Math.round(
+      statSync(posterPathFor(job.slug, width)).size / 1024,
+    );
+    console.log(
+      `ok  ${job.slug}-${width}  (${sizeKb} KB, ${Math.round((Date.now() - startedAtMs) / 1000)} s, frame at ${offsetSeconds.toFixed(3)} s)`,
+    );
+  }
 };
 
 mkdirSync(POSTERS_DIR, { recursive: true });
 for (const job of jobs) {
-  const startedAtMs = Date.now();
-  const offsetSeconds = firstNonBlackSeconds(job.masterPath);
-  encodePoster(job, offsetSeconds);
-  console.log(
-    `ok  ${job.slug}  (${Math.round(statSync(job.posterPath).size / 1024)} KB, ${Math.round((Date.now() - startedAtMs) / 1000)} s, frame at ${offsetSeconds.toFixed(3)} s)`,
-  );
+  encodeJob(job);
 }
 
+const encodedCount = jobs.reduce((count, job) => count + job.widths.length, 0);
 console.log(
-  jobs.length === 0
+  encodedCount === 0
     ? `DONE - every poster was already up to date in ${POSTERS_DIR}`
-    : `DONE - ${jobs.length} posters encoded in ${POSTERS_DIR}`,
+    : `DONE - ${encodedCount} posters encoded in ${POSTERS_DIR}`,
 );
+
+const posterSizeKb = (slug: string, width: number) => {
+  const posterPath = posterPathFor(slug, width);
+  return existsSync(posterPath)
+    ? Math.round(statSync(posterPath).size / 1024)
+    : null;
+};
 
 let totalKb = 0;
 for (const { slug } of Object.values(SEQUENCES)) {
-  const posterPath = posterPathFor(slug);
-  if (!existsSync(posterPath)) {
-    console.log(`  ${slug.padEnd(16)} missing`);
-    continue;
+  for (const width of WIDTHS) {
+    const sizeKb = posterSizeKb(slug, width);
+    totalKb += sizeKb ?? 0;
+    const size =
+      sizeKb === null ? "missing" : `${String(sizeKb).padStart(4)} KB`;
+    console.log(`  ${`${slug}-${width}`.padEnd(21)} ${size}`);
   }
-  const sizeKb = Math.round(statSync(posterPath).size / 1024);
-  totalKb += sizeKb;
-  console.log(`  ${slug.padEnd(16)} ${String(sizeKb).padStart(4)} KB`);
 }
-console.log(`  ${"total".padEnd(16)} ${String(totalKb).padStart(4)} KB`);
+console.log(`  ${"total".padEnd(21)} ${String(totalKb).padStart(4)} KB`);

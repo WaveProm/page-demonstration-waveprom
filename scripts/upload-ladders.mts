@@ -12,8 +12,14 @@ import {
   writeFileSync,
 } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const PROJECT_DIR = "/Users/graydafflon/page-demonstration-waveprom";
+// Deduced from the script's own location, one level up from scripts/, so the
+// script reads and writes the tree it was launched from and never another one.
+const PROJECT_DIR = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+);
 const LADDERS_DIR = path.join(PROJECT_DIR, "MEDIA-BUILD/ladders");
 const STATE_PATH = path.join(
   PROJECT_DIR,
