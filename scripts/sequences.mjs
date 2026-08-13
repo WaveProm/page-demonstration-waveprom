@@ -14,7 +14,7 @@ export const SEQUENCES = {
   "04.seq-agis.mp4": { partner: "agis", slug: "agis" },
   // The first level of the path names a partner. The hero belongs to the agency
   // rather than to a client, so it lands under waveprom.
-  "05.seq-hero.mp4": { partner: "waveprom", slug: "hero" },
+  "05.seq-hero-update.mp4": { partner: "waveprom", slug: "hero" },
   "06.seq-nicastrosa.mp4": { partner: "nicastrosa", slug: "nicastrosa" },
   "07.seq-labinno.mp4": { partner: "lab-inno", slug: "labinno" },
   "08.seq-minotaures.mp4": { partner: "minotaures", slug: "minotaures" },
