@@ -30,6 +30,10 @@ const BACK_BUFFER_SECONDS = 5;
 const DEFAULT_STARTUP_BANDWIDTH_BPS = 2_000_000;
 const STARTUP_BANDWIDTH_SAFETY_FACTOR = 0.7;
 const MOUNTED_PLAYERS_MAX = 3;
+// Playback starts at 1080p at the highest and the ladder climbs to 4K from
+// there, however wide the pipe is. Decoding the first frame of a 4K segment
+// costs around 100 ms more on 60 fps footage, which is the whole budget.
+const STARTUP_CEILING_SHORT_SIDE = 1080;
 
 export type OrchestratorSection = {
   id: string;
@@ -123,12 +127,14 @@ export const createOrchestrator = ({
   // ---------------------------------------------------------------- priming
 
   // Reads the master playlist and picks the startup rung: the highest bitrate
-  // that fits the bandwidth already measured, with a safety margin.
+  // that fits both the bandwidth already measured, with a safety margin, and
+  // the startup ceiling.
   const chooseStartupVariant = (
     masterManifestText: string,
     bandwidthBps: number,
   ) => {
-    const variants: { bandwidthBps: number; uri: string }[] = [];
+    const variants: { bandwidthBps: number; uri: string; shortSide: number }[] =
+      [];
     const lines = masterManifestText.split("\n");
     for (let i = 0; i < lines.length; i++) {
       // [:,] before BANDWIDTH excludes AVERAGE-BANDWIDTH (preceded by a dash)
@@ -144,15 +150,23 @@ export const createOrchestrator = ({
       // index goes to hls.js as startLevel: it has to stay positional.
       if (!uriLine)
         throw new Error(`Master playlist entry without a URI: ${lines[i]}`);
+      const resolution = /RESOLUTION=(\d+)x(\d+)/.exec(lines[i]);
+      if (!resolution)
+        throw new Error(
+          `Master playlist entry without a resolution: ${lines[i]}`,
+        );
       variants.push({
         bandwidthBps: Number(bandwidthMatch[1]),
         uri: uriLine.trim(),
+        shortSide: Math.min(Number(resolution[1]), Number(resolution[2])),
       });
     }
     const budgetBps = bandwidthBps * STARTUP_BANDWIDTH_SAFETY_FACTOR;
     let startupLevelIndex = 0;
     for (let i = 0; i < variants.length; i++) {
-      if (variants[i].bandwidthBps <= budgetBps) startupLevelIndex = i;
+      const fitsBandwidth = variants[i].bandwidthBps <= budgetBps;
+      const fitsCeiling = variants[i].shortSide <= STARTUP_CEILING_SHORT_SIDE;
+      if (fitsBandwidth && fitsCeiling) startupLevelIndex = i;
     }
     return { startupLevelIndex, variantUri: variants[startupLevelIndex].uri };
   };

@@ -88,8 +88,12 @@ const VideoSlot = ({
           destruction (a video element with no stream is transparent). Rendered
           on the server, so the space is reserved from the HTML, zero shift. */}
       {poster}
+      {/* autoPlay and muted are declared even though the orchestrator calls
+          play() itself: they are what tells the browser this video is allowed
+          to start on its own, which is the condition for a muted autoplay. */}
       <video
         ref={videoRef}
+        autoPlay
         muted={muted}
         loop={loop}
         controls={controls}
