@@ -3,6 +3,42 @@
 Open questions and deferred work. One entry, one decision. An entry leaves this
 file when it is done or when it is dropped, never when it is forgotten.
 
+## The hero scrim is heaviest where the need is lightest
+
+Measured on 2026-08-13, while pricing an adaptive scrim that was then dropped.
+The adaptive part was the smallest of three levers and the only one costing an
+artifact, so it went. These two findings are free and they stay.
+
+A black scrim is multiplicative: it takes nothing away from a black pixel. So a
+fixed scrim is already adaptive as far as legibility goes, and what a live one
+buys is picture, never contrast.
+
+The gradient in place holds its contrast target everywhere, but by 0.006 on the
+kicker and with a full 1.5x of waste on the caption, which sits under an alpha
+of 1.0 where 0.687 would do. Its shape is the defect, not its fixity. Flattening
+the profile and computing the constant from the copy itself is worth three times
+the picture kept under the text.
+
+The second lever is the copy, not the video: `text-white/60` tolerates a
+background at 0.282 where full white tolerates 0.465. The text transparency
+costs more than any shot does. Taking the copy to `white/85` is worth another
+two times.
+
+## A ladder re-upload can overwrite what production is serving
+
+`MEDIA-BUILD/` is gitignored, so a fresh worktree starts with an empty encoding
+state. `encode-ladders.sh` run there re-encodes all nine masters, and
+`upload-ladders.sh` then walks local folders rather than the map, so it pushes
+every object back to R2 under keys already served with a one-year immutable
+cache. A re-encode is not guaranteed byte for byte: visitors holding the old
+segments and visitors getting the new ones could end up with mismatched init
+segments, and that failure never reproduces.
+
+Caught before it happened on 2026-08-13, by an agent that read the state file
+before running the script. The targeted re-encode argument avoids it, but
+nothing enforces it. The upload should take its work list from
+`lib/media-manifest.json` rather than from whatever the disk happens to hold.
+
 ## A video under a header may never reach the playback boundary
 
 A slot starts playing at 50 % visible. That threshold was set when a slot was a
