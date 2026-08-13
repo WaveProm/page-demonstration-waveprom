@@ -43,7 +43,7 @@ const SectionQuImporte = () => (
           page's font measured on its own L. The mark is then exactly as tall
           as the capital beside it, at any size the sentence takes. */}
       <p className="my-6 max-w-3xl font-medium text-[18px] lg:my-8 lg:text-[24px]">
-        « Incontournable bar carougeois »{" "}
+        «&nbsp;Incontournable bar carougeois&nbsp;»&nbsp;
         {/* biome-ignore lint/performance/noImgElement: a vector logotype has no width for next/image to pick */}
         <img
           src="/logotypes/gaultmillau.svg"
@@ -55,10 +55,10 @@ const SectionQuImporte = () => (
       </p>
 
       <p className="max-w-3xl text-[16px] text-black lg:text-[18px]">
-        « Nous sommes entièrement satisfaits. Leur efficacité et leur
+        «&nbsp;Nous sommes entièrement satisfaits. Leur efficacité et leur
         compréhension de nos attentes ont vraiment fait la différence. L’équipe
         a su capter l’essence de notre établissement avec justesse. Nous
-        recommandons vivement leurs services. »
+        recommandons vivement&nbsp;leurs&nbsp;services.&nbsp;»
       </p>
       <p className="mt-4 text-[16px] lg:text-[14px]">
         Qu’importe, Groupe Chuard

@@ -8,7 +8,7 @@ const SectionGoutatoo = () => (
       <header>
         <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
           Un collectif de chefs étoilés à mettre en lumière et une soirée de
-          gala à remplir.
+          gala&nbsp;à&nbsp;remplir.
         </h2>
 
         <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-4">

@@ -30,7 +30,7 @@ const SectionBtweenUs = () => (
           page's font measured on its own L. The mark is then exactly as tall
           as the capital beside it, at any size the sentence takes. */}
       <p className="my-6 max-w-3xl font-medium text-[18px] lg:my-8 lg:text-[24px]">
-        « L’unique agence expérientielle de Suisse »{" "}
+        «&nbsp;L’unique agence expérientielle&nbsp;de&nbsp;Suisse&nbsp;»&nbsp;
         {/* biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer */}
         <img
           src="/logotypes/logotype-bilan.png"

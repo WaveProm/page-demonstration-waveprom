@@ -9,7 +9,8 @@ const SectionAgis = () => (
     <div className="mx-4">
       <header>
         <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
-          « Nos campagnes publicitaires ne marchaient pas »
+          «&nbsp;Nos campagnes
+          publicitaires&nbsp;ne&nbsp;marchaient&nbsp;pas&nbsp;»
         </h2>
 
         <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-4">
@@ -53,10 +54,10 @@ const SectionAgis = () => (
       </div>
 
       <p className="mt-4 max-w-3xl text-[16px] text-black lg:text-[18px]">
-        « Avant notre collaboration avec WaveProm, nos campagnes publicitaires
-        n’attiraient qu’une trentaine de personnes par mois. Depuis que leur
-        équipe gère nos campagnes, nous avons reçu plus d’une centaine de
-        demandes en moins d’un mois. »
+        «&nbsp;Avant notre collaboration avec WaveProm, nos campagnes
+        publicitaires n’attiraient qu’une trentaine de personnes par mois.
+        Depuis que leur équipe gère nos campagnes, nous avons reçu plus d’une
+        centaine de demandes en moins&nbsp;d’un&nbsp;mois.&nbsp;»
       </p>
       <p className="mt-4 text-[16px] lg:text-[14px]">
         <span className="font-medium">Myriam Lombardi</span>, Directrice

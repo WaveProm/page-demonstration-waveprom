@@ -26,14 +26,14 @@ const SectionLabInno = () => (
       </header>
 
       <p className="my-6 max-w-3xl font-medium text-[18px] text-black lg:my-8 lg:text-[24px]">
-        — Une publication par semaine, sur les normes, les lois et l’actualité
-        de la construction
+        — Une publication par semaine, sur les normes, les lois et
+        l’actualité&nbsp;de&nbsp;la&nbsp;construction
       </p>
 
       <p className="max-w-3xl text-[16px] text-black lg:text-[18px]">
-        « Très bon service de la part d’Issao. Il prend le temps de bien cibler
-        les besoins et adapte son service de manière professionnelle et
-        efficace. Je recommande grandement WaveProm ! »
+        «&nbsp;Très bon service de la part d’Issao. Il prend le temps de bien
+        cibler les besoins et adapte son service de manière professionnelle et
+        efficace. Je recommande grandement WaveProm !&nbsp;»
       </p>
       <p className="mt-4 text-[16px] lg:text-[14px]">
         <span className="font-medium">Hanane Loumassine</span>, Directrice

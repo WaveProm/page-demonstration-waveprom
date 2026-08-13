@@ -46,10 +46,10 @@ const SectionLeCigalon = () => (
       </div>
 
       <p className="max-w-3xl text-[16px] text-black lg:text-[18px]">
-        « Une réalisation superbe. Cette vidéo reflète à merveille l’âme de
+        «&nbsp;Une réalisation superbe. Cette vidéo reflète à merveille l’âme de
         notre restaurant, mettant en valeur notre cuisine, notre équipe et
         l’ambiance chaleureuse que nous souhaitons offrir à nos clients. Merci
-        WaveProm. »
+        WaveProm.&nbsp;»
       </p>
       <p className="mt-4 text-[16px] lg:text-[14px]">
         <span className="font-medium">Jean-Marc Bessire</span>, Chef Étoilé

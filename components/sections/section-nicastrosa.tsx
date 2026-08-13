@@ -7,8 +7,8 @@ const SectionNicastrosa = () => (
     <div className="mx-4">
       <header>
         <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
-          « Notre présence en ligne ne reflétait pas la qualité de nos
-          prestations »
+          «&nbsp;Notre présence en ligne ne reflétait pas la
+          qualité&nbsp;de&nbsp;nos&nbsp;prestations&nbsp;»
         </h2>
 
         <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-4">
@@ -36,16 +36,16 @@ const SectionNicastrosa = () => (
       </div>
 
       <p className="max-w-3xl font-medium text-[18px] text-black lg:text-[24px]">
-        — Un recrutement réalisé grâce à une seule publication
+        — Un recrutement réalisé grâce à une seule&nbsp;publication
       </p>
 
       <p className="mt-6 max-w-3xl text-[16px] text-black lg:text-[18px]">
-        « Aujourd’hui, nous avons une image haut de gamme et une vraie
+        «&nbsp;Aujourd’hui, nous avons une image haut de gamme et une vraie
         visibilité qui nous apportent de la crédibilité auprès de nos clients.
         Au-delà des prestations techniques, ils sont devenus un véritable
         partenaire stratégique pour le développement de mon entreprise. Ils
         m’accompagnent aussi sur divers aspects commerciaux et m’ont même déjà
-        apporté des opportunités d’affaires grâce à leur réseau. »
+        apporté des opportunités d’affaires grâce à leur réseau.&nbsp;»
       </p>
       <p className="mt-4 text-[16px] lg:text-[14px]">
         <span className="font-medium">Rahman Babayigit</span>, Directeur
