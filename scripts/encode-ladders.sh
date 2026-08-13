@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Encode tous les ladders manquants, sans surveillance.
+# Encode every missing ladder, unattended.
 #
-# make-ladders.mts s'arrête de lui-même avant dix minutes et reprend exactement
-# où il en était à la relance. Cette boucle lui évite d'être rappelé à la main
-# une vingtaine de fois. Elle s'arrête au premier ÉCHEC plutôt que d'insister.
+# make-ladders.mts stops on its own before ten minutes and resumes exactly
+# where it left off on the next run. This loop spares it from being called by
+# hand some twenty times. It stops at the first FAILED rather than insisting.
 #
-# Usage : bash scripts/encode-ladders.sh
-# Long : plusieurs dizaines de minutes pour quelques minutes de master 4K.
-# Journal complet : MEDIA-BUILD/make-ladders.log
+# Usage: bash scripts/encode-ladders.sh
+# Slow: several tens of minutes for a few minutes of 4K master.
+# Full log: MEDIA-BUILD/make-ladders.log
 set -u
 cd "$(dirname "$0")/.." || exit 1
 
@@ -20,13 +20,13 @@ for _ in $(seq 1 60); do
   printf '%s\n' "$output" >> "$LOG"
   printf '%s\n' "$output" | tail -3
   if [ $status -ne 0 ]; then
-    echo "ÉCHEC — le détail est dans $LOG"
+    echo "FAILED — the details are in $LOG"
     exit 1
   fi
   case "$output" in
-    *TERMINÉ*) exit 0 ;;
+    *DONE*) exit 0 ;;
   esac
 done
 
-echo "ARRÊT — 60 invocations sans TERMINÉ, voir $LOG"
+echo "STOP — 60 invocations without DONE, see $LOG"
 exit 1

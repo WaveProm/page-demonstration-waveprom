@@ -1,10 +1,10 @@
-// Ladders HLS de production pour les masters validés - AV1 + H.264.
-// Chemins versionnés par hash de contenu du master (video/<partenaire>/<slug>-<hash8>/) :
-// un master recoupé produit un nouveau préfixe, donc le cache navigateur immutable
-// ne peut jamais servir une version périmée. Reprise entre invocations : chaque
-// travail est découpé pour tenir sous les 10 minutes.
-// À la fin, écrit lib/media-manifest.json - la carte que la page consomme.
-// Usage : node scripts/make-ladders.mts   (relancer jusqu'à TERMINÉ)
+// Production HLS ladders for the approved masters - AV1 + H.264.
+// Paths versioned by the master's content hash (video/<partner>/<slug>-<hash8>/):
+// a re-cut master produces a new prefix, so the immutable browser cache
+// can never serve a stale version. Resumable across invocations: every
+// job is split up to stay under 10 minutes.
+// At the end, writes lib/media-manifest.json - the map the page consumes.
+// Usage: node scripts/make-ladders.mts   (re-run until DONE)
 import { spawnSync } from "node:child_process";
 import {
   existsSync,
@@ -28,9 +28,9 @@ const STATE_PATH = path.join(
 );
 const SAFE_TIME_BUDGET_MS = 540_000;
 
-// Un dossier par partenaire, un slug par séquence. Le numéro de séquence du
-// master n'entre pas dans le slug : l'ordre de la page vit dans le JSX, le
-// dupliquer dans une URL gelée pour un an créerait une seconde vérité.
+// One folder per partner, one slug per sequence. The master's sequence number
+// does not go into the slug: the page order lives in the JSX, and duplicating
+// it in a URL frozen for a year would create a second source of truth.
 const SEQUENCES: Record<string, { partner: string; slug: string }> = {
   "00.seq-quimporte.mp4": { partner: "qu-importe", slug: "quimporte" },
   "01.seq-btweenus.mp4": { partner: "btween-us", slug: "btweenus" },
@@ -42,15 +42,15 @@ const SEQUENCES: Record<string, { partner: string; slug: string }> = {
   "08.seq-minotaures.mp4": { partner: "minotaures", slug: "minotaures" },
 };
 
-// Paliers : le « petit côté » (432 = 432p en 16:9, 432 de large en 9:16).
-// Répartis en 3 tranches d'encodage pour tenir le budget temps par invocation.
+// Rungs: the "short side" (432 = 432p in 16:9, 432 wide in 9:16).
+// Split into 3 encode batches to stay within the time budget per invocation.
 const RUNG_BATCHES = [
   { rungIndexes: [0, 1, 2], shortSides: [432, 720, 1080] },
   { rungIndexes: [3], shortSides: [1440] },
   { rungIndexes: [4], shortSides: [2160] },
 ];
-const H264_BITRATES_K = [900, 2600, 5000, 9000, 16000]; // par palier, validé bench 01
-const COMPUTE_RATE = { av1: 3.2, h264: 2.6 }; // × durée vidéo, PAR TRANCHE (la 2160p domine)
+const H264_BITRATES_K = [900, 2600, 5000, 9000, 16000]; // per rung, validated by bench 01
+const COMPUTE_RATE = { av1: 3.2, h264: 2.6 }; // × video duration, PER BATCH (2160p dominates)
 const SEGMENT_SECONDS = 4;
 
 type Codec = "av1" | "h264";
@@ -120,9 +120,9 @@ function contentHash8(filePath: string) {
   return r.stdout.toString().trim().slice(0, 8);
 }
 
-// Un nom de master en argument restreint l'invocation à cette seule vidéo
-// (fumée d'un réglage, réencodage ciblé d'un re-cut). La carte n'est alors pas
-// réécrite : elle décrirait une médiathèque amputée des sept autres.
+// A master name as an argument restricts the invocation to that single video
+// (smoke test of a setting, targeted re-encode of a re-cut). The map is then not
+// rewritten: it would describe a media library missing the seven others.
 const onlyMasterName = process.argv[2];
 
 const masters: Master[] = readdirSync(MASTERS_DIR)
@@ -136,7 +136,7 @@ const masters: Master[] = readdirSync(MASTERS_DIR)
     const filePath = path.join(MASTERS_DIR, name);
     const sequence = SEQUENCES[name];
     if (!sequence) {
-      console.log(`⚠ ${name} : absent de la table des séquences - ignoré`);
+      console.log(`⚠ ${name}: missing from the sequence table - skipped`);
       return null;
     }
     const info = probe(filePath);
@@ -149,15 +149,15 @@ const masters: Master[] = readdirSync(MASTERS_DIR)
       ...info,
       isLandscape: info.width > info.height,
       prefix: `${sequence.partner}/${sequence.slug}-${hash}`,
-      // Un keyframe toutes les 4 s, quelle que soit la cadence du master :
-      // c'est ce qui aligne les segments HLS sur leur durée cible.
+      // One keyframe every 4 s, whatever the master's frame rate:
+      // this is what aligns the HLS segments with their target duration.
       gopFrames: Math.round(SEGMENT_SECONDS * info.fps),
     };
   })
   .filter((master): master is Master => master !== null);
 
-// ------------------------------------------------------------------ travaux
-// Par master × codec : 3 tranches d'encodage, puis 1 assemblage du manifeste maître.
+// ------------------------------------------------------------------ jobs
+// Per master × codec: 3 encode batches, then 1 assembly of the master playlist.
 
 function codecDirFor(master: Master, codec: Codec) {
   return path.join(
@@ -216,8 +216,8 @@ if (jobs.length === 0) {
   }
   console.log(
     onlyMasterName
-      ? `TERMINÉ — ${onlyMasterName} seul, carte NON réécrite (invocation ciblée)`
-      : `TERMINÉ — ${masters.length} masters, carte écrite : ${MEDIA_MANIFEST_PATH}`,
+      ? `DONE — ${onlyMasterName} only, map NOT rewritten (targeted invocation)`
+      : `DONE — ${masters.length} masters, map written: ${MEDIA_MANIFEST_PATH}`,
   );
   for (const master of masters) {
     const size = spawnSync("du", ["-sh", path.join(LADDERS_DIR, master.prefix)])
@@ -229,7 +229,7 @@ if (jobs.length === 0) {
   process.exit(0);
 }
 
-// ------------------------------------------------------------------ exécution
+// ------------------------------------------------------------------ execution
 
 function av1CodecsAttributeFor(width: number, height: number) {
   const pixels = width * height;
@@ -323,8 +323,8 @@ function runEncodeBatch(master: Master, codec: Codec, batchIndex: number) {
       filterComplex,
       ...maps,
       ...codecArgs,
-      // Aucun master de ce lot ne porte de son : les deux pistes AAC résiduelles
-      // sont des scories d'export, pas du contenu. Une seule voie, sans branche.
+      // No master in this batch carries sound: the two residual AAC tracks
+      // are export dross, not content. A single path, no branch.
       "-an",
       "-f",
       "hls",
@@ -336,7 +336,7 @@ function runEncodeBatch(master: Master, codec: Codec, batchIndex: number) {
       "fmp4",
       "-hls_flags",
       "independent_segments",
-      // Tranche à palier unique : ffmpeg ne substitue pas %v - nom littéral direct.
+      // Single-rung batch: ffmpeg does not substitute %v - direct literal name.
       "-hls_fmp4_init_filename",
       n === 1 ? `i${rungIndexes[0]}.mp4` : `i%v_b${batchIndex}.mp4`,
       "-master_pl_name",
@@ -352,12 +352,12 @@ function runEncodeBatch(master: Master, codec: Codec, batchIndex: number) {
 
   if (result.status !== 0) {
     console.log(
-      `ÉCHEC encode ${master.prefix} ${codec} tranche ${batchIndex}\n${(result.stderr ?? "").split("\n").slice(-6).join("\n")}`,
+      `FAILED encode ${master.prefix} ${codec} batch ${batchIndex}\n${(result.stderr ?? "").split("\n").slice(-6).join("\n")}`,
     );
     process.exit(1);
   }
-  // Renomme vers la numérotation globale des paliers (v0..v4) - les URI internes
-  // des playlists référencent les segments/init par nom, qu'on renomme aussi.
+  // Rename to the global rung numbering (v0..v4) - the playlists' internal URIs
+  // reference the segments/init by name, which we rename too.
   for (let i = 0; i < n; i++) {
     const globalIndex = rungIndexes[i];
     for (const file of readdirSync(outDir)) {
@@ -394,7 +394,7 @@ function assembleMasterPlaylist(master: Master, codec: Codec) {
     const lines = readFileSync(partPath, "utf8").split("\n");
     for (let i = 0; i < lines.length; i++) {
       if (lines[i].startsWith("#EXT-X-STREAM-INF")) {
-        const localUri = lines[i + 1].trim(); // vX_bY.m3u8 (déjà renommé sur disque)
+        const localUri = lines[i + 1].trim(); // vX_bY.m3u8 (already renamed on disk)
         const localIndex = Number(/^v(\d+)_b/.exec(localUri)?.[1] ?? 0);
         const globalIndex = RUNG_BATCHES[b].rungIndexes[localIndex];
         let infoLine = lines[i].trim();
@@ -428,12 +428,12 @@ for (const job of jobs) {
     state[batchDoneMarker(job.master, job.codec, job.batchIndex)] = Date.now();
     saveState();
     console.log(
-      `ok  ${job.master.prefix} ${job.codec} tranche ${job.batchIndex}  (${Math.round((Date.now() - t0) / 1000)} s)`,
+      `ok  ${job.master.prefix} ${job.codec} batch ${job.batchIndex}  (${Math.round((Date.now() - t0) / 1000)} s)`,
     );
   } else {
     assembleMasterPlaylist(job.master, job.codec);
     console.log(
-      `ok  ${job.master.prefix} ${job.codec} manifeste maître assemblé`,
+      `ok  ${job.master.prefix} ${job.codec} master playlist assembled`,
     );
   }
   completed++;
@@ -442,6 +442,6 @@ for (const job of jobs) {
 const remaining = jobs.length - completed;
 console.log(
   remaining > 0
-    ? `— pause budget temps, restant : ${remaining} travaux (relancer)`
-    : "— invocation terminée, relancer pour la suite ou le récap",
+    ? `— time budget pause, remaining: ${remaining} jobs (re-run)`
+    : "— invocation finished, re-run for the rest or the recap",
 );
