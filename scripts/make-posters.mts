@@ -144,6 +144,11 @@ const encodePoster = (job: PosterJob, width: number, offsetSeconds: number) => {
       // -2 keeps the master's ratio and lands on an even height, which yuv420p
       // requires. At the master's own width the filter passes the frame
       // through, so that poster stays the one that was measured.
+      // A width here is the master's long side, which every master in the set
+      // is: they are all 3840x2160. A portrait master would be upscaled past
+      // its own pixels, and the <slug>-<width>.avif contract Poster.tsx reads
+      // as a srcset descriptor has no answer for it. That is a decision to
+      // take when such a master arrives, not a filter to bend ahead of it.
       "-vf",
       `scale=${width}:-2`,
       "-c:v",

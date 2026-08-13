@@ -86,5 +86,5 @@ Production deploys from a push to `main`. Never run `vercel --prod`.
 - `CLAUDE.md` - stack, conventions, error rules, the closed media layer.
 - `AGENTS.md` - every rule born of an incident, every decision taken, newest first.
 - `.claude/skills/pipeline-medias/` - how a video travels from master to screen.
-- `TODO.md` - open questions, including poster widths and the push gate.
+- `TODO.md` - open questions, including portrait on mobile and the push gate.
 - `~/perf-pro-max` - the proof-of-concept where every media measurement lives.
