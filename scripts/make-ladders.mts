@@ -216,8 +216,8 @@ if (jobs.length === 0) {
   }
   console.log(
     onlyMasterName
-      ? `DONE — ${onlyMasterName} only, map NOT rewritten (targeted invocation)`
-      : `DONE — ${masters.length} masters, map written: ${MEDIA_MANIFEST_PATH}`,
+      ? `DONE - ${onlyMasterName} only, map NOT rewritten (targeted invocation)`
+      : `DONE - ${masters.length} masters, map written: ${MEDIA_MANIFEST_PATH}`,
   );
   for (const master of masters) {
     const size = spawnSync("du", ["-sh", path.join(LADDERS_DIR, master.prefix)])
@@ -442,6 +442,6 @@ for (const job of jobs) {
 const remaining = jobs.length - completed;
 console.log(
   remaining > 0
-    ? `— time budget pause, remaining: ${remaining} jobs (re-run)`
-    : "— invocation finished, re-run for the rest or the recap",
+    ? `- time budget pause, remaining: ${remaining} jobs (re-run)`
+    : "- invocation finished, re-run for the rest or the recap",
 );

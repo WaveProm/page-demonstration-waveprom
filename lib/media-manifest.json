@@ -1,0 +1,74 @@
+{
+  "quimporte": {
+    "prefix": "qu-importe/quimporte-280c93d7",
+    "ratio": "16-9",
+    "durationS": 19,
+    "codecs": [
+      "hls-av1",
+      "hls"
+    ]
+  },
+  "btweenus": {
+    "prefix": "btween-us/btweenus-c328975e",
+    "ratio": "16-9",
+    "durationS": 19.8,
+    "codecs": [
+      "hls-av1",
+      "hls"
+    ]
+  },
+  "chefs-goutatoo": {
+    "prefix": "goutatoo/chefs-goutatoo-f40b3a5a",
+    "ratio": "16-9",
+    "durationS": 112.3,
+    "codecs": [
+      "hls-av1",
+      "hls"
+    ]
+  },
+  "cigalon": {
+    "prefix": "le-cigalon/cigalon-5dce9f8a",
+    "ratio": "16-9",
+    "durationS": 19.2,
+    "codecs": [
+      "hls-av1",
+      "hls"
+    ]
+  },
+  "agis": {
+    "prefix": "agis/agis-02403693",
+    "ratio": "16-9",
+    "durationS": 27.9,
+    "codecs": [
+      "hls-av1",
+      "hls"
+    ]
+  },
+  "nicastrosa": {
+    "prefix": "nicastrosa/nicastrosa-c89965dc",
+    "ratio": "16-9",
+    "durationS": 6.6,
+    "codecs": [
+      "hls-av1",
+      "hls"
+    ]
+  },
+  "labinno": {
+    "prefix": "lab-inno/labinno-3a59e9e4",
+    "ratio": "16-9",
+    "durationS": 5.3,
+    "codecs": [
+      "hls-av1",
+      "hls"
+    ]
+  },
+  "minotaures": {
+    "prefix": "minotaures/minotaures-9f4ead44",
+    "ratio": "16-9",
+    "durationS": 7.8,
+    "codecs": [
+      "hls-av1",
+      "hls"
+    ]
+  }
+}

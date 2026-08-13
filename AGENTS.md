@@ -55,6 +55,9 @@ Never join two causes with `and`. Two causes are two decisions.
 
 ## Rules
 
+Don't let Biome format a generated file : exclude it in `biome.json`.
+Incident : 2026-08-13, `npm run format` reshaped `lib/media-manifest.json`, the next encode wrote it back, and lint stayed red on a file nobody is allowed to edit.
+
 Don't deploy with `vercel --prod` : push to `main` and let the git integration build.
 Incident : 2026-08-13, a CLI deploy raced a push deploy, leaving two production deployments and the alias on the wrong one.
 
@@ -62,6 +65,15 @@ Don't count on `.gitignore` to keep a file out of a deploy : list it in `.vercel
 Incident : 2026-08-13, `vercel --prod` uploaded the 1.5 GB masters folder and died on the 100 MB file limit.
 
 ## Decisions
+
+A function is an arrow function, unless the `function` keyword is required.
+Decided : 2026-08-13, because one shape across a codebase reads faster than two.
+
+Code past the third level of indentation moves into a named helper.
+Decided : 2026-08-13, because a reader holding three conditions at once stops reading.
+
+A script does one thing, and a second thing gets a second script.
+Decided : 2026-08-13, because a single responsibility is what makes a script reusable somewhere else.
 
 The keyframe interval is computed from the master frame rate.
 Decided : 2026-08-13, because a fixed frame count stretches segments past their target on 60 fps masters.

@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
-# Encode every missing ladder, unattended.
+# Send every finished ladder to the R2 bucket, unattended.
 #
-# make-ladders.mts stops on its own before ten minutes and resumes exactly
+# upload-ladders.mts stops on its own before ten minutes and resumes exactly
 # where it left off on the next run. This loop spares it from being called by
-# hand some twenty times. It stops at the first FAILED rather than insisting.
+# hand a dozen times. It stops at the first FAILED rather than insisting.
 #
-# Usage: bash scripts/encode-ladders.sh
-# Slow: several tens of minutes for a few minutes of 4K master.
-# Full log: MEDIA-BUILD/make-ladders.log
+# Usage: bash scripts/upload-ladders.sh
+# Slow: roughly two seconds per file, and a ladder holds tens of files.
+# Full log: MEDIA-BUILD/upload-ladders.log
 set -u
 cd "$(dirname "$0")/.." || exit 1
 
-LOG=MEDIA-BUILD/make-ladders.log
+LOG=MEDIA-BUILD/upload-ladders.log
 mkdir -p MEDIA-BUILD
 
 for _ in $(seq 1 60); do
-  output=$(node scripts/make-ladders.mts 2>&1)
+  output=$(node scripts/upload-ladders.mts 2>&1)
   status=$?
   printf '%s\n' "$output" >> "$LOG"
   printf '%s\n' "$output" | tail -3
