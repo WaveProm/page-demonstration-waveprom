@@ -2,11 +2,13 @@ import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
 import mediaManifest from "@/lib/media-manifest.json";
 
+// Grey is the default of the section, and black is spent on the three things
+// that carry it: the hook, the numbers, the testimonial.
 const SectionAgis = () => (
-  <section className="mt-8 text-black">
-    <div className="mx-8">
+  <section className="mt-8 text-gray-400">
+    <div className="mx-4">
       <header>
-        <h2 className="max-w-5xl font-medium text-[24px] leading-none tracking-tight lg:text-[36px]">
+        <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
           « Nos campagnes publicitaires ne marchaient pas »
         </h2>
 
@@ -25,40 +27,40 @@ const SectionAgis = () => (
         </div>
       </header>
 
-      <div className="my-8 flex flex-col gap-6 lg:flex-row">
-        <div className="text-right">
-          <p className="font-medium text-[32px] leading-none lg:text-[48px]">
+      {/* On a phone the label follows its number on the same line, so three
+          results cost three lines instead of six. */}
+      <div className="my-6 flex flex-col gap-2 lg:my-8 lg:flex-row lg:gap-6">
+        <div className="flex items-baseline gap-x-2 lg:block">
+          <p className="font-medium text-[32px] text-black leading-none lg:text-[48px]">
             +800 %
           </p>
           <p className="text-[16px] lg:text-[14px]">
-            d’inscriptions en 2 semaines
+            d’inscriptions en 14 jours
           </p>
         </div>
-        <div className="text-right">
-          <p className="font-medium text-[32px] leading-none lg:text-[48px]">
+        <div className="flex items-baseline gap-x-2 lg:block">
+          <p className="font-medium text-[32px] text-black leading-none lg:text-[48px]">
             +1000
           </p>
           <p className="text-[16px] lg:text-[14px]">inscriptions en tout</p>
         </div>
-        <div className="text-right">
-          <p className="font-medium text-[32px] leading-none lg:text-[48px]">
+        <div className="flex items-baseline gap-x-2 lg:block">
+          <p className="font-medium text-[32px] text-black leading-none lg:text-[48px]">
             +762’000
           </p>
           <p className="text-[16px] lg:text-[14px]">vues</p>
         </div>
       </div>
 
-      <p className="mt-4 max-w-3xl text-[16px] lg:text-[18px]">
+      <p className="mt-4 max-w-3xl text-[16px] text-black lg:text-[18px]">
         « Avant notre collaboration avec WaveProm, nos campagnes publicitaires
         n’attiraient qu’une trentaine de personnes par mois. Depuis que leur
         équipe gère nos campagnes, nous avons reçu plus d’une centaine de
         demandes en moins d’un mois. »
       </p>
-      <p className="mt-4 font-medium text-[16px] lg:text-[14px]">
-        Myriam Lombardi
+      <p className="mt-4 text-[16px] lg:text-[14px]">
+        <span className="font-medium">Myriam Lombardi</span>, Directrice
       </p>
-      <p className="text-[16px] lg:text-[14px]">Directrice</p>
-      <p className="text-[16px] lg:text-[14px]">AGIS</p>
     </div>
 
     <VideoSlot
