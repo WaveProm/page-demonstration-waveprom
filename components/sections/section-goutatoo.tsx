@@ -8,7 +8,7 @@ const SectionGoutatoo = () => (
     prefix={mediaManifest["chefs-goutatoo"].prefix}
     poster={<Poster slug="chefs-goutatoo" />}
     loop
-    className="h-screen w-full bg-black"
+    className="w-full aspect-video bg-black"
   />
 );
 

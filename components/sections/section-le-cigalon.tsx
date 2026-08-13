@@ -8,7 +8,7 @@ const SectionLeCigalon = () => (
     prefix={mediaManifest.cigalon.prefix}
     poster={<Poster slug="cigalon" />}
     loop
-    className="h-screen w-full bg-black"
+    className="w-full aspect-video bg-black"
   />
 );
 

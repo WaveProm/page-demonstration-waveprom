@@ -8,7 +8,7 @@ const SectionBtweenUs = () => (
     prefix={mediaManifest.btweenus.prefix}
     poster={<Poster slug="btweenus" />}
     loop
-    className="h-screen w-full bg-black"
+    className="w-full aspect-video bg-black"
   />
 );
 

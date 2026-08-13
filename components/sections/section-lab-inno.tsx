@@ -8,7 +8,7 @@ const SectionLabInno = () => (
     prefix={mediaManifest.labinno.prefix}
     poster={<Poster slug="labinno" />}
     loop
-    className="h-screen w-full bg-black"
+    className="w-full aspect-video bg-black"
   />
 );
 

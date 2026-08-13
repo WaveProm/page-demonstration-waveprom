@@ -8,7 +8,7 @@ const SectionQuImporte = () => (
     prefix={mediaManifest.quimporte.prefix}
     poster={<Poster slug="quimporte" priority />}
     loop
-    className="h-screen w-full bg-black"
+    className="w-full aspect-video bg-black"
   />
 );
 

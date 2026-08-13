@@ -8,7 +8,7 @@ const SectionMinotaures = () => (
     prefix={mediaManifest.minotaures.prefix}
     poster={<Poster slug="minotaures" />}
     loop
-    className="h-screen w-full bg-black"
+    className="w-full aspect-video bg-black"
   />
 );
 

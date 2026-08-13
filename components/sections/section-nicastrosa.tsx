@@ -8,7 +8,7 @@ const SectionNicastrosa = () => (
     prefix={mediaManifest.nicastrosa.prefix}
     poster={<Poster slug="nicastrosa" />}
     loop
-    className="h-screen w-full bg-black"
+    className="w-full aspect-video bg-black"
   />
 );
 

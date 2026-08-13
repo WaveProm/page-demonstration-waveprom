@@ -8,7 +8,7 @@ const SectionAgis = () => (
     prefix={mediaManifest.agis.prefix}
     poster={<Poster slug="agis" />}
     loop
-    className="h-screen w-full bg-black"
+    className="w-full aspect-video bg-black"
   />
 );
 

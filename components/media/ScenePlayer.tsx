@@ -113,7 +113,7 @@ const ScenePlayer = ({ children }: { children: ReactNode }) => {
 
   return (
     <ScenePlayerContext.Provider value={contextValueRef.current}>
-      {children}
+      <main className="w-full">{children}</main>
     </ScenePlayerContext.Provider>
   );
 };
