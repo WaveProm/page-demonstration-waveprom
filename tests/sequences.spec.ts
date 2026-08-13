@@ -1,6 +1,6 @@
 import { expect, type Page, test } from "@playwright/test";
 
-// The mission, asserted: eight 4K sequences served from the bucket, and a
+// The mission, asserted: nine 4K sequences served from the bucket, and a
 // switch from one screen to the next that is playing within 200 ms.
 //
 // The 200 ms belong to ONE rhythm, the one the architecture is built on: a
@@ -18,6 +18,7 @@ const PLAYBACK_TIMEOUT_MS = 15_000;
 // The order of the page, which the JSX owns. Repeated here because a test that
 // derives its expectation from the code under test asserts nothing.
 const SEQUENCE_IDS = [
+  "hero",
   "quimporte",
   "btweenus",
   "chefs-goutatoo",
@@ -66,7 +67,7 @@ const waitUntilPrimed = async (page: Page, sectionId: string) => {
     .toBe(true);
 };
 
-test("a read-through plays all eight sequences, every switch under 200 ms", async ({
+test("a read-through plays all nine sequences, every switch under 200 ms", async ({
   page,
 }) => {
   const consoleErrors: string[] = [];
@@ -101,7 +102,7 @@ test("a read-through plays all eight sequences, every switch under 200 ms", asyn
   const coldMounts = journal.filter(
     (entry) => entry.event === "MOUNT" && entry.primed === false,
   );
-  expect(coldMounts.map((entry) => entry.sectionId)).toEqual(["quimporte"]);
+  expect(coldMounts.map((entry) => entry.sectionId)).toEqual(["hero"]);
 
   // And every one of them shows its first frame inside the budget.
   const switchLatencies = journal
