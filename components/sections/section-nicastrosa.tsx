@@ -11,17 +11,10 @@ const SectionNicastrosa = () => (
           qualité&nbsp;de&nbsp;nos&nbsp;prestations&nbsp;»
         </h2>
 
-        <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-4">
-          {/* biome-ignore lint/performance/noImgElement: a vector logotype has no width for next/image to pick */}
-          <img
-            src="/logotypes/logotype-nicastro-sa.svg"
-            alt="Nicastro SA"
-            width={540}
-            height={480}
-            className="h-14 w-auto lg:h-18"
-          />
-          <p className="font-medium text-[16px]">Construction métallique</p>
-        </div>
+        <p className="my-4 text-[18px] lg:text-[20px]">
+          <span className="font-medium text-gray-600">Nicastro SA</span>,{" "}
+          Construction métallique
+        </p>
       </header>
 
       <div className="my-6 flex flex-col gap-2 lg:my-8 lg:flex-row lg:gap-6">

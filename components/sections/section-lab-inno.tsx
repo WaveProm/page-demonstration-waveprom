@@ -10,19 +10,10 @@ const SectionLabInno = () => (
           Une entreprise nouvelle à installer auprès de son audience.
         </h2>
 
-        <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-4">
-          {/* biome-ignore lint/performance/noImgElement: a vector logotype has no width for next/image to pick */}
-          <img
-            src="/logotypes/logotype-labinno.svg"
-            alt="LABINNO"
-            width={569}
-            height={127}
-            className="h-8 w-auto translate-y-[20.25%] lg:h-12"
-          />
-          <p className="font-medium text-[16px]">
-            Entreprise générale de construction
-          </p>
-        </div>
+        <p className="my-4 text-[18px] lg:text-[20px]">
+          <span className="font-medium text-gray-600">LABINNO</span>, Entreprise
+          générale de construction
+        </p>
       </header>
 
       <p className="my-6 max-w-3xl font-medium text-[18px] text-black lg:my-8 lg:text-[24px]">

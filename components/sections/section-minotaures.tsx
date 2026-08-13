@@ -10,19 +10,12 @@ const SectionMinotaures = () => (
           Donner à la référence du baseball en Valais l’image d’une institution.
         </h2>
 
-        <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-4">
-          {/* biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer */}
-          <img
-            src="/logotypes/logotype-minotaures.png"
-            alt="Les Minotaures de Martigny"
-            width={258}
-            height={317}
-            className="h-16 w-auto lg:h-22"
-          />
-          <p className="font-medium text-[16px]">
-            Club de baseball et Association
-          </p>
-        </div>
+        <p className="my-4 text-[18px] lg:text-[20px]">
+          <span className="font-medium text-gray-600">
+            Les Minotaures de Martigny
+          </span>
+          , Club de baseball et Association
+        </p>
       </header>
 
       <p className="my-6 max-w-3xl font-medium text-[18px] text-black lg:my-8 lg:text-[24px]">

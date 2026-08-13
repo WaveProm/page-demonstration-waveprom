@@ -1,0 +1,22 @@
+/*
+  Why a CSS module here — a deliberate optimization, not an arbitrary choice.
+  Tailwind composes the whole component EXCEPT the marquee animation: keyframes
+  are the one thing the framework can't express. So the rule applied is "compose
+  as far as the framework goes, then drop to the minimum custom CSS for what it
+  can't do." That minimum lives in this colocated, scoped module — which keeps
+  the component shippable as-is and makes it unambiguous that this CSS belongs to
+  the marquee and nothing else.
+*/
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marqueeTrack {
+  animation: marquee var(--marquee-duration) linear infinite;
+}
+
+.marqueeTrack[data-direction="right"] {
+  animation-direction: reverse;
+}

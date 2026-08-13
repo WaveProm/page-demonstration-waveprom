@@ -11,17 +11,10 @@ const SectionLeCigalon = () => (
           de Suisse Romande.
         </h2>
 
-        <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-4">
-          {/* biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer */}
-          <img
-            src="/logotypes/logotype-cigalon.png"
-            alt="Le Cigalon"
-            width={841}
-            height={216}
-            className="h-10 w-auto translate-y-[27.25%] lg:h-14"
-          />
-          <p className="font-medium text-[16px] text-black">Gastronomie</p>
-        </div>
+        <p className="my-4 text-[18px] lg:text-[20px]">
+          <span className="font-medium text-gray-600">Le Cigalon</span>,{" "}
+          Gastronomie
+        </p>
       </header>
 
       {/* A star and a wordmark share no baseline worth aligning on, so the two

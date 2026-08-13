@@ -15,27 +15,12 @@ const SectionQuImporte = () => (
             whatever hangs below it. Each translate-y below is that distance,
             measured on the file as a share of its height, so it survives every
             rendered size. Groupe Chuard 0,75 %, Qu'importe 2,25 %. */}
-        <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-4">
-          <div className="flex items-baseline gap-x-4">
-            {/* biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer */}
-            <img
-              src="/logotypes/logotype-groupe-chuard.png"
-              alt="Groupe Chuard"
-              width={512}
-              height={161}
-              className="h-8 w-auto translate-y-[0.75%] brightness-0 lg:h-12"
-            />
-            {/* biome-ignore lint/performance/noImgElement: a vector logotype has no width for next/image to pick */}
-            <img
-              src="/logotypes/logo-quimporte.svg"
-              alt="Qu’importe"
-              width={209}
-              height={190}
-              className="h-14 w-auto translate-y-[2.25%] lg:h-20"
-            />
-          </div>
-          <p className="font-medium text-[16px]">Bar à vin</p>
-        </div>
+        <p className="my-4 text-[18px] lg:text-[20px]">
+          <span className="font-medium text-gray-600">
+            Qu’importe (Groupe Chuard)
+          </span>
+          , Bar à vin
+        </p>
       </header>
 
       {/* The source sits inside the sentence, so it rides its line box: bottom

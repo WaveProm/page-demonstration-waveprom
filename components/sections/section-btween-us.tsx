@@ -10,19 +10,10 @@ const SectionBtweenUs = () => (
           Immortaliser l’événement d’une agence qui fait vivre l’inoubliable.
         </h2>
 
-        <div className="my-4 flex flex-col items-start gap-2 lg:flex-row lg:items-baseline lg:gap-x-4">
-          {/* The only file we hold is the off-white version, invisible on this
-              page. Flattened to black until the dark one is delivered. */}
-          {/* biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer */}
-          <img
-            src="/logotypes/logotype-btweenus.png"
-            alt="BtweenUs"
-            width={512}
-            height={110}
-            className="h-8 w-auto translate-y-[16.5%] brightness-0 lg:h-12"
-          />
-          <p className="font-medium text-[16px]">Événementiel</p>
-        </div>
+        <p className="my-4 text-[18px] lg:text-[20px]">
+          <span className="font-medium text-gray-600">BtweenUs</span>,{" "}
+          Événementiel
+        </p>
       </header>
 
       {/* The source sits inside the sentence, so it rides its line box: bottom

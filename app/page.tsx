@@ -16,14 +16,14 @@ import SectionQuImporte from "@/components/sections/section-qu-importe";
 const Page = () => (
   <ScenePlayer>
     <SectionHero />
-    <SectionAgis />
-    <SectionQuImporte />
-    <SectionBtweenUs />
-    <SectionGoutatoo />
     <SectionLeCigalon />
+    <SectionQuImporte />
     <SectionNicastrosa />
+    <SectionGoutatoo />
     <SectionLabInno />
+    <SectionBtweenUs />
     <SectionMinotaures />
+    <SectionAgis />
   </ScenePlayer>
 );
 
