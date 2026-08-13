@@ -5,7 +5,7 @@ import mediaManifest from "@/lib/media-manifest.json";
 // Grey is the default of the section, and black is spent on the three things
 // that carry it: the hook, the numbers, the testimonial.
 const SectionAgis = () => (
-  <section className="mt-8 text-gray-400">
+  <section className="mt-16 text-gray-400">
     <div className="mx-4">
       <header>
         <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
@@ -68,7 +68,7 @@ const SectionAgis = () => (
       prefix={mediaManifest.agis.prefix}
       poster={<Poster slug="agis" />}
       loop
-      className="mt-12 aspect-video w-full bg-black"
+      className="mt-8 aspect-video w-full bg-black"
     />
   </section>
 );

@@ -3,7 +3,7 @@ import VideoSlot from "@/components/media/VideoSlot";
 import mediaManifest from "@/lib/media-manifest.json";
 
 const SectionNicastrosa = () => (
-  <section className="mt-8 text-gray-400">
+  <section className="mt-16 text-gray-400">
     <div className="mx-4">
       <header>
         <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
@@ -57,7 +57,7 @@ const SectionNicastrosa = () => (
       prefix={mediaManifest.nicastrosa.prefix}
       poster={<Poster slug="nicastrosa" />}
       loop
-      className="mt-12 aspect-video w-full bg-black"
+      className="mt-8 aspect-video w-full bg-black"
     />
   </section>
 );

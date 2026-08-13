@@ -3,7 +3,7 @@ import VideoSlot from "@/components/media/VideoSlot";
 import mediaManifest from "@/lib/media-manifest.json";
 
 const SectionLeCigalon = () => (
-  <section className="mt-8 text-gray-400">
+  <section className="mt-16 text-gray-400">
     <div className="mx-4">
       <header>
         <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
@@ -24,14 +24,16 @@ const SectionLeCigalon = () => (
         </div>
       </header>
 
-      <div className="my-6 flex flex-wrap items-baseline gap-x-6 lg:my-8">
+      {/* A star and a wordmark share no baseline worth aligning on, so the two
+          marks share a horizontal centre line instead. */}
+      <div className="my-6 flex flex-wrap items-center gap-x-6 lg:my-8">
         {/* biome-ignore lint/performance/noImgElement: a vector logotype has no width for next/image to pick */}
         <img
           src="/logotypes/logotype-michelin.svg"
           alt="Michelin"
           width={916}
           height={1000}
-          className="h-10 w-auto translate-y-[0.25%] lg:h-12"
+          className="h-10 w-auto lg:h-12"
         />
         {/* biome-ignore lint/performance/noImgElement: a vector logotype has no width for next/image to pick */}
         <img
@@ -59,7 +61,7 @@ const SectionLeCigalon = () => (
       prefix={mediaManifest.cigalon.prefix}
       poster={<Poster slug="cigalon" />}
       loop
-      className="mt-12 aspect-video w-full bg-black"
+      className="mt-8 aspect-video w-full bg-black"
     />
   </section>
 );
