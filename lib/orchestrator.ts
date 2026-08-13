@@ -24,6 +24,7 @@ import type {
   LoaderConfiguration,
   LoaderContext,
 } from "hls.js";
+import { type AutoplaySession, createAutoplay } from "./autoplay";
 
 const FORWARD_BUFFER_SECONDS = 12;
 const BACK_BUFFER_SECONDS = 5;
@@ -96,14 +97,10 @@ export const createOrchestrator = ({
   let primingAbortController: AbortController | null = null;
   let lastBandwidthEstimateBps = DEFAULT_STARTUP_BANDWIDTH_BPS;
   let travelDirection = 1; // down the page until the visitor says otherwise
-  const playbackPositionSecondsBySectionId = new Map<string, number>();
   // Callbacks tied to the activation in flight (the playing slot's element)
   let pendingFirstFrame: { element: VideoElement; handle: number } | null =
     null;
-  let pendingPlaybackKick: {
-    element: VideoElement;
-    handler: () => void;
-  } | null = null;
+  let playbackSession: AutoplaySession | null = null;
 
   const logTransition = (
     eventName: string,
@@ -117,6 +114,17 @@ export const createOrchestrator = ({
       ...details,
     });
   };
+
+  // Playback is delegated: WebKit answers a refusal with a rejected promise and
+  // nothing else, so calling play() and moving on would leave a whole platform
+  // looking at a still frame. See lib/autoplay.ts.
+  const autoplay = createAutoplay({
+    onBlockedChange: (blocked) =>
+      logTransition(
+        blocked ? "AUTOPLAY_BLOCKED" : "AUTOPLAY_UNBLOCKED",
+        playingSectionId ?? "-",
+      ),
+  });
 
   // Priming follows the visitor rather than the page: a reader going back up
   // deserves the screen above, and priming the one below would be bytes spent
@@ -326,13 +334,10 @@ export const createOrchestrator = ({
       );
       pendingFirstFrame = null;
     }
-    if (pendingPlaybackKick) {
-      pendingPlaybackKick.element.removeEventListener(
-        "canplay",
-        pendingPlaybackKick.handler,
-      );
-      pendingPlaybackKick = null;
-    }
+    // Told before the element is paused on purpose, otherwise the pause reads
+    // as an interruption and gets answered with a retry.
+    playbackSession?.stop();
+    playbackSession = null;
   };
 
   const kickPlaybackAndMeasure = (
@@ -340,16 +345,15 @@ export const createOrchestrator = ({
     element: VideoElement,
     enterAtMs: number,
   ) => {
-    const handler = () => {
-      element.play().catch((error: Error) => {
-        logTransition("PLAY_ERROR", sectionId, { error: error.name });
-      });
-    };
-    if (element.readyState >= 3) handler();
-    else {
-      element.addEventListener("canplay", handler, { once: true });
-      pendingPlaybackKick = { element, handler };
-    }
+    playbackSession?.stop();
+    playbackSession = autoplay.ensurePlaying(
+      element,
+      ({ state, reason, attempts }) =>
+        logTransition(`PLAY_${state.toUpperCase()}`, sectionId, {
+          reason,
+          attempts,
+        }),
+    );
     if (element.requestVideoFrameCallback) {
       const handle = element.requestVideoFrameCallback(() => {
         pendingFirstFrame = null;
@@ -409,10 +413,6 @@ export const createOrchestrator = ({
       playingSectionId = null;
     }
     drainingSectionIds.delete(sectionId);
-    playbackPositionSecondsBySectionId.set(
-      sectionId,
-      entry.videoElement.currentTime,
-    );
     recordBandwidthEstimate(entry.hlsPlayer);
     entry.hlsPlayer.destroy();
     mountedPlayers.delete(sectionId);
@@ -477,6 +477,9 @@ export const createOrchestrator = ({
       enableWorker: true,
     });
     hlsPlayer.loadSource(section.manifestUrl);
+    // Before the source is attached: attaching is precisely when WebKit
+    // re-evaluates whether this element is allowed to start on its own.
+    autoplay.prepare(targetVideoElement);
     hlsPlayer.attachMedia(targetVideoElement);
     mountedPlayers.set(sectionId, {
       hlsPlayer,
@@ -560,6 +563,7 @@ export const createOrchestrator = ({
       };
     },
     destroyEverything() {
+      autoplay.destroy();
       primingAbortController?.abort();
       for (const sectionId of [...mountedPlayers.keys()]) {
         destroyMountedPlayer(sectionId, "teardown");

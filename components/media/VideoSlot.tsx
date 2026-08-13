@@ -16,6 +16,18 @@ import { useScenePlayer } from "./ScenePlayer";
 const PLAYBACK_VISIBILITY_RATIO = 0.5;
 const RETENTION_ZONE_MARGIN = "100% 0px";
 
+// The contract, written once. Everything a caller may set lives here; muted,
+// autoplay and inline playback are not settings, they are the only shape a
+// browser lets start on its own.
+type VideoSlotProps = {
+  sectionId: string;
+  prefix: string;
+  poster?: ReactNode;
+  loop?: boolean;
+  className?: string;
+  children?: ReactNode;
+};
+
 const VideoSlot = ({
   sectionId,
   prefix,
@@ -23,14 +35,7 @@ const VideoSlot = ({
   loop = false,
   className,
   children,
-}: {
-  sectionId: string;
-  prefix: string;
-  poster?: ReactNode;
-  loop?: boolean;
-  className?: string;
-  children?: ReactNode;
-}) => {
+}: VideoSlotProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const scenePlayer = useScenePlayer();

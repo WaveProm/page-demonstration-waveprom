@@ -17,6 +17,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import path from "node:path";
+import { SEQUENCES } from "./sequences.mjs";
 
 const PROJECT_DIR = "/Users/graydafflon/page-demonstration-waveprom";
 const MASTERS_DIR = path.join(PROJECT_DIR, "MASTERS-PAGE-DEMONSTRATION");
@@ -27,20 +28,6 @@ const STATE_PATH = path.join(
   "MEDIA-BUILD/make-ladders-state.json",
 );
 const SAFE_TIME_BUDGET_MS = 540_000;
-
-// One folder per partner, one slug per sequence. The master's sequence number
-// does not go into the slug: the page order lives in the JSX, and duplicating
-// it in a URL frozen for a year would create a second source of truth.
-const SEQUENCES: Record<string, { partner: string; slug: string }> = {
-  "00.seq-quimporte.mp4": { partner: "qu-importe", slug: "quimporte" },
-  "01.seq-btweenus.mp4": { partner: "btween-us", slug: "btweenus" },
-  "02.seq-chefsgoutatoo.mp4": { partner: "goutatoo", slug: "chefs-goutatoo" },
-  "03.seq-cigalon.mp4": { partner: "le-cigalon", slug: "cigalon" },
-  "04.seq-agis.mp4": { partner: "agis", slug: "agis" },
-  "06.seq-nicastrosa.mp4": { partner: "nicastrosa", slug: "nicastrosa" },
-  "07.seq-labinno.mp4": { partner: "lab-inno", slug: "labinno" },
-  "08.seq-minotaures.mp4": { partner: "minotaures", slug: "minotaures" },
-};
 
 // Rungs: the "short side" (432 = 432p in 16:9, 432 wide in 9:16).
 // Split into 3 encode batches to stay within the time budget per invocation.
