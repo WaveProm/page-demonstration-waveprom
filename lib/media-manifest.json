@@ -44,6 +44,15 @@
       "hls"
     ]
   },
+  "hero": {
+    "prefix": "waveprom/hero-96fbe68a",
+    "ratio": "16-9",
+    "durationS": 13.7,
+    "codecs": [
+      "hls-av1",
+      "hls"
+    ]
+  },
   "nicastrosa": {
     "prefix": "nicastrosa/nicastrosa-c89965dc",
     "ratio": "16-9",

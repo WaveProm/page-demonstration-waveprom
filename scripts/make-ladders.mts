@@ -118,8 +118,7 @@ function contentHash8(filePath: string) {
 }
 
 // A master name as an argument restricts the invocation to that single video
-// (smoke test of a setting, targeted re-encode of a re-cut). The map is then not
-// rewritten: it would describe a media library missing the seven others.
+// (smoke test of a setting, targeted re-encode of a re-cut).
 const onlyMasterName = process.argv[2];
 
 const masters: Master[] = readdirSync(MASTERS_DIR)
@@ -195,26 +194,42 @@ for (const master of masters) {
   }
 }
 
-if (jobs.length === 0) {
-  if (!onlyMasterName) {
-    const manifest: Record<string, unknown> = {};
-    for (const master of masters) {
-      manifest[master.slug] = {
-        prefix: master.prefix,
-        ratio: master.isLandscape ? "16-9" : "9-16",
-        durationS: Math.round(master.durationS * 10) / 10,
-        codecs: ["hls-av1", "hls"],
-      };
-    }
-    writeFileSync(
-      MEDIA_MANIFEST_PATH,
-      `${JSON.stringify(manifest, null, 2)}\n`,
-    );
+const manifestEntryFor = (master: Master) => ({
+  prefix: master.prefix,
+  ratio: master.isLandscape ? "16-9" : "9-16",
+  durationS: Math.round(master.durationS * 10) / 10,
+  codecs: ["hls-av1", "hls"],
+});
+
+// The map describes the declared media library, not the masters that happen to
+// sit on the disk right now - those only pass through, which is what MASTERS_DIR
+// exists for. So it is updated, never rebuilt: SEQUENCES arbitrates removals,
+// the disk arbitrates refreshes. A sequence therefore leaves the library by
+// leaving the table, and a re-cut master propagates its new hash by being there.
+const mergedManifest = () => {
+  const previous: Record<string, unknown> = existsSync(MEDIA_MANIFEST_PATH)
+    ? JSON.parse(readFileSync(MEDIA_MANIFEST_PATH, "utf8"))
+    : {};
+  const encoded = new Map(
+    masters.map((master) => [master.slug, manifestEntryFor(master)]),
+  );
+  // Walking the table rather than either input makes the key order a function
+  // of the declaration alone, so two checkouts converge on the same file.
+  const manifest: Record<string, unknown> = {};
+  for (const { slug } of Object.values(SEQUENCES)) {
+    const entry = encoded.get(slug) ?? previous[slug];
+    if (entry) manifest[slug] = entry;
   }
+  return manifest;
+};
+
+if (jobs.length === 0) {
+  writeFileSync(
+    MEDIA_MANIFEST_PATH,
+    `${JSON.stringify(mergedManifest(), null, 2)}\n`,
+  );
   console.log(
-    onlyMasterName
-      ? `DONE - ${onlyMasterName} only, map NOT rewritten (targeted invocation)`
-      : `DONE - ${masters.length} masters, map written: ${MEDIA_MANIFEST_PATH}`,
+    `DONE - ${masters.length} masters, map updated: ${MEDIA_MANIFEST_PATH}`,
   );
   for (const master of masters) {
     const size = spawnSync("du", ["-sh", path.join(LADDERS_DIR, master.prefix)])

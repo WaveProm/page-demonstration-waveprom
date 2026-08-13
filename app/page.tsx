@@ -2,6 +2,7 @@ import ScenePlayer from "@/components/media/ScenePlayer";
 import SectionAgis from "@/components/sections/section-agis";
 import SectionBtweenUs from "@/components/sections/section-btween-us";
 import SectionGoutatoo from "@/components/sections/section-goutatoo";
+import SectionHero from "@/components/sections/section-hero";
 import SectionLabInno from "@/components/sections/section-lab-inno";
 import SectionLeCigalon from "@/components/sections/section-le-cigalon";
 import SectionMinotaures from "@/components/sections/section-minotaures";
@@ -14,6 +15,7 @@ import SectionQuImporte from "@/components/sections/section-qu-importe";
 // content lands on, and carries its slot as a client leaf.
 const Page = () => (
   <ScenePlayer>
+    <SectionHero />
     <SectionAgis />
     <SectionQuImporte />
     <SectionBtweenUs />
