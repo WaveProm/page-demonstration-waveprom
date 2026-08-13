@@ -57,6 +57,12 @@ Setup guides for both ship with the install: `node_modules/next/dist/docs/01-app
 
 **No shadcn/ui.** Do not install it or vendor its components. Raise the need and wait for a decision.
 
+## Deploying
+
+**One production deployment, and it comes from git.** The repo is connected to the Vercel project, so a push to `main` deploys. Running `vercel --prod` alongside a push makes two production deployments race for the alias. Push, then check.
+
+**The Vercel CLI ignores `.gitignore`.** It uploads whatever `.vercelignore` does not exclude, and refuses any file over 100 MB. The video masters live in the working tree during processing and are excluded there. Anything heavy that lands in the tree - encoder output, downloaded media - belongs in that file the moment it appears, or the next deploy dies mid-upload.
+
 ## Verifying a change
 
 Compiling is not working. Confirm behaviour in the running app: the `next-dev-loop` skill drives `next dev` through the framework's own view and a real browser. Reach for it when a change touches runtime behaviour rather than types alone.
