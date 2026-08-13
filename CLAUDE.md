@@ -70,6 +70,24 @@ Setup guides for both ship with the install: `node_modules/next/dist/docs/01-app
 
 **The Vercel CLI ignores `.gitignore`.** It uploads whatever `.vercelignore` does not exclude, and refuses any file over 100 MB. The video masters live in the working tree during processing and are excluded there. Anything heavy that lands in the tree - encoder output, downloaded media - belongs in that file the moment it appears, or the next deploy dies mid-upload.
 
+## The media layer is closed
+
+`lib/orchestrator.ts`, `lib/autoplay.ts`, `components/media/`, `scripts/` and
+`tests/sequences.spec.ts` hold a guarantee measured end to end: a 4K video is
+playing less than 200 ms after the screen switches. That number comes from
+timing nobody can eyeball. **Consume this layer, do not edit it.** Touching it
+means writing the protocol first and measuring after, the way `~/perf-pro-max`
+does, not reasoning about it.
+
+Everything else is open. Sections in `components/sections/` are the ground
+partner content lands on: markup, copy, layout, all yours. `HANDOFF.md` maps
+what exists and how a section receives content.
+
+**The end-to-end test is the tripwire.** `npm run e2e` asserts that a read
+through the page switches screens under 200 ms. If it turns red after a change
+that was meant to be markup, the change reached the media path. Say so, do not
+relax the assertion.
+
 ## Verifying a change
 
 Compiling is not working. Confirm behaviour in the running app: the `next-dev-loop` skill drives `next dev` through the framework's own view and a real browser. Reach for it when a change touches runtime behaviour rather than types alone.

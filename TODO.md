@@ -3,6 +3,18 @@
 Open questions and deferred work. One entry, one decision. An entry leaves this
 file when it is done or when it is dropped, never when it is forgotten.
 
+## Portrait on mobile: playback reads as random
+
+Scrolling the page on a phone held upright, videos start and stop in a way that
+feels arbitrary. The cause is geometry, not the state machine: a 16:9 video at
+full width is a 220 pixel band on a phone, so several of them share the screen
+at once and the playback boundary is crossed by more than one at a time.
+
+Nothing to fix before the real content lands. A section carrying its copy will
+most likely fill a screen on mobile, which puts one video per screen again and
+restores the assumption the boundary is built on. Re-measure then, with
+`scripts` untouched and the end-to-end test as the judge.
+
 ## Poster widths: our own srcset
 
 A 4K AVIF served as authored to a phone is bytes spent for nothing. Two roads.
