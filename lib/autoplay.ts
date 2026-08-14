@@ -14,7 +14,7 @@
  * The WebKit policies every answer here is built on - what the permission
  * requires, why a user gesture is the only key and why it only turns inside
  * the handler's own call stack, why a hidden tab is not a refusal - live in
- * the `start-video-on-webkit` skill. That skill is the source of truth for the
+ * the `auto-start-video-on-webkit` skill. That skill is the source of truth for the
  * browser behaviour, this file only implements it.
  *
  * THE API
@@ -62,11 +62,7 @@
  */
 
 export type AutoplayState =
-  | "idle"
-  | "starting"
-  | "playing"
-  | "blocked"
-  | "failed";
+  "idle" | "starting" | "playing" | "blocked" | "failed";
 
 export type AutoplayReport = {
   state: AutoplayState;
