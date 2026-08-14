@@ -137,7 +137,7 @@ const SectionHero = () => (
         </svg>
       </p>
 
-      <p className="mt-8 max-w-3xl text-balance text-[16px] lg:text-[20px]">
+      <p className="text-white/90 mt-8 max-w-3xl text-balance text-[16px] lg:text-[20px]">
         «&nbsp;Ils sont devenus un véritable partenaire stratégique pour le
         développement de mon entreprise.&nbsp;»
       </p>
