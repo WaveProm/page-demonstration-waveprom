@@ -9,7 +9,13 @@ const SectionAgis = () => (
     <div className="mx-4">
       <header>
         <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
-          «&nbsp;Nos campagnes publicitaires ne marchaient pas&nbsp;»
+          {/* Line breaks are placed, not guessed. Each line was measured
+              against the box it sits in: 244, 200 and 232 px inside 358 on a
+              phone. The last break folds away above lg, where the whole quote
+              fits on two lines. */}
+          «&nbsp;Nos campagnes <br />
+          publicitaires ne <br className="lg:hidden" />
+          marchaient pas&nbsp;»
         </h2>
 
         <p className="mt-2 text-[22px]">
