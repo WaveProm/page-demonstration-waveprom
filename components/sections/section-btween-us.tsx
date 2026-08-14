@@ -6,12 +6,12 @@ const SectionBtweenUs = () => (
   <section className="mt-16 text-gray-400">
     <div className="mx-4">
       <header>
-        <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
+        <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
           Immortaliser l’événement d’une agence qui fait vivre l’inoubliable.
         </h2>
 
-        <p className="my-4 text-[18px] lg:text-[20px]">
-          <span className="font-medium text-gray-600">BtweenUs</span>,{" "}
+        <p className="mt-2 text-[22px]">
+          <span className="font-medium text-gray-600">BtweenUs</span> /
           Événementiel
         </p>
       </header>
@@ -28,7 +28,7 @@ const SectionBtweenUs = () => (
           alt="Bilan"
           width={121}
           height={50}
-          className="inline h-[0.7046em] w-auto align-baseline"
+          className="inline h-[1.1em] w-auto align-middle"
         />
       </p>
     </div>

@@ -6,13 +6,13 @@ const SectionLeCigalon = () => (
   <section className="mt-16 text-gray-400">
     <div className="mx-4">
       <header>
-        <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
+        <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
           Une production vidéo réalisée pour l’un des 50 meilleurs restaurants
           de Suisse Romande.
         </h2>
 
-        <p className="my-4 text-[18px] lg:text-[20px]">
-          <span className="font-medium text-gray-600">Le Cigalon</span>,{" "}
+        <p className="mt-2 text-[22px]">
+          <span className="font-medium text-gray-600">Le Cigalon</span> /
           Gastronomie
         </p>
       </header>
@@ -38,14 +38,16 @@ const SectionLeCigalon = () => (
         />
       </div>
 
-      <p className="max-w-3xl text-[16px] text-black lg:text-[18px]">
+      {/* Test, this section only: does a break before the words help? */}
+      <p className="max-w-3xl indent-[2em] text-[16px] text-black lg:text-[20px]">
         «&nbsp;Une réalisation superbe. Cette vidéo reflète à merveille l’âme de
         notre restaurant, mettant en valeur notre cuisine, notre équipe et
         l’ambiance chaleureuse que nous souhaitons offrir à nos clients. Merci
         WaveProm.&nbsp;»
       </p>
-      <p className="mt-4 text-[16px] lg:text-[14px]">
-        <span className="font-medium">Jean-Marc Bessire</span>, Chef Étoilé
+      <p className="mt-2 text-[16px]">
+        Jean-Marc Bessire /{" "}
+        <span className="font-medium text-gray-600">Chef Étoilé</span>
       </p>
     </div>
 

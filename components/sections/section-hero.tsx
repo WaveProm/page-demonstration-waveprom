@@ -68,10 +68,15 @@ const SectionHero = () => (
   >
     <div className="absolute inset-0 bg-black/50" />
 
-    <div className="absolute top-0 left-0 ml-4 flex">
+    {/* The flag is bottom-aligned on the last baseline of the label rather
+        than on its box: a line box carries half its leading below the last
+        baseline, so aligning boxes leaves the words floating above the flag.
+        A replaced element has its bottom edge for a baseline, so the two land
+        on the same line at every size, with no measured offset. */}
+    <div className="absolute top-0 left-0 ml-4 flex [align-items:last_baseline]">
       {/* biome-ignore lint/performance/noImgElement: a vector mark has no width for next/image to pick */}
       <img src="/logotypes/suisse.svg" alt="" className="h-14 lg:h-20" />
-      <p className="text-[28px] text-white leading-none lg:text-[22px] mt-9.5 ml-4">
+      <p className="ml-4 text-[18px] text-white leading-none lg:text-[22px]">
         Suisse
         <br />
         Romande
@@ -79,28 +84,63 @@ const SectionHero = () => (
     </div>
 
     <div className="@container absolute inset-0 mx-4 flex flex-col justify-center text-white/70">
-      {/* The two lines are set to the same width, to the pixel. Each carries
-          the font size that makes it span its container: the string measured
-          8.6449 wide per unit of body for the first and 18.118 for the second,
-          and the multiplier below is one over that number. No tracking on
-          either, because letter spacing adds a fixed amount per character and
-          would pull the two apart by their difference in length. */}
-      <h1 className="whitespace-nowrap font-medium text-[calc(100cqw*0.1156754/1.5)] text-white leading-none">
-        On attire vos clients.
+      {/* A font size cannot hold two lines to the same width: the system face
+          carries an optical size axis, so the same string at two bodies is not
+          the same string scaled, and the pair drifts a few percent between a
+          phone and a desktop.
+          Each line is therefore a drawing. The viewBox is the ink box of the
+          string measured at a body of 100, and textLength pins the width its
+          glyphs must fill, so the browser scales the drawing to the element.
+          The width class is the only knob, and 100 % means exactly 100 %. */}
+      <h1 className="w-full text-white lg:w-2/3">
+        <svg
+          viewBox="0 0 864.494 72.835"
+          className="w-full"
+          role="img"
+          aria-label="On attire vos clients."
+        >
+          <text
+            x="0"
+            y="71.647"
+            fontSize="100"
+            fontWeight="500"
+            fill="currentColor"
+            textLength="864.494"
+            lengthAdjust="spacingAndGlyphs"
+          >
+            On attire vos clients.
+          </text>
+        </svg>
       </h1>
-      <p className="whitespace-nowrap font-medium text-[calc(100cqw*0.0551938/2)] text-white leading-none">
-        Vous vous concentrez sur votre entreprise.
+      <p className="mt-3 w-full text-white lg:w-1/2">
+        <svg
+          viewBox="0 0 1811.8 88.403"
+          className="w-full"
+          role="img"
+          aria-label="Vous vous concentrez sur votre entreprise."
+        >
+          <text
+            x="0"
+            y="71.313"
+            fontSize="100"
+            fontWeight="500"
+            fill="currentColor"
+            textLength="1811.8"
+            lengthAdjust="spacingAndGlyphs"
+          >
+            Vous vous concentrez sur votre entreprise.
+          </text>
+        </svg>
       </p>
 
-      <p className="mt-8 max-w-3xl text-[16px] lg:text-[20px]">
+      <p className="mt-8 max-w-3xl text-balance text-[16px] lg:text-[20px]">
         «&nbsp;Ils sont devenus un véritable partenaire stratégique pour le
-        développement de mon entreprise. […] La communication est excellente,
-        l’aspect humain est très présent, et je me sens vraiment
-        accompagné.&nbsp;»
+        développement de mon entreprise.&nbsp;»
       </p>
-      <p className="mt-4 text-[16px]">
-        <span className="font-medium text-white">Rahman Babayigit</span>,
-        Directeur, Nicastro&nbsp;SA
+      <p className="mt-2 text-[16px]">
+        Rahman Babayigit /{" "}
+        <span className="font-medium text-white">Directeur</span> /
+        NICASTRO&nbsp;SA
       </p>
 
       {/* biome-ignore lint/performance/noImgElement: a vector mark has no width for next/image to pick */}
@@ -115,7 +155,7 @@ const SectionHero = () => (
       {/* The track holds the copies, so the list is written once. Its gap and
           its duration are given here rather than assumed, which is what lets
           the component travel between projects untouched. */}
-      <Marquee className="mt-8" gap="2.5rem" duration="150s">
+      <Marquee className="mt-8" gap="2rem" duration="150s">
         {PARTNERS.map((partner) => (
           // biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer
           <img
@@ -124,7 +164,7 @@ const SectionHero = () => (
             alt={partner.name}
             width={partner.width}
             height={partner.height}
-            className="h-14 w-55 object-contain brightness-0 invert"
+            className="h-14 w-auto brightness-0 invert"
           />
         ))}
       </Marquee>

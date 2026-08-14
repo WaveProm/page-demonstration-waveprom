@@ -6,13 +6,13 @@ const SectionNicastrosa = () => (
   <section className="mt-16 text-gray-400">
     <div className="mx-4">
       <header>
-        <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
+        <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
           «&nbsp;Notre présence en ligne ne reflétait pas la
           qualité&nbsp;de&nbsp;nos&nbsp;prestations&nbsp;»
         </h2>
 
-        <p className="my-4 text-[18px] lg:text-[20px]">
-          <span className="font-medium text-gray-600">NICASTRO SA</span>,{" "}
+        <p className="mt-2 text-[22px]">
+          <span className="font-medium text-gray-600">NICASTRO SA</span> /
           Construction métallique
         </p>
       </header>
@@ -28,11 +28,11 @@ const SectionNicastrosa = () => (
         </div>
       </div>
 
-      <p className="max-w-3xl font-medium text-[18px] text-black lg:text-[24px]">
+      <p className="my-6 max-w-3xl font-medium text-[18px] text-black lg:my-8 lg:text-[24px]">
         — Un recrutement réalisé grâce à une seule&nbsp;publication
       </p>
 
-      <p className="mt-6 max-w-3xl text-[16px] text-black lg:text-[18px]">
+      <p className="max-w-3xl indent-[2em] text-[16px] text-black lg:text-[20px]">
         «&nbsp;Aujourd’hui, nous avons une image haut de gamme et une vraie
         visibilité qui nous apportent de la crédibilité auprès de nos clients.
         Au-delà des prestations techniques, ils sont devenus un véritable
@@ -40,8 +40,9 @@ const SectionNicastrosa = () => (
         m’accompagnent aussi sur divers aspects commerciaux et m’ont même déjà
         apporté des opportunités d’affaires grâce à leur réseau.&nbsp;»
       </p>
-      <p className="mt-4 text-[16px] lg:text-[14px]">
-        <span className="font-medium">Rahman Babayigit</span>, Directeur
+      <p className="mt-2 text-[16px]">
+        Rahman Babayigit /{" "}
+        <span className="font-medium text-gray-600">Directeur</span>
       </p>
     </div>
 

@@ -6,13 +6,13 @@ const SectionGoutatoo = () => (
   <section className="mt-16 text-gray-400">
     <div className="mx-4">
       <header>
-        <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
+        <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
           Un collectif de chefs étoilés à mettre en lumière et une soirée de
           gala&nbsp;à&nbsp;remplir.
         </h2>
 
-        <p className="my-4 text-[18px] lg:text-[20px]">
-          <span className="font-medium text-gray-600">Chef’s Goutatoo</span>,{" "}
+        <p className="mt-2 text-[22px]">
+          <span className="font-medium text-gray-600">Chef’s Goutatoo</span> /
           Collectif de chefs étoilés
         </p>
       </header>

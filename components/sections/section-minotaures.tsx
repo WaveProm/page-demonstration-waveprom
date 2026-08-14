@@ -6,15 +6,15 @@ const SectionMinotaures = () => (
   <section className="mt-16 text-gray-400">
     <div className="mx-4">
       <header>
-        <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
+        <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
           Donner à la référence du baseball en Valais l’image d’une institution.
         </h2>
 
-        <p className="my-4 text-[18px] lg:text-[20px]">
+        <p className="mt-2 text-[22px]">
           <span className="font-medium text-gray-600">
             Les Minotaures de Martigny
-          </span>
-          , Club de baseball et Association
+          </span>{" "}
+          / Club de baseball et Association
         </p>
       </header>
 

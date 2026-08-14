@@ -8,13 +8,13 @@ const SectionAgis = () => (
   <section className="mt-16 text-gray-400">
     <div className="mx-4">
       <header>
-        <h2 className="max-w-5xl font-medium text-[24px] text-black leading-none tracking-tight lg:text-[36px]">
+        <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
           «&nbsp;Nos campagnes
           publicitaires&nbsp;ne&nbsp;marchaient&nbsp;pas&nbsp;»
         </h2>
 
-        <p className="my-4 text-[18px] lg:text-[20px]">
-          <span className="font-medium text-gray-600">AGIS</span>, Association
+        <p className="mt-2 text-[22px]">
+          <span className="font-medium text-gray-600">AGIS</span> / Association
           d’Intégration Sociale Genevoise
         </p>
       </header>
@@ -45,14 +45,15 @@ const SectionAgis = () => (
         </div>
       </div>
 
-      <p className="mt-4 max-w-3xl text-[16px] text-black lg:text-[18px]">
+      <p className="max-w-3xl indent-[2em] text-[16px] text-black lg:text-[20px]">
         «&nbsp;Avant notre collaboration avec WaveProm, nos campagnes
         publicitaires n’attiraient qu’une trentaine de personnes par mois.
         Depuis que leur équipe gère nos campagnes, nous avons reçu plus d’une
         centaine de demandes en moins&nbsp;d’un&nbsp;mois.&nbsp;»
       </p>
-      <p className="mt-4 text-[16px] lg:text-[14px]">
-        <span className="font-medium">Myriam Lombardi</span>, Directrice
+      <p className="mt-2 text-[16px]">
+        Myriam Lombardi /{" "}
+        <span className="font-medium text-gray-600">Directrice</span>
       </p>
     </div>
 
