@@ -7,41 +7,44 @@ import mediaManifest from "@/lib/media-manifest.json";
 // Nicastro SA is a filled block with its name knocked out of it, and the
 // Minotaures mascot is a drawing, so both come back as a white silhouette.
 const PARTNERS = [
-  { file: "logotype-agis.svg", name: "AGIS", width: 264, height: 112 },
   { file: "logotype-cigalon.png", name: "Le Cigalon", width: 841, height: 216 },
-  { file: "logotype-labinno.svg", name: "LABINNO", width: 569, height: 127 },
-  { file: "logo-quimporte.svg", name: "Qu’importe", width: 209, height: 190 },
-  {
-    file: "logotype-groupe-chuard.png",
-    name: "Groupe Chuard",
-    width: 512,
-    height: 161,
-  },
-  { file: "logotype-btweenus.png", name: "BtweenUs", width: 512, height: 110 },
-  {
-    file: "logotype-chefs-goutatoo.png",
-    name: "Chef’s Goutatoo",
-    width: 220,
-    height: 256,
-  },
-  {
-    file: "logotype-abg.svg",
-    name: "Association Bâtiment Genève",
-    width: 3648,
-    height: 715,
-  },
-  {
-    file: "logotype-asces.png",
-    name: "Académie Suisse de Coaching en Santé",
-    width: 1919,
-    height: 363,
-  },
   {
     file: "logotype-EHG.svg",
     name: "École Hôtelière de Genève",
     width: 1962,
     height: 306,
   },
+  { file: "logotype-labinno.svg", name: "LABINNO", width: 569, height: 127 },
+  {
+    file: "logotype-groupe-chuard.png",
+    name: "Groupe Chuard",
+    width: 512,
+    height: 161,
+  },
+  { file: "logo-quimporte.svg", name: "Qu’importe", width: 209, height: 190 },
+
+  {
+    file: "logotype-abg.svg",
+    name: "Association Bâtiment Genève",
+    width: 3648,
+    height: 715,
+  },
+  { file: "logotype-btweenus.png", name: "BtweenUs", width: 512, height: 110 },
+  { file: "logotype-relocasa.svg", name: "Relocasa", width: 134, height: 63 },
+  {
+    file: "logotype-chefs-goutatoo.png",
+    name: "Chef’s Goutatoo",
+    width: 220,
+    height: 256,
+  },
+
+  {
+    file: "logotype-asces.png",
+    name: "Académie Suisse de Coaching en Santé",
+    width: 1919,
+    height: 363,
+  },
+
   {
     file: "logotype-alain-arlettaz.svg",
     name: "Alain Arlettaz",
@@ -49,7 +52,8 @@ const PARTNERS = [
     height: 324,
   },
   { file: "logotype-raysea.svg", name: "RaySea", width: 1080, height: 1080 },
-  { file: "logotype-relocasa.svg", name: "Relocasa", width: 134, height: 63 },
+
+  { file: "logotype-agis.svg", name: "AGIS", width: 264, height: 112 },
 ];
 
 // The one slot that fills the screen instead of keeping its ratio. A hero is a
@@ -73,7 +77,7 @@ const SectionHero = () => (
         baseline, so aligning boxes leaves the words floating above the flag.
         A replaced element has its bottom edge for a baseline, so the two land
         on the same line at every size, with no measured offset. */}
-    <div className="absolute top-0 left-0 ml-4 flex [align-items:last_baseline]">
+    <div className="absolute top-0 left-0 ml-4 flex items-baseline-last">
       {/* biome-ignore lint/performance/noImgElement: a vector mark has no width for next/image to pick */}
       <img src="/logotypes/suisse.svg" alt="" className="h-14 lg:h-20" />
       <p className="ml-4 text-[18px] text-white leading-none lg:text-[22px]">
