@@ -7,13 +7,16 @@ const SectionNicastrosa = () => (
     <div className="mx-4">
       <header>
         <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
-          {/* Line breaks are placed, not guessed. 340, 320 and 271 px inside
-              358 on a phone; above lg the quote needs 1057 px for 1024, so it
-              breaks after "la" and nowhere else. */}
-          «&nbsp;Notre présence en ligne <br className="lg:hidden" />
-          ne reflétait pas la <br className="hidden lg:inline" />
-          qualité <br className="lg:hidden" />
-          de nos prestations&nbsp;»
+          {/* Line breaks are placed, not guessed, and they are composed for the
+              narrowest phone rather than for the widest: 231, 249, 269 and
+              176 px, which still fit the 288 px box of a 320 px screen. Above
+              lg the quote needs 1057 px for 1024, so it breaks once, after
+              "la", and the four mobile breaks fold away. */}
+          «&nbsp;Notre présence <br className="lg:hidden" />
+          en ligne ne reflétait <br className="lg:hidden" />
+          pas la <br className="hidden lg:inline" />
+          qualité de nos <br className="lg:hidden" />
+          prestations&nbsp;»
         </h2>
 
         <p className="mt-2 text-[22px]">
