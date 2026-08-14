@@ -9,8 +9,7 @@ const SectionAgis = () => (
     <div className="mx-4">
       <header>
         <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
-          «&nbsp;Nos campagnes
-          publicitaires&nbsp;ne&nbsp;marchaient&nbsp;pas&nbsp;»
+          «&nbsp;Nos campagnes publicitaires ne marchaient pas&nbsp;»
         </h2>
 
         <p className="mt-2 text-[22px]">

@@ -7,8 +7,8 @@ const SectionNicastrosa = () => (
     <div className="mx-4">
       <header>
         <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
-          «&nbsp;Notre présence en ligne ne reflétait pas la
-          qualité&nbsp;de&nbsp;nos&nbsp;prestations&nbsp;»
+          «&nbsp;Notre présence en ligne ne reflétait pas la qualité de nos
+          prestations&nbsp;»
         </h2>
 
         <p className="mt-2 text-[22px]">

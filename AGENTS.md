@@ -55,6 +55,9 @@ Never join two causes with `and`. Two causes are two decisions.
 
 ## Rules
 
+Don't bind ordinary words with a non-breaking space to choose where a line ends : bind only what French typography forbids splitting, and let `text-wrap` shape the rest.
+Incident : 2026-08-14, four of them welded `publicitaires ne marchaient pas »` into one 439 px token inside a 358 px heading, which no phone can break, and the page scrolled sideways in production.
+
 Don't take `isTypeSupported` as proof a codec will play : confirm the engine is not WebKit before choosing AV1.
 Incident : 2026-08-13, Safari answered the AV1 probe with true, then failed to append a single segment and served a page where nothing played, nothing errored and nothing was logged.
 
