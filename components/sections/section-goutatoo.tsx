@@ -6,18 +6,18 @@ const SectionGoutatoo = () => (
   <section className="mt-16 text-gray-400">
     <div className="mx-4">
       <header>
-        <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
+        <h2 className="max-w-5xl font-medium text-[32px] text-gray-600 leading-none tracking-tight lg:text-[36px]">
           Un collectif de chefs étoilés à mettre en lumière et une soirée de
-          gala&nbsp;à&nbsp;remplir.
+          gala à remplir.
         </h2>
 
         <p className="mt-2 text-[22px]">
-          <span className="font-medium text-gray-600">Chef’s Goutatoo</span> /
-          Collectif de chefs étoilés
+          <span className="font-medium">Chef’s Goutatoo</span> / Collectif de
+          chefs étoilés
         </p>
       </header>
 
-      <p className="my-6 max-w-3xl font-medium text-[18px] text-black lg:my-8 lg:text-[24px]">
+      <p className="my-6 max-w-3xl text-pretty font-medium text-[18px] text-gray-600 lg:my-8 lg:text-[24px]">
         — Une salle complète en 5 jours de publicité, pour un gala donné au
         profit de l’association AGIS
       </p>

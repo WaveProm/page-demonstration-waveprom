@@ -8,7 +8,7 @@ const SectionAgis = () => (
   <section className="mt-16 text-gray-400">
     <div className="mx-4">
       <header>
-        <h2 className="max-w-5xl font-medium text-[32px] text-black leading-none tracking-tight lg:text-[36px]">
+        <h2 className="max-w-5xl font-medium text-[32px] text-gray-600 leading-none tracking-tight lg:text-[36px]">
           {/* Line breaks are placed, not guessed. Each line was measured
               against the box it sits in: 244, 200 and 232 px inside 358 on a
               phone. The last break folds away above lg, where the whole quote
@@ -19,8 +19,8 @@ const SectionAgis = () => (
         </h2>
 
         <p className="mt-2 text-[22px]">
-          <span className="font-medium text-gray-600">AGIS</span> / Association
-          d’Intégration Sociale Genevoise
+          <span className="font-medium">AGIS</span> / Association d’Intégration
+          Sociale Genevoise
         </p>
       </header>
 
@@ -31,34 +31,33 @@ const SectionAgis = () => (
           where its own figure happens to end. */}
       <div className="my-6 flex flex-col gap-2 lg:my-8 lg:flex-row lg:gap-6">
         <div className="flex items-baseline gap-x-2 lg:block">
-          <p className="min-w-[4.6em] font-medium text-[32px] text-black leading-none lg:min-w-0 lg:text-[48px]">
+          <p className="min-w-[4.6em] font-medium text-[32px] text-gray-600 leading-none lg:min-w-0 lg:text-[48px]">
             +800 %
           </p>
           <p className="text-[16px] lg:text-[14px]">Inscriptions en 14 jours</p>
         </div>
         <div className="flex items-baseline gap-x-2 lg:block">
-          <p className="min-w-[4.6em] font-medium text-[32px] text-black leading-none lg:min-w-0 lg:text-[48px]">
+          <p className="min-w-[4.6em] font-medium text-[32px] text-gray-600 leading-none lg:min-w-0 lg:text-[48px]">
             +1000
           </p>
           <p className="text-[16px] lg:text-[14px]">Inscriptions en tout</p>
         </div>
         <div className="flex items-baseline gap-x-2 lg:block">
-          <p className="min-w-[4.6em] font-medium text-[32px] text-black leading-none lg:min-w-0 lg:text-[48px]">
+          <p className="min-w-[4.6em] font-medium text-[32px] text-gray-600 leading-none lg:min-w-0 lg:text-[48px]">
             +762’000
           </p>
           <p className="text-[16px] lg:text-[14px]">Vues</p>
         </div>
       </div>
 
-      <p className="max-w-3xl indent-[2em] text-[16px] text-black lg:text-[20px]">
+      <p className="max-w-3xl text-pretty text-[16px] text-gray-600 lg:text-[20px]">
         «&nbsp;Avant notre collaboration avec WaveProm, nos campagnes
         publicitaires n’attiraient qu’une trentaine de personnes par mois.
         Depuis que leur équipe gère nos campagnes, nous avons reçu plus d’une
-        centaine de demandes en moins&nbsp;d’un&nbsp;mois.&nbsp;»
+        centaine de demandes en moins d’un mois.&nbsp;»
       </p>
       <p className="mt-2 text-[16px]">
-        Myriam Lombardi /{" "}
-        <span className="font-medium text-gray-600">Directrice</span>
+        Myriam Lombardi / <span className="font-medium">Directrice</span>
       </p>
     </div>
 
