@@ -74,6 +74,51 @@ Do it in one pass rather than in eleven, with the suite from entry 1 as the net.
 
 # Backlog
 
+## Make the hostile testing skill agnostic
+
+Lives in `~/christina/.claude/skills/hostile-testing/`, and it is written for
+one project. Parked here because it was found while queueing this project's
+testing work; it belongs in the tooling notes, not in this repo.
+
+It is general at nine tenths and specific at one. The block titled "The line
+for this project" names one agent's contract, her strict perimeter, and Gray by
+name. Step zero of the same skill already establishes that line by asking the
+user for it, so the portable version is a subtraction of ten lines rather than
+a rewrite.
+
+**The tester's model must be pinned high, not inherited.** The skill currently
+tells the agent to take the session model. That is the wrong rule for this job:
+a tester weaker than the author does not find fewer breaks, it finds imaginary
+ones, because it cannot follow the code it is attacking and fills the gap with
+invention. Grading then costs more than the campaign saves. Pin the strongest
+model available, explicitly, and let the session model be whatever it is.
+
+Then it can move up to the global skills, where it belongs.
+
+## A second testing skill, for the tests that stay
+
+Hostile testing and regression testing are opposite trades, and one skill
+cannot hold both.
+
+Hostile testing hunts breaks. Its tests are disposable and hyper-specific, and
+they are right to hardcode the exact malicious input, because that literal is
+the finding. Asking those tests to assert invariants would take away their
+instrument.
+
+The tests that stay are the opposite trade: they live with the code and must
+survive a refactor. They assert what a visitor could observe, and they hardcode
+only what is a promise made to the outside world. A media path frozen under a
+one-year cache is such a promise. An internal identifier, a display order or a
+variable name is a promise to nobody.
+
+The hostile skill already carries half of this principle without naming it,
+in its rule for test titles: the identifier, then one sentence in the present
+tense saying what the code must do, never what the test does. That is the same
+guard, applied to the other trade. A test whose name states the promise cannot
+be quietly loosened, because the name becomes a lie somebody reads.
+
+This second skill is where the rule from queue entry 1 belongs.
+
 ## The hero scrim is heaviest where the need is lightest
 
 Measured on 2026-08-13, while pricing an adaptive scrim that was then dropped.
