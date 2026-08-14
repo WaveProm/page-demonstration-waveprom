@@ -62,11 +62,17 @@
  */
 
 export type AutoplayState =
-  "idle" | "starting" | "playing" | "blocked" | "failed";
+  | "idle"
+  | "starting"
+  | "playing"
+  | "blocked"
+  | "failed";
 
 export type AutoplayReport = {
   state: AutoplayState;
-  // DOMException name when the browser said no, null otherwise.
+  // Why it is not playing: the DOMException name when the browser refused,
+  // or MediaError:<code> when the element itself failed. Null when there is
+  // nothing to explain.
   reason: string | null;
   attempts: number;
 };
@@ -192,11 +198,11 @@ export const createAutoplay = ({
     // No readiness gate: play() on an element without data is a pending
     // request the browser honours as soon as it can buffer, whereas waiting
     // for canplay widens the window in which a user activation expires.
-    const started: Promise<void> | undefined = session.element.play();
+    const playRequest: Promise<void> | undefined = session.element.play();
     // Pre-promise play() (some in-app WebViews): media events are then the
     // only confirmation available.
-    if (!started) return;
-    void started.then(
+    if (!playRequest) return;
+    void playRequest.then(
       () => handleAccepted(session),
       (error: unknown) => handleRejected(session, error),
     );

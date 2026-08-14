@@ -155,7 +155,7 @@ describe("play() rejection handling", () => {
   it("ignores AbortError, arms no gesture listener and retries on the next canplay", async () => {
     const video = createFakeVideo();
     video.rejectPlayWith("AbortError");
-    const documentListener = vi.spyOn(document, "addEventListener");
+    const addedToDocument = vi.spyOn(document, "addEventListener");
     const autoplay = createAutoplay();
 
     const session = autoplay.ensurePlaying(asElement(video));
@@ -163,7 +163,7 @@ describe("play() rejection handling", () => {
 
     expect(session.getReport().state).toBe("starting");
     expect(autoplay.isBlocked()).toBe(false);
-    expect(documentListener.mock.calls.map(([type]) => type)).not.toContain(
+    expect(addedToDocument.mock.calls.map(([type]) => type)).not.toContain(
       "pointerdown",
     );
 
@@ -176,7 +176,7 @@ describe("play() rejection handling", () => {
   it("reports any other rejection as failed without arming a gesture", async () => {
     const video = createFakeVideo();
     video.rejectPlayWith("NotSupportedError");
-    const documentListener = vi.spyOn(document, "addEventListener");
+    const addedToDocument = vi.spyOn(document, "addEventListener");
     const autoplay = createAutoplay();
 
     const session = autoplay.ensurePlaying(asElement(video));
@@ -188,7 +188,7 @@ describe("play() rejection handling", () => {
       attempts: 1,
     });
     expect(autoplay.isBlocked()).toBe(false);
-    expect(documentListener.mock.calls.map(([type]) => type)).not.toContain(
+    expect(addedToDocument.mock.calls.map(([type]) => type)).not.toContain(
       "pointerdown",
     );
     autoplay.destroy();

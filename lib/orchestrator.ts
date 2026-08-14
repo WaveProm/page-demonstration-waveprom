@@ -164,15 +164,18 @@ export const createOrchestrator = ({
       // index goes to hls.js as startLevel: it has to stay positional.
       if (!uriLine)
         throw new Error(`Master playlist entry without a URI: ${lines[i]}`);
-      const resolution = /RESOLUTION=(\d+)x(\d+)/.exec(lines[i]);
-      if (!resolution)
+      const resolutionMatch = /RESOLUTION=(\d+)x(\d+)/.exec(lines[i]);
+      if (!resolutionMatch)
         throw new Error(
           `Master playlist entry without a resolution: ${lines[i]}`,
         );
       variants.push({
         bandwidthBps: Number(bandwidthMatch[1]),
         uri: uriLine.trim(),
-        shortSide: Math.min(Number(resolution[1]), Number(resolution[2])),
+        shortSide: Math.min(
+          Number(resolutionMatch[1]),
+          Number(resolutionMatch[2]),
+        ),
       });
     }
     const budgetBps = bandwidthBps * STARTUP_BANDWIDTH_SAFETY_FACTOR;
@@ -504,9 +507,9 @@ export const createOrchestrator = ({
     const enterAtMs = performance.now();
     const departingSectionId = playingSectionId;
 
-    const alreadyMounted = mountedPlayers.get(sectionId);
-    const targetVideoElement = alreadyMounted
-      ? alreadyMounted.videoElement
+    const existingPlayer = mountedPlayers.get(sectionId);
+    const targetVideoElement = existingPlayer
+      ? existingPlayer.videoElement
       : resolveVideoElement(sectionId);
     if (!targetVideoElement) {
       logTransition("SLOT_MISSING", sectionId, {});
@@ -515,16 +518,16 @@ export const createOrchestrator = ({
 
     demotePlayingToDraining();
 
-    if (alreadyMounted) {
+    if (existingPlayer) {
       drainingSectionIds.delete(sectionId); // draining again becomes THE playback
-      alreadyMounted.hlsPlayer.startLoad(-1); // resume on the existing buffer
-      alreadyMounted.lastPlayedAtMs = performance.now();
+      existingPlayer.hlsPlayer.startLoad(-1); // resume on the existing buffer
+      existingPlayer.lastPlayedAtMs = performance.now();
     } else {
       mountPlayer(sectionId, targetVideoElement);
     }
 
     playingSectionId = sectionId;
-    logTransition("ENTER", sectionId, { resumed: Boolean(alreadyMounted) });
+    logTransition("ENTER", sectionId, { resumed: Boolean(existingPlayer) });
     kickPlaybackAndMeasure(sectionId, targetVideoElement, enterAtMs);
     enforcePoolCap();
     rememberTravelDirection(departingSectionId, sectionId);

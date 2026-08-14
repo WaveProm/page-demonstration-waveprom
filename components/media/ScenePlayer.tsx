@@ -7,7 +7,7 @@ import {
   useEffect,
   useRef,
 } from "react";
-import { MEDIA_CDN } from "@/lib/media-config";
+import { MEDIA_CDN_ORIGIN } from "@/lib/media-config";
 import { createOrchestrator } from "@/lib/orchestrator";
 
 // The enclosing client island (pattern: client provider, server children).
@@ -94,7 +94,7 @@ const ScenePlayer = ({ children }: { children: ReactNode }) => {
     );
     const sections = orderedSlots.map(([sectionId, slot]) => ({
       id: sectionId,
-      manifestUrl: `${MEDIA_CDN}/video/${slot.prefix}/${codecDir}/master.m3u8`,
+      manifestUrl: `${MEDIA_CDN_ORIGIN}/video/${slot.prefix}/${codecDir}/master.m3u8`,
     }));
 
     const orchestrator = createOrchestrator({
