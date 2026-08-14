@@ -3,6 +3,77 @@
 Open questions and deferred work. One entry, one decision. An entry leaves this
 file when it is done or when it is dropped, never when it is forgotten.
 
+The four entries under **Next, in this order** are the queue: the first one is
+what to pick up. Everything below that block is backlog, held until the design
+is delivered, and unordered on purpose.
+
+# Next, in this order
+
+## 1. Assert invariants, not literals
+
+`tests/sequences.spec.ts` hardcodes the order of the page and the names of the
+journal tokens. Reordering a section or renaming an event turns it red without
+anything being broken, which trains everyone to distrust it. A test that cries
+wolf is worse than no test.
+
+The tempting fix is to import the list from the code. That makes the test
+tautological: an expectation derived from the thing under test observes,
+it never asserts.
+
+Assert the properties instead, and read the page as a visitor does:
+
+- Take the slot order from the DOM at run time, not from a list. That is an
+  observation, not a copy of the source.
+- Every slot reaches playback. Exactly one plays at a time.
+- Every switch after the first shows its frame inside the budget.
+- No slot mounts cold on a read-through.
+
+None of those name a section or an event string, so the page can be reordered,
+renamed and rewritten without touching the test. This is the entry that unlocks
+the three below, because each of them currently breaks the suite.
+
+## 2. One case for the journal payload
+
+The state machine writes two conventions into the same object: events shout
+(`PRIME_FAILED`, `SLOT_MISSING`), destruction reasons whisper (`"pool-cap"`,
+`"left-retention-zone"`). Both are string values, not identifiers, so neither
+case carries meaning. Pick one and apply it.
+
+Worth restating what SCREAMING_SNAKE means in this codebase, since the mixture
+suggests it drifted: it marks a constant primitive at module scope, and nothing
+else. It is not a severity marker. A secret is never protected by its case, it
+is protected by not being in the file at all.
+
+## 3. Cut the comments the code no longer needs
+
+A comment that paraphrases its own line is noise, and there are enough of them
+now to hide the ones that matter.
+
+The criterion is already the house rule, this entry is only the pass that
+applies it: a comment carries what the code cannot say, and nothing else. A
+measurement, a browser trap, a decision and its reason, a constraint that lives
+outside the file: those stay, whatever their length. Everything that restates
+the line below it goes, and where a comment exists because the code reads badly,
+the code is what gets fixed.
+
+## 4. One vocabulary across the media layer
+
+The audit turned up inconsistencies that no single rename settles:
+
+- The orchestrator says `section`, the ScenePlayer says `slot`, and the
+  orchestrator emits both `SECTION_MISSING` and `SLOT_MISSING`. Each reading is
+  right inside its own file, which is exactly what will make the arbitration
+  expensive later.
+- `orchestrator.destroyEverything()` and `autoplay.destroy()` are the same
+  gesture under two names.
+- `MOUNTED_PLAYERS_MAX` against `MAX_ATTEMPTS_WITHOUT_PROGRESS`, one role and
+  two shapes.
+- The eleven renames held back as convention-only, listed in the naming audit.
+
+Do it in one pass rather than in eleven, with the suite from entry 1 as the net.
+
+# Backlog
+
 ## The hero scrim is heaviest where the need is lightest
 
 Measured on 2026-08-13, while pricing an adaptive scrim that was then dropped.
@@ -76,16 +147,16 @@ else's code costs an afternoon and can hand out a false green.
 
 **Where the fix belongs, by level.**
 
-- *In the repo, committed.* `playwright.config.ts` reads `PORT` instead of
+- _In the repo, committed._ `playwright.config.ts` reads `PORT` instead of
   assuming 3000: done. Still to do, and this is the one that matters, set
   `reuseExistingServer: false` so a run always owns the server it tests. A busy
   port then stops the suite with an error instead of answering with a stranger.
-- *On the bucket, one off.* An origin includes its port, so a tree on another
+- _On the bucket, one off._ An origin includes its port, so a tree on another
   port loses its media to CORS. R2 rejects `http://localhost:*`, so the
   allowlist is explicit: 3000, 3001, 3002 and 3100 are allowed today. That caps
   concurrent trees at four, which is honest and worth knowing before wondering
   why port 3050 shows nothing.
-- *In the working habits, as a rule.* A server started to measure something is
+- _In the working habits, as a rule._ A server started to measure something is
   killed by whoever started it, in the same breath. This one belongs in
   `AGENTS.md` under Rules, since it was born of an incident.
 
