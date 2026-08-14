@@ -7,7 +7,7 @@ const SectionQuImporte = () => (
     <div className="mx-4">
       <header>
         <h2 className="max-w-5xl font-medium text-[32px] text-gray-600 leading-none tracking-tight lg:text-[36px]">
-          Une première impression mémorable, de jour et de nuit.
+          Une première impression mémorable, de jour comme de nuit.
         </h2>
 
         <p className="mt-2 text-[22px]">

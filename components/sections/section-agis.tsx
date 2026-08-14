@@ -13,9 +13,7 @@ const SectionAgis = () => (
               against the box it sits in: 244, 200 and 232 px inside 358 on a
               phone. The last break folds away above lg, where the whole quote
               fits on two lines. */}
-          «&nbsp;Nos campagnes <br />
-          publicitaires ne <br className="lg:hidden" />
-          marchaient pas&nbsp;»
+          «&nbsp;Nos campagnes publicitaires ne marchaient pas&nbsp;»
         </h2>
 
         <p className="mt-2 text-[22px]">

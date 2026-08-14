@@ -17,8 +17,7 @@ const SectionMinotaures = () => (
       </header>
 
       <p className="my-6 max-w-3xl text-pretty font-medium text-[18px] text-gray-600 lg:my-8 lg:text-[24px]">
-        Club reconnu par l’État du Valais comme fédération cantonale de
-        baseball, et sacré champion romand 2023
+        Fédération cantonale de baseball en Valais et sacré champion romand 2023
       </p>
     </div>
 

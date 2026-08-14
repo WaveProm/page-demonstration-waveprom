@@ -18,8 +18,8 @@ const SectionGoutatoo = () => (
       </header>
 
       <p className="my-6 max-w-3xl text-pretty font-medium text-[18px] text-gray-600 lg:my-8 lg:text-[24px]">
-        — Une salle complète en 5 jours de publicité, pour un gala donné au
-        profit de l’association AGIS
+        — Une salle complète en 5 jours de publicité, une production vidéo à la
+        hauteur de leur carrière.
       </p>
     </div>
 
