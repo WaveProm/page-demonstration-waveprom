@@ -26,6 +26,7 @@ const STATE_PATH = path.join(
   "MEDIA-BUILD/upload-ladders-state.json",
 );
 const BUCKET = "waveprom-media";
+const ACCOUNT_ID = "b1ecc2c0695510edf19ac24e796f0b7f";
 const CACHE_CONTROL = "public, max-age=31536000, immutable";
 const SAFE_TIME_BUDGET_MS = 540_000;
 const SECONDS_PER_FILE_ESTIMATE = 2.2;
@@ -34,8 +35,6 @@ const SECONDS_PER_FILE_ESTIMATE = 2.2;
 // Left without a token it opens an OAuth login and writes a plaintext config again,
 // which is exactly what the move removed. Refuse to run rather than let that happen.
 // This pipeline has not been exercised since: retest it on the next imported video.
-process.env.CLOUDFLARE_ACCOUNT_ID ??= "b1ecc2c0695510edf19ac24e796f0b7f";
-
 if (!process.env.CLOUDFLARE_API_TOKEN) {
   console.log(
     "FAILED - no CLOUDFLARE_API_TOKEN in the environment.\n" +
@@ -129,7 +128,10 @@ for (const job of jobs) {
         CACHE_CONTROL,
         "--remote",
       ],
-      { cwd: PROJECT_DIR },
+      {
+        cwd: PROJECT_DIR,
+        env: { ...process.env, CLOUDFLARE_ACCOUNT_ID: ACCOUNT_ID },
+      },
     );
     if (result.status !== 0) {
       console.log(
