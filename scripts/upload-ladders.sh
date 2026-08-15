@@ -5,7 +5,8 @@
 # where it left off on the next run. This loop spares it from being called by
 # hand a dozen times. It stops at the first FAILED rather than insisting.
 #
-# Usage: bash scripts/upload-ladders.sh
+# Usage: av inject +CLOUDFLARE_API_TOKEN -- bash scripts/upload-ladders.sh
+# The R2 credential lives in Automic Vault, so the token has to be injected here.
 # Slow: roughly two seconds per file, and a ladder holds tens of files.
 # Full log: MEDIA-BUILD/upload-ladders.log
 set -u

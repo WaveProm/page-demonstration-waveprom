@@ -2,7 +2,7 @@
 // Everything under a hashed prefix is immutable by construction - a re-cut
 // changes the hash - hence a one-year immutable Cache-Control on every object.
 // Resumes between invocations: a (prefix, codec) pair already sent is not resent.
-// Usage: node scripts/upload-ladders.mts   (re-run until DONE)
+// Usage: av inject +CLOUDFLARE_API_TOKEN -- node scripts/upload-ladders.mts   (re-run until DONE)
 import { spawnSync } from "node:child_process";
 import {
   existsSync,
@@ -29,6 +29,20 @@ const BUCKET = "waveprom-media";
 const CACHE_CONTROL = "public, max-age=31536000, immutable";
 const SAFE_TIME_BUDGET_MS = 540_000;
 const SECONDS_PER_FILE_ESTIMATE = 2.2;
+
+// The R2 credential moved into Automic Vault, so wrangler finds nothing on disk.
+// Left without a token it opens an OAuth login and writes a plaintext config again,
+// which is exactly what the move removed. Refuse to run rather than let that happen.
+// This pipeline has not been exercised since: retest it on the next imported video.
+process.env.CLOUDFLARE_ACCOUNT_ID ??= "b1ecc2c0695510edf19ac24e796f0b7f";
+
+if (!process.env.CLOUDFLARE_API_TOKEN) {
+  console.log(
+    "FAILED - no CLOUDFLARE_API_TOKEN in the environment.\n" +
+      "Run: av inject +CLOUDFLARE_API_TOKEN -- bash scripts/upload-ladders.sh",
+  );
+  process.exit(1);
+}
 
 const CONTENT_TYPES: Record<string, string> = {
   ".m3u8": "application/vnd.apple.mpegurl",
