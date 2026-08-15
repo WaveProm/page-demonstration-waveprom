@@ -243,19 +243,6 @@ if (jobs.length === 0) {
 
 // ------------------------------------------------------------------ execution
 
-function av1CodecsAttributeFor(width: number, height: number) {
-  const pixels = width * height;
-  const level =
-    pixels <= 768 * 432
-      ? "04"
-      : pixels <= 1280 * 720
-        ? "05"
-        : pixels <= 1920 * 1080
-          ? "08"
-          : "12";
-  return `av01.0.${level}M.10`;
-}
-
 function runEncodeBatch(master: Master, codec: Codec, batchIndex: number) {
   const outDir = codecDirFor(master, codec);
   mkdirSync(outDir, { recursive: true });
@@ -409,12 +396,10 @@ function assembleMasterPlaylist(master: Master, codec: Codec) {
         const localUri = lines[i + 1].trim(); // vX_bY.m3u8 (already renamed on disk)
         const localIndex = Number(/^v(\d+)_b/.exec(localUri)?.[1] ?? 0);
         const globalIndex = RUNG_BATCHES[b].rungIndexes[localIndex];
-        let infoLine = lines[i].trim();
-        if (codec === "av1" && !infoLine.includes("CODECS=")) {
-          const [, w, h] = /RESOLUTION=(\d+)x(\d+)/.exec(infoLine) ?? [];
-          if (w)
-            infoLine += `,CODECS="${av1CodecsAttributeFor(Number(w), Number(h))}"`;
-        }
+        // ffmpeg fills the AV1 CODECS attribute itself since version 9.
+        // If a master playlist ever comes out with no CODECS on its AV1 variants,
+        // Safari rejects the stream: upgrade ffmpeg to 9 or later.
+        const infoLine = lines[i].trim();
         entries.push({ globalIndex, infoLine, uri: `v${globalIndex}.m3u8` });
       }
     }
