@@ -62,7 +62,11 @@
  */
 
 export type AutoplayState =
-  "idle" | "starting" | "playing" | "blocked" | "failed";
+  | "idle"
+  | "starting"
+  | "playing"
+  | "blocked"
+  | "failed";
 
 export type AutoplayReport = {
   state: AutoplayState;
@@ -339,5 +343,3 @@ export const createAutoplay = ({
     },
   };
 };
-
-// END

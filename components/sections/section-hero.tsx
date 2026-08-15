@@ -60,8 +60,8 @@ const PARTNERS = [
 // screen, not a picture in a flow, so the height leads and the frame is cropped
 // to it. Every other section keeps its ratio and lets the width lead.
 //
-// The page reads black on white and grey for what recedes. Over a moving image
-// that scale inverts: white for what carries, white at 60 % for the rest.
+// The page reads grey on white for what carries and lighter grey for what
+// recedes. Over a moving image that scale inverts: white, then white faded.
 const SectionHero = () => (
   <VideoSlot
     sectionId="hero"
@@ -71,12 +71,6 @@ const SectionHero = () => (
     className="h-screen w-full bg-black"
   >
     <div className="absolute inset-0 bg-black/50" />
-
-    {/* The flag is bottom-aligned on the last baseline of the label rather
-        than on its box: a line box carries half its leading below the last
-        baseline, so aligning boxes leaves the words floating above the flag.
-        A replaced element has its bottom edge for a baseline, so the two land
-        on the same line at every size, with no measured offset. */}
     <div className="absolute top-0 left-0 ml-4 flex items-baseline-last">
       {/* biome-ignore lint/performance/noImgElement: a vector mark has no width for next/image to pick */}
       <img src="/logotypes/suisse.svg" alt="" className="h-14 lg:h-20" />
@@ -87,55 +81,18 @@ const SectionHero = () => (
       </p>
     </div>
 
-    <div className="@container absolute inset-0 mx-4 flex flex-col justify-center text-white/70">
-      {/* A font size cannot hold two lines to the same width: the system face
-          carries an optical size axis, so the same string at two bodies is not
-          the same string scaled, and the pair drifts a few percent between a
-          phone and a desktop.
-          Each line is therefore a drawing. The viewBox is the ink box of the
-          string measured at a body of 100, and textLength pins the width its
-          glyphs must fill, so the browser scales the drawing to the element.
-          The width class is the only knob, and 100 % means exactly 100 %. */}
-      <h1 className="w-full text-white lg:w-2/3">
-        <svg
-          viewBox="0 0 864.494 72.835"
-          className="w-full"
-          role="img"
-          aria-label="On attire vos clients."
-        >
-          <text
-            x="0"
-            y="71.647"
-            fontSize="100"
-            fontWeight="500"
-            fill="currentColor"
-            textLength="864.494"
-            lengthAdjust="spacingAndGlyphs"
-          >
-            On attire vos clients.
-          </text>
-        </svg>
+    <div className="absolute inset-0 mx-4 flex flex-col justify-center text-white/70">
+      {/* Two lines, one heading. Each line is its own block so it carries its
+          own line height: left inline, the taller line would impose its strut
+          on the shorter one and open a gap the size of the first body. */}
+      <h1 className="font-medium text-white">
+        <span className="block text-[46px] leading-none lg:text-[116px]">
+          On attire vos clients.
+        </span>
+        <span className="block text-[18px] leading-none lg:text-[48px]">
+          Vous vous concentrez enfin sur votre entreprise.
+        </span>
       </h1>
-      <p className="mt-3 w-full text-white lg:w-1/2">
-        <svg
-          viewBox="0 0 1811.8 88.403"
-          className="w-full"
-          role="img"
-          aria-label="Vous vous concentrez sur votre entreprise."
-        >
-          <text
-            x="0"
-            y="71.313"
-            fontSize="100"
-            fontWeight="500"
-            fill="currentColor"
-            textLength="1811.8"
-            lengthAdjust="spacingAndGlyphs"
-          >
-            Vous vous concentrez sur votre entreprise.
-          </text>
-        </svg>
-      </p>
 
       <p className="text-white/90 mt-8 max-w-3xl text-balance text-[16px] lg:text-[20px]">
         «&nbsp;Ils sont devenus un véritable partenaire stratégique pour le
