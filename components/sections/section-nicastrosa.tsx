@@ -1,58 +1,46 @@
 import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
+import { Separator } from "@/components/separator/Separator";
+import { Testimonial } from "@/components/testimonials/Testimonial";
+import { testimonials } from "@/components/testimonials/testimonials.config";
 import mediaManifest from "@/lib/media-manifest.json";
+import SectionContentWrapper from "./section-coontent-wrapper";
 
 const SectionNicastrosa = () => (
-  <section className="mt-16 text-gray-400">
-    <div className="mx-4">
-      <header>
-        <h2 className="max-w-5xl font-medium text-[32px] text-gray-600 leading-none tracking-tight lg:text-[36px]">
-          {/* Line breaks are placed, not guessed, and they are composed for the
-              narrowest phone rather than for the widest: 231, 249, 269 and
-              176 px, which still fit the 288 px box of a 320 px screen. Above
-              lg the quote needs 1057 px for 1024, so it breaks once, after
-              "la", and the four mobile breaks fold away. */}
-          «&nbsp;Notre présence <br className="lg:hidden" />
-          en ligne ne reflétait <br className="lg:hidden" />
-          pas la <br className="hidden lg:inline" />
-          qualité de nos <br className="lg:hidden" />
-          prestations&nbsp;»
+  <section>
+    <SectionContentWrapper>
+      <header className="mb-12">
+        <h2 className="max-w-5xl font-medium text-[2rem] text-gray-600 leading-none tracking-tight lg:max-w-none lg:text-4xl">
+          Notre image ne reflétait pas la qualité de notre artisanat
         </h2>
 
-        <p className="mt-2 text-[22px]">
-          <span className="font-medium">NICASTRO SA</span> / Construction
-          métallique
+        <p className="mt-2 text-[1.65rem] text-gray-400 leading-none">
+          Nicastro SA&thinsp;/&thinsp;Construction métallique
         </p>
       </header>
 
-      <div className="my-6 flex flex-col gap-2 lg:my-8 lg:flex-row lg:gap-6">
+      <div>
+        <Separator />
+
         <div className="flex items-baseline gap-x-2 lg:block">
-          <p className="font-medium text-[32px] text-gray-600 leading-none lg:text-[48px]">
+          <p className="font-medium text-[2rem] text-gray-600 leading-none lg:text-5xl">
             +250
           </p>
-          <p className="text-[16px] lg:text-[14px]">
+          <p className="text-base text-gray-400">
             Abonnés LinkedIn en 14 jours
           </p>
         </div>
+
+        <p className="mt-4 max-w-3xl text-pretty font-medium text-gray-600 text-lg lg:mt-4 lg:text-2xl">
+          — Mise en lumière de leur projets en ville de Genève et du
+          développement de leur entreprise
+        </p>
+
+        <Separator />
       </div>
 
-      <p className="my-6 max-w-3xl text-pretty font-medium text-[18px] text-gray-600 lg:my-8 lg:text-[24px]">
-        — Un recrutement réalisé grâce à une seule publication
-      </p>
-
-      <p className="max-w-3xl text-pretty text-[16px] text-gray-600 lg:text-[20px]">
-        «&nbsp;Aujourd’hui, nous avons une image haut de gamme et une vraie
-        visibilité qui nous apportent de la crédibilité auprès de nos clients.
-        Au-delà des prestations techniques, ils sont devenus un véritable
-        partenaire stratégique pour le développement de mon entreprise. Ils
-        m’accompagnent aussi sur divers aspects commerciaux et m’ont même déjà
-        apporté des opportunités d’affaires <br className="lg:hidden" /> grâce à
-        leur réseau.&nbsp;»
-      </p>
-      <p className="mt-2 text-[16px]">
-        Rahman Babayigit / <span className="font-medium">Directeur</span>
-      </p>
-    </div>
+      <Testimonial {...testimonials.nicastrosa} className="mt-12" />
+    </SectionContentWrapper>
 
     <VideoSlot
       sectionId="nicastrosa"

@@ -1,25 +1,32 @@
 import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
+import { Separator } from "@/components/separator/Separator";
 import mediaManifest from "@/lib/media-manifest.json";
+import SectionContentWrapper from "./section-coontent-wrapper";
 
 const SectionMinotaures = () => (
-  <section className="mt-16 text-gray-400">
-    <div className="mx-4">
-      <header>
-        <h2 className="max-w-5xl font-medium text-[32px] text-gray-600 leading-none tracking-tight lg:text-[36px]">
-          Donner à la référence du baseball en Valais l’image d’une institution.
+  <section>
+    <SectionContentWrapper>
+      <header className="mb-8">
+        <h2 className="max-w-5xl font-medium text-[2rem] text-gray-600 leading-none tracking-tight lg:max-w-none lg:text-4xl">
+          Donner à la référence du baseball en Valais l’image d’une institution
         </h2>
 
-        <p className="mt-2 text-[22px]">
-          <span className="font-medium">Les Minotaures de Martigny</span> / Club
-          de baseball et Association
+        <p className="mt-2 text-[1.65rem] text-gray-400 leading-none">
+          Les Minotaures de Martigny&thinsp;/&thinsp;Club de baseball et
+          Association
         </p>
       </header>
 
-      <p className="my-6 max-w-3xl text-pretty font-medium text-[18px] text-gray-600 lg:my-8 lg:text-[24px]">
-        Fédération cantonale de baseball en Valais et sacré champion romand 2023
-      </p>
-    </div>
+      <div>
+        <Separator />
+
+        <ul className="max-w-3xl text-pretty font-medium text-gray-600 text-lg lg:text-2xl">
+          <li>- Fédération Valaisanne de baseball</li>
+          <li>- Champions romands 2023</li>
+        </ul>
+      </div>
+    </SectionContentWrapper>
 
     <VideoSlot
       sectionId="minotaures"

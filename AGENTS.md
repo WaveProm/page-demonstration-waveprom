@@ -55,6 +55,12 @@ Never join two causes with `and`. Two causes are two decisions.
 
 ## Rules
 
+Don't explain the JSX inside the JSX : keep only the comment without which nobody on earth could read the code.
+Incident : 2026-08-16, one section of markup carried six comment blocks, deleted by hand twice in the same hour.
+
+Don't index a table with a stage computed from `scrollY` alone : read a scroll position outside the scrollable range as the end it overshot.
+Incident : 2026-08-16, Safari WebKit's elastic overscroll drove `scrollY` negative at the top of the page, the scroll CTA read its palette table at -1, and the whole page died on `undefined is not an object`.
+
 Don't bind ordinary words with a non-breaking space to choose where a line ends : bind only what French typography forbids splitting, and let `text-wrap` shape the rest.
 Incident : 2026-08-14, four of them welded `publicitaires ne marchaient pas »` into one 439 px token inside a 358 px heading, which no phone can break, and the page scrolled sideways in production.
 
@@ -74,6 +80,24 @@ Don't count on `.gitignore` to keep a file out of a deploy : list it in `.vercel
 Incident : 2026-08-13, `vercel --prod` uploaded the 1.5 GB masters folder and died on the 100 MB file limit.
 
 ## Decisions
+
+Styling Tailwind cannot express is written in CSS.
+Decided : 2026-08-16, because a stylesheet is where a browser reads styling from.
+
+An improvement outside the request is proposed in chat, and applied once it is asked for.
+Decided : 2026-08-16, because a diff nobody asked for is a diff nobody planned to read.
+
+The validated brand identity moves only where the request names it : colours, kerning, leading, separators.
+Decided : 2026-08-16, because it was signed off as it stands.
+
+The copy of a section moves only where the request quotes it.
+Decided : 2026-08-16, because a partner signed the words that ship.
+
+The spacings inside a section are the validated ones.
+Decided : 2026-08-16, because the rhythm of the page was read as a whole.
+
+A design value is written in the utility that applies it.
+Decided : 2026-08-16, because the design system is still moving.
 
 The end-to-end suite runs on Chromium and on WebKit.
 Decided : 2026-08-13, because the two engines disagree about what they can decode and a suite on one of them signs off for both.

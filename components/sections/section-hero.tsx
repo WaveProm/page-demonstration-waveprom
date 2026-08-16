@@ -1,6 +1,8 @@
+import { GoogleReview } from "@/components/google-review/GoogleReview";
 import { Marquee } from "@/components/marquee/marquee";
 import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
+import { ScrollCtaCard } from "@/components/scroll-cta";
 import mediaManifest from "@/lib/media-manifest.json";
 
 // Every partner whose mark still reads once flattened to white. Two are out:
@@ -62,6 +64,10 @@ const PARTNERS = [
 //
 // The page reads grey on white for what carries and lighter grey for what
 // recedes. Over a moving image that scale inverts: white, then white faded.
+// Wide enough for the review to hold its line, never wider than the column it
+// sits in. Both cards wear it, so they read as one stack rather than two.
+const CARD_WIDTH = "w-[min(480px,100%)]";
+
 const SectionHero = () => (
   <VideoSlot
     sectionId="hero"
@@ -71,7 +77,7 @@ const SectionHero = () => (
     className="h-screen w-full bg-black"
   >
     <div className="absolute inset-0 bg-black/50" />
-    <div className="absolute top-0 left-0 ml-4 flex items-baseline-last">
+    <div className="absolute top-0 left-0 ml-4 flex items-baseline-last lg:ml-14">
       {/* biome-ignore lint/performance/noImgElement: a vector mark has no width for next/image to pick */}
       <img src="/logotypes/suisse.svg" alt="" className="h-14 lg:h-20" />
       <p className="ml-4 text-[18px] text-white leading-none lg:text-[22px]">
@@ -81,7 +87,7 @@ const SectionHero = () => (
       </p>
     </div>
 
-    <div className="absolute inset-0 mx-4 flex flex-col justify-center text-white/70">
+    <div className="absolute inset-0 mx-4 flex flex-col justify-center text-white/70 lg:mx-14">
       {/* Two lines, one heading. Each line is its own block so it carries its
           own line height: left inline, the taller line would impose its strut
           on the shorter one and open a gap the size of the first body. */}
@@ -90,32 +96,51 @@ const SectionHero = () => (
           On attire vos clients.
         </span>
         <span className="block text-[18px] leading-none lg:text-[48px]">
-          Vous vous concentrez enfin sur votre entreprise.
+          Vous vous concentrez sur votre entreprise.
         </span>
       </h1>
 
-      <p className="text-white/90 mt-8 max-w-3xl text-balance text-[16px] lg:text-[20px]">
-        «&nbsp;Ils sont devenus un véritable partenaire stratégique pour le
-        développement de mon entreprise.&nbsp;»
-      </p>
-      <p className="mt-2 text-[16px]">
-        Rahman Babayigit /{" "}
-        <span className="font-medium text-white">Directeur</span> /
-        NICASTRO&nbsp;SA
-      </p>
-
-      {/* biome-ignore lint/performance/noImgElement: a vector mark has no width for next/image to pick */}
-      <img
-        src="/logotypes/SVG/google-star-white.svg"
-        alt="Note Google de 5 étoiles sur 5"
-        width={140}
-        height={73}
-        className="mt-8 h-10 w-auto lg:h-16 mix-blend-overlay self-start"
+      <GoogleReview
+        author="Nicastro SA"
+        className={`${CARD_WIDTH} mt-8`}
+        initials="NS"
+        otherReviews={17}
+        quote="Ils sont devenus un véritable partenaire stratégique"
       />
 
-      {/* The track holds the copies, so the list is written once. Its gap and
-          its duration are given here rather than assumed, which is what lets
-          the component travel between projects untouched. */}
+      {/**
+        // biome-ignore lint/performance/noImgElement: a vector mark has no width for next/image to pick
+        <img
+          src="/logotypes/SVG/google-star-white.svg"
+          alt="Note Google de 5 étoiles sur 5"
+          width={140}
+          height={73}
+          className="mt-8 h-10 w-auto lg:h-16 mix-blend-overlay self-start"
+        />
+        */}
+
+      {/* In the flow of the hero's own stack, not pinned: the flight reads
+          wherever the card lands rather than being told where it is. */}
+      <ScrollCtaCard className={`${CARD_WIDTH} mt-2`} href="/contact">
+        {/* 16px, the inset the seated button uses, so both lines of copy
+            start on the same edge */}
+        <div className="p-4">
+          <p className="text-[16px] text-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              fill="currentColor"
+              className="inline mb-0.5 mr-1.5"
+              viewBox="0 0 16 16"
+            >
+              <path d="M3.05 3.05a7 7 0 0 0 0 9.9.5.5 0 0 1-.707.707 8 8 0 0 1 0-11.314.5.5 0 0 1 .707.707m2.122 2.122a4 4 0 0 0 0 5.656.5.5 0 1 1-.708.708 5 5 0 0 1 0-7.072.5.5 0 0 1 .708.708m5.656-.708a.5.5 0 0 1 .708 0 5 5 0 0 1 0 7.072.5.5 0 1 1-.708-.708 4 4 0 0 0 0-5.656.5.5 0 0 1 0-.708m2.122-2.12a.5.5 0 0 1 .707 0 8 8 0 0 1 0 11.313.5.5 0 0 1-.707-.707 7 7 0 0 0 0-9.9.5.5 0 0 1 0-.707zM10 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0" />
+            </svg>
+            Découvrir mon plan d’attraction offert
+          </p>
+        </div>
+      </ScrollCtaCard>
+
       <Marquee className="mt-8" gap="2rem" duration="150s">
         {PARTNERS.map((partner) => (
           // biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer

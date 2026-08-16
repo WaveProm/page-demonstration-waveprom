@@ -1,36 +1,37 @@
 import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
+import { Separator } from "@/components/separator/Separator";
+import { Testimonial } from "@/components/testimonials/Testimonial";
+import { testimonials } from "@/components/testimonials/testimonials.config";
 import mediaManifest from "@/lib/media-manifest.json";
+import SectionContentWrapper from "./section-coontent-wrapper";
 
 const SectionLabInno = () => (
-  <section className="mt-16 text-gray-400">
-    <div className="mx-4">
-      <header>
-        <h2 className="max-w-5xl font-medium text-[32px] text-gray-600 leading-none tracking-tight lg:text-[36px]">
-          Une entreprise nouvelle à installer auprès de son audience.
+  <section>
+    <SectionContentWrapper>
+      <header className="mb-12">
+        <h2 className="max-w-5xl font-medium text-[2rem] text-gray-600 leading-none tracking-tight lg:max-w-none lg:text-4xl">
+          Une entreprise nouvelle à installer auprès de son audience
         </h2>
 
-        <p className="mt-2 text-[22px]">
-          <span className="font-medium">LABINNO</span> / Entreprise générale de
-          construction
+        <p className="mt-2 text-[1.65rem] text-gray-400 leading-none">
+          Labinno&thinsp;/&thinsp;Entreprise générale de construction
         </p>
       </header>
 
-      <p className="my-6 max-w-3xl text-pretty font-medium text-[18px] text-gray-600 lg:my-8 lg:text-[24px]">
-        — Une publication par semaine, sur les normes, les lois et <br />
-        l’actualité de la construction
-      </p>
+      <div>
+        <Separator />
 
-      <p className="max-w-3xl text-pretty text-[16px] text-gray-600 lg:text-[20px]">
-        «&nbsp;Très bon service de la part d’Issao. Il prend le temps de bien
-        cibler les besoins et adapte son service de manière professionnelle et
-        efficace. Je recommande <br />
-        grandement WaveProm !&nbsp;»
-      </p>
-      <p className="mt-2 text-[16px]">
-        Hanane Loumassine / <span className="font-medium">Directrice</span>
-      </p>
-    </div>
+        <p className="max-w-3xl text-pretty font-medium text-gray-600 text-lg lg:text-2xl">
+          — Une publication par semaine, sur les normes, les lois et <br />
+          l’actualité de la construction
+        </p>
+
+        <Separator />
+      </div>
+
+      <Testimonial {...testimonials.labinno} className="mt-12" />
+    </SectionContentWrapper>
 
     <VideoSlot
       sectionId="labinno"

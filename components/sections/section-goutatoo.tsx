@@ -1,27 +1,31 @@
 import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
+import { Separator } from "@/components/separator/Separator";
 import mediaManifest from "@/lib/media-manifest.json";
+import SectionContentWrapper from "./section-coontent-wrapper";
 
 const SectionGoutatoo = () => (
-  <section className="mt-16 text-gray-400">
-    <div className="mx-4">
-      <header>
-        <h2 className="max-w-5xl font-medium text-[32px] text-gray-600 leading-none tracking-tight lg:text-[36px]">
-          Un collectif de chefs étoilés à mettre en lumière et une soirée de
-          gala à remplir.
+  <section>
+    <SectionContentWrapper>
+      <header className="mb-8">
+        <h2 className="max-w-5xl font-medium text-[2rem] text-gray-600 leading-none tracking-tight lg:max-w-none lg:text-4xl">
+          Un collectif de chefs étoilés et un gala à remplir
         </h2>
 
-        <p className="mt-2 text-[22px]">
-          <span className="font-medium">Chef’s Goutatoo</span> / Collectif de
-          chefs étoilés
+        <p className="mt-2 text-[1.65rem] text-gray-400 leading-none">
+          Chef’s Goutatoo&thinsp;/&thinsp;Collectif de chefs étoilés
         </p>
       </header>
 
-      <p className="my-6 max-w-3xl text-pretty font-medium text-[18px] text-gray-600 lg:my-8 lg:text-[24px]">
-        — Une salle complète en 5 jours de publicité, une production vidéo à la
-        hauteur de leur carrière.
-      </p>
-    </div>
+      <div>
+        <Separator />
+
+        <p className="max-w-3xl text-pretty font-medium text-gray-600 text-lg lg:text-2xl">
+          — Une salle complète en 5 jours de publicité, une production vidéo à
+          la hauteur de leur carrière.
+        </p>
+      </div>
+    </SectionContentWrapper>
 
     <VideoSlot
       sectionId="chefs-goutatoo"
