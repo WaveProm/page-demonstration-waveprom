@@ -1,0 +1,51 @@
+/*
+ * Only what Tailwind cannot say: the radial gradient, the filet, and the
+ * chevron cycle. Every width, height, margin and padding stays in the markup.
+ *
+ * A duplicate of the scroll CTA's landed-and-detached frame, not a reuse: this
+ * button never flies, never cycles a word and never changes palette, so it
+ * carries none of the machinery that serves those three.
+ */
+
+.button {
+  --chevron-cycle: 1000ms;
+  --chevron-stagger: 110ms;
+
+  /* gray-600 falling into a rich black rather than a flat one, so the pill
+     reads as a material with a light on it. */
+  background: radial-gradient(
+    120% 125% at 50% 112%,
+    oklch(0.446 0.03 256.802) 0%,
+    #0b0f16 100%
+  );
+  border-radius: 14px;
+  color: #ffffff;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2);
+}
+
+/* Always running: the button carries a direction. Linear, so the glow travels
+   at one steady speed. */
+.chevron {
+  opacity: 0.3;
+  animation: pass var(--chevron-cycle) linear infinite;
+}
+
+.chevron:nth-child(2) {
+  animation-delay: var(--chevron-stagger);
+}
+
+.chevron:nth-child(3) {
+  animation-delay: calc(var(--chevron-stagger) * 2);
+}
+
+/* The dark stretch after the pass is what keeps it off spinner */
+@keyframes pass {
+  0%,
+  28%,
+  100% {
+    opacity: 0.3;
+  }
+  13% {
+    opacity: 1;
+  }
+}
