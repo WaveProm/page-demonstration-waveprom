@@ -58,13 +58,6 @@ const PARTNERS = [
   { file: "logotype-agis.svg", name: "AGIS", width: 264, height: 112 },
 ];
 
-// The one slot that fills the screen instead of keeping its ratio. A hero is a
-// screen, not a picture in a flow, so the height leads and the frame is cropped
-// to it. Every other section keeps its ratio and lets the width lead.
-//
-// The page reads grey on white for what carries and lighter grey for what
-// recedes. Over a moving image that scale inverts: white, then white faded.
-
 const SectionHero = () => (
   <VideoSlot
     sectionId="hero"
@@ -74,8 +67,7 @@ const SectionHero = () => (
     className="h-screen w-full bg-black"
   >
     <div className="absolute inset-0 bg-black/50" />
-    {/* Inset on both axes rather than pinned to the corner, and the same inset
-        the content column uses, so the mark sits on the page's own margin. */}
+    {/**biome-ignore lint/performance/noImgElement */}
     <img
       src="/logotypes/logotype-geneve.svg"
       alt="République et Canton de Genève"
@@ -83,41 +75,32 @@ const SectionHero = () => (
     />
 
     <div className="absolute inset-0 mx-4 flex flex-col justify-end pb-8 text-white/70 md:justify-center md:pb-0 lg:mx-14">
-      <h1 className="font-medium text-white">
-        <span className="block text-[40px] leading-none lg:text-[116px]">
-          On attire vos clients.
-        </span>
-        <span className="block text-[18px] leading-none lg:text-[48px]">
-          Vous vous concentrez sur votre entreprise.
-        </span>
-      </h1>
+      <header className="mb-36 md:mb-0">
+        <h1 className="font-medium text-white">
+          <span className="block text-[40px] leading-none lg:text-[116px]">
+            On attire vos clients.
+          </span>
+          <span className="block text-[18px] leading-none lg:text-[48px]">
+            Vous vous concentrez sur votre entreprise.
+          </span>
+        </h1>
+      </header>
 
-      <div className="mt-8 w-full md:w-fit">
+      <div className="mt-10 w-full md:w-fit">
         <GoogleReview
           author="Nicastro SA"
           className="md:w-full"
-          initials="NS"
           otherReviews={17}
-          quote="Ils sont devenus un véritable partenaire stratégique"
+          quote="Un véritable partenaire stratégique"
         />
-
-        {/**
-        // biome-ignore lint/performance/noImgElement: a vector mark has no width for next/image to pick
-        <img
-          src="/logotypes/SVG/google-star-white.svg"
-          alt="Note Google de 5 étoiles sur 5"
-          width={140}
-          height={73}
-          className="mt-8 h-10 w-auto lg:h-16 mix-blend-overlay self-start"
-        />
-        */}
 
         <CtaButton className="mt-2" href="/contact">
           Découvrir mon plan d’attraction offert
         </CtaButton>
       </div>
 
-      <Marquee className="mt-8" gap="2rem" duration="150s">
+      <Marquee className="my-8 md:translate-y-6" gap="2rem" duration="150s">
+        3
         {PARTNERS.map((partner) => (
           // biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer
           <img

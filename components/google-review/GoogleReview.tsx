@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 type GoogleReviewProps = {
   quote: string;
   author: string;
-  initials: string;
   otherReviews: number;
   className?: string;
 };
@@ -11,7 +10,6 @@ type GoogleReviewProps = {
 export const GoogleReview = ({
   quote,
   author,
-  initials,
   otherReviews,
   className,
 }: GoogleReviewProps) => (
@@ -24,7 +22,7 @@ export const GoogleReview = ({
       className,
     )}
   >
-    <blockquote className=" text-white/90 text-base">
+    <blockquote className=" text-white text-[17px] font-medium">
       «&nbsp;{quote}&nbsp;»
     </blockquote>
     <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 text-[15px] text-white/70">
@@ -35,7 +33,7 @@ export const GoogleReview = ({
           className="size-8 shrink-0"
           src="/logotypes/icon-nicastro.svg"
         />
-        <span className="whitespace-nowrap">{author}</span>
+        <span className="whitespace-nowrap font-medium">{author}</span>
       </span>
 
       <span className="flex items-center gap-2">
@@ -45,8 +43,10 @@ export const GoogleReview = ({
           className="size-7 shrink-0"
           src="/logotypes/google2025.svg"
         />
-        <span className="font-medium text-white">5/5</span>
-        <span className="whitespace-nowrap">+{otherReviews} avis</span>
+        <span className="font-medium text-amber-300">5/5</span>
+        <span className="whitespace-nowrap font-medium">
+          +{otherReviews} avis
+        </span>
       </span>
     </div>
   </figure>

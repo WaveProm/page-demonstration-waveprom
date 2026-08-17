@@ -33,12 +33,21 @@ const SectionEhg = () => (
             className="h-auto w-full lg:w-auto lg:h-14"
           />
 
-          {/* biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer */}
-          <img
-            src="/logotypes/logotype-ehg-top-5.png"
-            alt=""
-            className="h-26 w-auto lg:h-34 md:mx-0 mx-auto"
-          />
+          <div className="mx-auto flex gap-x-10 md:mx-0">
+            {/* biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer */}
+            <img
+              src="/logotypes/logotype-ehg-top-5.png"
+              alt=""
+              className="h-26 w-auto lg:h-34"
+            />
+
+            {/* biome-ignore lint/performance/noImgElement: a vector mark has no width for next/image to pick */}
+            <img
+              src="/logotypes/SVG/logotype-ehg-depuis-1914-dark.svg"
+              alt=""
+              className="h-22 w-auto lg:h-30 mt-3"
+            />
+          </div>
         </div>
       </div>
     </SectionContentWrapper>

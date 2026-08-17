@@ -21,15 +21,14 @@ const ConfirmationPage = () => (
       <div className="absolute inset-0 bg-black/70" />
 
       <div className="relative mx-auto flex min-h-screen max-w-160 flex-col justify-center px-4 py-8 text-white lg:max-w-3xl">
-        <SectionHeader className="mb-6">
-          <SectionHeadline className="text-white">
+        <SectionHeader className="mb-6 flex flex-col gap-y-2">
+          <SectionHeadline className="text-white text-5xl md:text-[90px] lg:text-[90px]">
             Dernière étape
           </SectionHeadline>
 
-          <SectionByline className="text-white">
-            Restez attentif,
-            <br />
-            Issao vous rappelle rapidement pour fixer votre échange.
+          <SectionByline className="text-white text-[23px]">
+            Restez attentif, Issao vous rappelle rapidement pour fixer votre
+            échange.
           </SectionByline>
         </SectionHeader>
 
@@ -40,12 +39,15 @@ const ConfirmationPage = () => (
             «&nbsp;Issao de WaveProm&nbsp;» pour reconnaître son appel.
           </p>
 
-          <p className="mt-4">
-            <span className="text-green-400">Disponible maintenant ? </span>
+          <p className="mt-4 text-green-400">
+            Disponible maintenant ? <br />
             Appelez-le directement pour bloquer votre créneau tout de suite.
           </p>
 
-          <CtaButton className="mt-4 w-fit max-w-none" href="tel:+41787456904">
+          <CtaButton
+            className="mt-4 md:w-fit max-w-none w-full"
+            href="tel:+41787456904"
+          >
             Appeler Issao maintenant
           </CtaButton>
         </div>
@@ -56,9 +58,9 @@ const ConfirmationPage = () => (
             confirmer votre intérêt.
           </p>
 
-          <p className="mt-4">
+          <p className="mt-4 text-red-400">
             Si vous ne le trouvez pas : regardez dans votre dossier
-            <span className="text-red-400"> Spams/Courrier indésirable.</span>
+            Spams/Courrier indésirable.
           </p>
         </div>
 
@@ -71,7 +73,7 @@ const ConfirmationPage = () => (
             <img
               src="/peoples/issao-takase.png"
               alt=""
-              className="size-14 shrink-0 object-cover"
+              className="size-14 shrink-0 object-cover saturate-0"
             />
             <figcaption className="text-white">
               Issao TAKASE | Directeur
