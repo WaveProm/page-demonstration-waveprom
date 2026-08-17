@@ -20,15 +20,15 @@ const Page = () => (
   <ScenePlayer>
     <SectionHero />
     <SectionEhg />
-    <SectionLeCigalon />
-    <SectionText />
-    <SectionQuImporte />
     <SectionNicastrosa />
-    <SectionGoutatoo />
+    <SectionText />
+    <SectionLeCigalon />
     <SectionLabInno />
+    <SectionQuImporte />
     <SectionBtweenUs />
-    <SectionMinotaures />
     <SectionAgis />
+    <SectionGoutatoo />
+    <SectionMinotaures />
     <SectionPlan />
   </ScenePlayer>
 );
