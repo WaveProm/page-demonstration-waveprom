@@ -1,6 +1,6 @@
 import { expect, type Page, test } from "@playwright/test";
 
-// The mission, asserted: nine 4K sequences served from the bucket, and a
+// The mission, asserted: ten 4K sequences served from the bucket, and a
 // switch from one screen to the next that is playing within 200 ms.
 //
 // The 200 ms belong to ONE rhythm, the one the architecture is built on: a
@@ -19,14 +19,15 @@ const PLAYBACK_TIMEOUT_MS = 15_000;
 // derives its expectation from the code under test asserts nothing.
 const SEQUENCE_IDS = [
   "hero",
-  "agis",
-  "quimporte",
-  "btweenus",
-  "chefs-goutatoo",
+  "ehg",
   "cigalon",
+  "quimporte",
   "nicastrosa",
+  "chefs-goutatoo",
   "labinno",
+  "btweenus",
   "minotaures",
+  "agis",
 ];
 
 type JournalEntry = {
@@ -72,7 +73,7 @@ const waitForJournalEntry = async (
     .toBe(true);
 };
 
-test("a read-through plays all nine sequences, every switch under 200 ms", async ({
+test("a read-through plays all ten sequences, every switch under 200 ms", async ({
   page,
 }) => {
   const consoleErrors: string[] = [];

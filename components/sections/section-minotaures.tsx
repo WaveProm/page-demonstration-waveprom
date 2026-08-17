@@ -1,5 +1,10 @@
 import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
+import {
+  SectionByline,
+  SectionHeader,
+  SectionHeadline,
+} from "@/components/section-header";
 import { Separator } from "@/components/separator/Separator";
 import mediaManifest from "@/lib/media-manifest.json";
 import SectionContentWrapper from "./section-coontent-wrapper";
@@ -7,16 +12,16 @@ import SectionContentWrapper from "./section-coontent-wrapper";
 const SectionMinotaures = () => (
   <section>
     <SectionContentWrapper>
-      <header className="mb-8">
-        <h2 className="max-w-5xl font-medium text-[2rem] text-gray-600 leading-none tracking-tight lg:max-w-none lg:text-4xl">
+      <SectionHeader className="mb-8">
+        <SectionHeadline>
           Donner à la référence du baseball en Valais l’image d’une institution
-        </h2>
+        </SectionHeadline>
 
-        <p className="mt-2 text-[1.65rem] text-gray-400 leading-none">
+        <SectionByline>
           Les Minotaures de Martigny&thinsp;/&thinsp;Club de baseball et
           Association
-        </p>
-      </header>
+        </SectionByline>
+      </SectionHeader>
 
       <div>
         <Separator />

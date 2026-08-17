@@ -1,1 +1,0 @@
-export { CtaCopyDiscover } from "./CtaCopyDiscover";

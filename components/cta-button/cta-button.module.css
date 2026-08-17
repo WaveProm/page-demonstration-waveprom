@@ -2,9 +2,10 @@
  * Only what Tailwind cannot say: the radial gradient, the filet, and the
  * chevron cycle. Every width, height, margin and padding stays in the markup.
  *
- * A duplicate of the scroll CTA's landed-and-detached frame, not a reuse: this
- * button never flies, never cycles a word and never changes palette, so it
- * carries none of the machinery that serves those three.
+ * The scroll CTA's frame, extracted rather than reused. That component earns
+ * its machinery by flying, changing palette and turning a word over. This one
+ * does none of the three, so it carries none of that. What it keeps is the
+ * chevrons, because they say where a click goes rather than how it moves.
  */
 
 .button {

@@ -9,7 +9,11 @@ const BASE_URL = `http://localhost:${PORT}`;
 
 export default defineConfig({
   testDir: "./tests",
-  timeout: 30_000,
+  // A read-through walks every screen, so this budget grows with the page.
+  // Ten sequences cost Chromium 29 s and WebKit 33 s.
+  // At 30 s WebKit failed on this clock while every switch was still inside
+  // its 200 ms, which is the budget that means something and lives in the test.
+  timeout: 60_000,
   use: {
     baseURL: BASE_URL,
     trace: "retain-on-failure",

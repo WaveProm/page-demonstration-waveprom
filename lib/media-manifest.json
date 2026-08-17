@@ -79,5 +79,14 @@
       "hls-av1",
       "hls"
     ]
+  },
+  "ehg": {
+    "prefix": "ehg/ehg-a7689ce4",
+    "ratio": "16-9",
+    "durationS": 138,
+    "codecs": [
+      "hls-av1",
+      "hls"
+    ]
   }
 }

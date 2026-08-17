@@ -1,9 +1,0 @@
-/* Helvetica Neue is not shipped yet, so the preview reads the local face.
-   On a machine without it this falls back and the rhythm shifts.
-
-   This is the only rule left : the reveal is occlusion, so there is nothing
-   here Tailwind cannot already say. */
-.poc-screen {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}

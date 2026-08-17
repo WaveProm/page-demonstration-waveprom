@@ -1,5 +1,10 @@
 import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
+import {
+  SectionByline,
+  SectionHeader,
+  SectionHeadline,
+} from "@/components/section-header";
 import { Separator } from "@/components/separator/Separator";
 import { Testimonial } from "@/components/testimonials/Testimonial";
 import { testimonials } from "@/components/testimonials/testimonials.config";
@@ -9,15 +14,16 @@ import SectionContentWrapper from "./section-coontent-wrapper";
 const SectionNicastrosa = () => (
   <section>
     <SectionContentWrapper>
-      <header className="mb-12">
-        <h2 className="max-w-5xl font-medium text-[2rem] text-gray-600 leading-none tracking-tight lg:max-w-none lg:text-4xl">
-          Notre image ne reflétait pas la qualité de notre artisanat
-        </h2>
+      <SectionHeader>
+        <SectionHeadline>
+          «&nbsp;Notre image ne reflétait pas la qualité de notre
+          artisanat&nbsp;»
+        </SectionHeadline>
 
-        <p className="mt-2 text-[1.65rem] text-gray-400 leading-none">
+        <SectionByline>
           Nicastro SA&thinsp;/&thinsp;Construction métallique
-        </p>
-      </header>
+        </SectionByline>
+      </SectionHeader>
 
       <div>
         <Separator />

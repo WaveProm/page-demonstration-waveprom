@@ -16,4 +16,5 @@ export const SEQUENCES = {
   "06.seq-nicastrosa.mp4": { partner: "nicastrosa", slug: "nicastrosa" },
   "07.seq-labinno.mp4": { partner: "lab-inno", slug: "labinno" },
   "08.seq-minotaures.mp4": { partner: "minotaures", slug: "minotaures" },
+  "09.seq.EHG.mp4": { partner: "ehg", slug: "ehg" },
 };

@@ -1,5 +1,10 @@
 import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
+import {
+  SectionByline,
+  SectionHeader,
+  SectionHeadline,
+} from "@/components/section-header";
 import { Separator } from "@/components/separator/Separator";
 import { Testimonial } from "@/components/testimonials/Testimonial";
 import { testimonials } from "@/components/testimonials/testimonials.config";
@@ -9,15 +14,13 @@ import SectionContentWrapper from "./section-coontent-wrapper";
 const SectionLeCigalon = () => (
   <section>
     <SectionContentWrapper>
-      <header className="mb-12">
-        <h2 className="max-w-5xl font-medium text-[2rem] text-gray-600 leading-none tracking-tight lg:max-w-none lg:text-4xl">
+      <SectionHeader>
+        <SectionHeadline>
           Productions vidéo pour un restaurant du top 50 suisse romande
-        </h2>
+        </SectionHeadline>
 
-        <p className="mt-2 text-[1.65rem] text-gray-400 leading-none">
-          Le Cigalon&thinsp;/&thinsp;Gastronomie
-        </p>
-      </header>
+        <SectionByline>Le Cigalon&thinsp;/&thinsp;Gastronomie</SectionByline>
+      </SectionHeader>
 
       <div className="">
         <Separator />
