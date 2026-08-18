@@ -100,7 +100,6 @@ const SectionHero = () => (
       </div>
 
       <Marquee className="my-8 md:translate-y-6" gap="2rem" duration="150s">
-        3
         {PARTNERS.map((partner) => (
           // biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer
           <img
