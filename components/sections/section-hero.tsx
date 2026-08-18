@@ -67,7 +67,7 @@ const SectionHero = () => (
     className="h-screen w-full bg-black"
   >
     <div className="absolute inset-0 bg-black/50" />
-    {/**biome-ignore lint/performance/noImgElement */}
+    {/* biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer */}
     <img
       src="/logotypes/logotype-geneve.svg"
       alt="République et Canton de Genève"

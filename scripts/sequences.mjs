@@ -12,7 +12,7 @@ export const SEQUENCES = {
   "02.seq-chefsgoutatoo.mp4": { partner: "goutatoo", slug: "chefs-goutatoo" },
   "03.seq-cigalon.mp4": { partner: "le-cigalon", slug: "cigalon" },
   "04.seq-agis.mp4": { partner: "agis", slug: "agis" },
-  "05.seq-hero-update.mp4": { partner: "waveprom", slug: "hero" },
+  "accueil-waveprom.mp4": { partner: "waveprom", slug: "hero" },
   "06.seq-nicastrosa.mp4": { partner: "nicastrosa", slug: "nicastrosa" },
   "07.seq-labinno.mp4": { partner: "lab-inno", slug: "labinno" },
   "08.seq-minotaures.mp4": { partner: "minotaures", slug: "minotaures" },

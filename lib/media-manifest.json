@@ -45,9 +45,9 @@
     ]
   },
   "hero": {
-    "prefix": "waveprom/hero-433bc42e",
+    "prefix": "waveprom/hero-5c4019ed",
     "ratio": "16-9",
-    "durationS": 6.1,
+    "durationS": 45.7,
     "codecs": [
       "hls-av1",
       "hls"

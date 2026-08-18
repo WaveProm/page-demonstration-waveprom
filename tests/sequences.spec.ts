@@ -20,14 +20,14 @@ const PLAYBACK_TIMEOUT_MS = 15_000;
 const SEQUENCE_IDS = [
   "hero",
   "ehg",
-  "cigalon",
-  "quimporte",
   "nicastrosa",
-  "chefs-goutatoo",
+  "cigalon",
   "labinno",
+  "quimporte",
   "btweenus",
-  "minotaures",
   "agis",
+  "chefs-goutatoo",
+  "minotaures",
 ];
 
 type JournalEntry = {
