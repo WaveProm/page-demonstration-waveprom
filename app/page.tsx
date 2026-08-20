@@ -2,6 +2,7 @@ import ScenePlayer from "@/components/media/ScenePlayer";
 import SectionAgis from "@/components/sections/section-agis";
 import SectionBtweenUs from "@/components/sections/section-btween-us";
 import SectionEhg from "@/components/sections/section-ehg";
+import SectionForm from "@/components/sections/section-form";
 import SectionGoutatoo from "@/components/sections/section-goutatoo";
 import SectionHero from "@/components/sections/section-hero";
 import SectionLabInno from "@/components/sections/section-lab-inno";
@@ -19,9 +20,9 @@ import SectionText from "@/components/sections/section-text";
 const Page = () => (
   <ScenePlayer>
     <SectionHero />
+    <SectionText />
     <SectionEhg />
     <SectionNicastrosa />
-    <SectionText />
     <SectionLeCigalon />
     <SectionLabInno />
     <SectionQuImporte />
