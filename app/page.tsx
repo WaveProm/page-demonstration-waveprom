@@ -17,14 +17,10 @@ import SectionText from "@/components/sections/section-text";
 // section is editing this list, and nothing else anywhere. The enclosing client
 // island (ScenePlayer) owns the FSM; each section is the ground a partner's
 // content lands on, and carries its slot as a client leaf.
-//
-// The text sits inside the hero because that is where the scroll puts it:
-// the first screen is a surface, and the copy is what is behind it.
 const Page = () => (
   <ScenePlayer>
-    <SectionHero>
-      <SectionText />
-    </SectionHero>
+    <SectionHero />
+    <SectionText />
     <SectionEhg />
     <SectionNicastrosa />
     <SectionLeCigalon />

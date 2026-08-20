@@ -1,7 +1,5 @@
-import type { ReactNode } from "react";
 import { CtaButton } from "@/components/cta-button";
 import { GoogleReview } from "@/components/google-review/GoogleReview";
-import HeroPortal from "@/components/hero-portal/HeroPortal";
 import { Marquee } from "@/components/marquee/marquee";
 import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
@@ -60,80 +58,63 @@ const PARTNERS = [
   { file: "logotype-agis.svg", name: "AGIS", width: 264, height: 112 },
 ];
 
-// The first screen is a surface the page goes through, and what it receives is
-// what is on the other side. The slot is pinned for the length of the runway
-// HeroPortal lays out, and the copy scrolls on the image it leaves behind.
-const SectionHero = ({ children }: { children: ReactNode }) => (
-  <HeroPortal
-    surface={
-      <VideoSlot
-        sectionId="hero"
-        prefix={mediaManifest.hero.prefix}
-        poster={<Poster slug="hero" priority />}
-        loop
-        className="hero-surface sticky top-0 z-0 -mb-[100vh] h-screen w-full bg-black"
-      >
-        {/* One layer for everything the hero shows, because the timeline takes
-            it out in one move. What is left on the screen is the image. */}
-        <div className="hero-ui absolute inset-0">
-          <div className="absolute inset-0 bg-black/50" />
-
-          {/* biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer */}
-          <img
-            src="/logotypes/canton-geneve.svg"
-            alt="République et Canton de Genève"
-            className="absolute top-0 left-0 mt-2 ml-4 h-20 w-auto lg:mt-4 lg:ml-14 lg:h-28"
-          />
-
-          <div className="absolute inset-0 mx-4 flex flex-col justify-end pb-8 text-white/70 md:justify-center md:pb-0 lg:mx-14">
-            <header className="mb-36 md:mb-0">
-              <h1 className="font-medium text-white">
-                <span className="block text-[40px] leading-none lg:text-[116px]">
-                  On attire vos clients.
-                </span>
-                <span className="block text-[18px] leading-none lg:text-[48px]">
-                  Vous vous concentrez sur votre entreprise.
-                </span>
-              </h1>
-            </header>
-
-            <div className="mt-10 w-full md:w-fit">
-              <GoogleReview
-                author="Nicastro SA"
-                className="md:w-full"
-                otherReviews={17}
-                quote="Un véritable partenaire stratégique"
-              />
-
-              <CtaButton className="mt-2" href="/contact">
-                Découvrir mon plan d’attraction offert
-              </CtaButton>
-            </div>
-
-            <Marquee
-              className="my-8 md:translate-y-6"
-              gap="2rem"
-              duration="150s"
-            >
-              {PARTNERS.map((partner) => (
-                // biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer
-                <img
-                  key={partner.file}
-                  src={`/logotypes/${partner.file}`}
-                  alt={partner.name}
-                  width={partner.width}
-                  height={partner.height}
-                  className="h-14 w-auto brightness-0 invert"
-                />
-              ))}
-            </Marquee>
-          </div>
-        </div>
-      </VideoSlot>
-    }
+const SectionHero = () => (
+  <VideoSlot
+    sectionId="hero"
+    prefix={mediaManifest.hero.prefix}
+    poster={<Poster slug="hero" priority />}
+    loop
+    className="h-screen w-full bg-black"
   >
-    {children}
-  </HeroPortal>
+    <div className="absolute inset-0 bg-black/50" />
+
+    {/* biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer */}
+    <img
+      src="/logotypes/canton-geneve.svg"
+      alt="République et Canton de Genève"
+      className="absolute top-0 left-0 mt-2 ml-4 h-20 w-auto lg:mt-4 lg:ml-14 lg:h-28"
+    />
+
+    <div className="absolute inset-0 mx-4 flex flex-col justify-end pb-8 text-white/70 md:justify-center md:pb-0 lg:mx-14">
+      <header className="mb-36 md:mb-0">
+        <h1 className="font-medium text-white">
+          <span className="block text-[40px] leading-none lg:text-[116px]">
+            On attire vos clients.
+          </span>
+          <span className="block text-[18px] leading-none lg:text-[48px]">
+            Vous vous concentrez sur votre entreprise.
+          </span>
+        </h1>
+      </header>
+
+      <div className="mt-10 w-full md:w-fit">
+        <GoogleReview
+          author="Nicastro SA"
+          className="md:w-full"
+          otherReviews={17}
+          quote="Un véritable partenaire stratégique"
+        />
+
+        <CtaButton className="mt-2" href="/contact">
+          Découvrir mon plan d’attraction offert
+        </CtaButton>
+      </div>
+
+      <Marquee className="my-8 md:translate-y-6" gap="2rem" duration="150s">
+        {PARTNERS.map((partner) => (
+          // biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer
+          <img
+            key={partner.file}
+            src={`/logotypes/${partner.file}`}
+            alt={partner.name}
+            width={partner.width}
+            height={partner.height}
+            className="h-14 w-auto brightness-0 invert"
+          />
+        ))}
+      </Marquee>
+    </div>
+  </VideoSlot>
 );
 
 export default SectionHero;
