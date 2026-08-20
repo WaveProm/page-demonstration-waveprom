@@ -110,13 +110,10 @@ const HeroDive = ({
       className={cn(styles.dive, "relative bg-black")}
       style={{ "--dive-runway": runway } as CSSProperties}
     >
-      {/* The negative margin cancels its own height in the flow, so what
-          follows starts at the top of the dive and passes underneath it: the
-          section arrives behind the video instead of after it. */}
-      <div
-        className={cn(styles.surface, "-mb-[100vh] sticky top-0 z-10 h-screen")}
-      >
-        {surface}
+      <div className={styles.pinRange}>
+        <div className={cn(styles.surface, "sticky top-0 z-10 h-screen")}>
+          {surface}
+        </div>
       </div>
 
       <div className="relative z-0">

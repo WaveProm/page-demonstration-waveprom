@@ -38,6 +38,17 @@
   pointer-events: var(--dive-ui-events);
 }
 
+/* A sticky element is held by the box that contains it, so the pin lasts
+   exactly as long as that box is taller than the screen. Written here rather
+   than left to the height of everything nested inside, which would keep the
+   hero pinned behind whatever is held after it. The negative margin is its own
+   height, so it takes no room in the flow and what follows starts at the top
+   of the dive. */
+.pinRange {
+  height: calc(var(--dive-runway) + 100vh);
+  margin-bottom: calc((var(--dive-runway) + 100vh) * -1);
+}
+
 /* The scroll the crossing costs, written by the runway prop of HeroDive. Every
    keyframe is a fraction of this length, so shortening it speeds the whole
    movement up without moving anything else. */

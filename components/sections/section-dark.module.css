@@ -36,8 +36,24 @@
     opacity 120ms ease-out;
 }
 
+/* The sky is not a still. A slow push and it reads as weather rather than as a
+   texture, and the black behind it stops being flat.
+
+   Fifteen seconds out and fifteen back rather than a loop: an animation that
+   jumps to its first frame is a cut, and at this speed the turn is invisible
+   where the cut would not be. */
+@keyframes drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.25);
+  }
+}
+
 /* The section is black, so the sky has to end somewhere the frame does not. */
 .sky {
+  animation: drift 10s ease-in-out infinite alternate;
   -webkit-mask-image: radial-gradient(
     72% 62% at 50% 42%,
     #000 0%,
@@ -60,4 +76,12 @@
 /* Leaving is not the reverse of arriving: nothing waits on the way out. */
 [data-dive-ready][data-dive-crossing] .copy {
   transition: opacity 200ms ease-out;
+}
+
+/* Weather is still motion, and it is the one thing here a reader can be asked
+   to do without. */
+@media (prefers-reduced-motion: reduce) {
+  .sky {
+    animation: none;
+  }
 }

@@ -49,7 +49,7 @@ const SectionDark = () => (
         </SectionHeadline>
       </SectionHeader>
 
-      <p className="max-w-160 text-base text-white/70 leading-[1.6] md:text-[1.1rem]">
+      <p className="max-w-160 text-base text-white leading-[1.6] md:text-[1.1rem]">
         Vous avez sûrement déjà essayé toutes sortes de choses sans résultat.
         <br />
         <br />
