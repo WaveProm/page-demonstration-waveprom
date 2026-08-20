@@ -1,0 +1,47 @@
+/*
+ * The two layers under the veil. Both wait for the dive to land: HeroDive
+ * writes --dive-arrived the moment the section has the screen to itself, and
+ * the fallback of 1 is what a section outside a dive is worth.
+ *
+ * They do not arrive together. The sky first, the monument behind it, which is
+ * the order the eye builds a depth in.
+ */
+
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Held back to a third of its light, and masked to nothing at the edges: the
+   section is black, so the sky has to end somewhere the frame does not. */
+.sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: calc(var(--dive-arrived, 1) * 0.32);
+  transition: opacity 1400ms ease-out 150ms;
+  -webkit-mask-image: radial-gradient(
+    72% 62% at 50% 42%,
+    #000 0%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(72% 62% at 50% 42%, #000 0%, transparent 100%);
+}
+
+/* Two thirds of the height and standing on the floor of the section. Shot from
+   below, so the ground line is what carries the perspective: lifting it off
+   the bottom edge flattens the whole thing. */
+.monument {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  translate: -50% 0;
+  height: 66.667%;
+  width: auto;
+  object-fit: contain;
+  opacity: var(--dive-arrived, 1);
+  transition: opacity 1100ms ease-out 550ms;
+}
