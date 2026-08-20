@@ -5,11 +5,14 @@ import SectionContentWrapper from "./section-coontent-wrapper";
 
 // No byline: the header names a partner and a trade, and this section has
 // neither. The headline is the whole header.
+//
+// Read on black: this copy is what the hero opens onto, and the ground under
+// it is the video the page went through.
 const SectionText = () => (
-  <section className="flex items-center text-gray-600 min-h-screen h-auto">
+  <section className="flex items-center text-white/70 min-h-screen h-auto">
     <SectionContentWrapper>
       <SectionHeader>
-        <SectionHeadline>
+        <SectionHeadline className="text-white">
           Besoin de plus de clients pour avancer{"\u202f?"}
         </SectionHeadline>
       </SectionHeader>
