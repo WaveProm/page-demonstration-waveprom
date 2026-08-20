@@ -1,5 +1,6 @@
 "use client";
 import { type CSSProperties, type ReactNode, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
 import styles from "./hero-dive.module.css";
 
 // The dive. The hero is pinned, the image comes at the reader from the centre,
@@ -73,8 +74,10 @@ const HeroDive = ({
       dive.style.setProperty("--dive-scale", `${scale}`);
       dive.style.setProperty("--dive-opacity", `${opacity}`);
       dive.style.setProperty("--dive-events", pointerEvents(opacity));
-      // What the section behind reads to know it has the screen to itself.
-      dive.style.setProperty("--dive-arrived", progress === 1 ? "1" : "0");
+      // What the section behind reads to know it is still being crossed. It
+      // holds everything it has until this comes off, which is the frame the
+      // section takes the top of the screen and the video has finished going.
+      dive.toggleAttribute("data-dive-crossing", progress < 1);
     };
 
     // One update per painted frame, whatever the scroll fires.
@@ -83,11 +86,19 @@ const HeroDive = ({
     };
 
     paint();
+    // Two frames, then the section behind is allowed to animate. The first
+    // frame is where the state above is committed; announcing before it has
+    // been painted plays the arrival on the way in, with nobody scrolling.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => dive.setAttribute("data-dive-ready", ""));
+    });
+
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
 
     return () => {
       if (pendingFrame) cancelAnimationFrame(pendingFrame);
+      dive.removeAttribute("data-dive-ready");
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
     };
@@ -96,14 +107,19 @@ const HeroDive = ({
   return (
     <div
       ref={diveRef}
-      className={styles.dive}
+      className={cn(styles.dive, "relative bg-black")}
       style={{ "--dive-runway": runway } as CSSProperties}
     >
-      <div className={styles.surface}>{surface}</div>
+      {/* The negative margin cancels its own height in the flow, so what
+          follows starts at the top of the dive and passes underneath it: the
+          section arrives behind the video instead of after it. */}
+      <div
+        className={cn(styles.surface, "-mb-[100vh] sticky top-0 z-10 h-screen")}
+      >
+        {surface}
+      </div>
 
-      {/* Pulled back up over the surface by the margin the surface carries, so
-          the section arrives behind the video instead of after it. */}
-      <div className={styles.behind}>
+      <div className="relative z-0">
         <div ref={runwayRef} className={styles.runway} />
         {children}
       </div>

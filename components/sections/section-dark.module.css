@@ -1,28 +1,43 @@
 /*
- * The two layers under the veil. Both wait for the dive to land: HeroDive
- * writes --dive-arrived the moment the section has the screen to itself, and
- * the fallback of 1 is what a section outside a dive is worth.
+ * Only what Tailwind cannot say: one mask, and three states an ancestor
+ * decides. Everything else is in the JSX next door.
  *
- * They do not arrive together. The sky first, the monument behind it, which is
- * the order the eye builds a depth in.
+ * The section holds everything it has until the dive has landed. For the whole
+ * crossing it is invisible and held one step too close, and the moment it
+ * takes the top of the screen it appears and settles to its own scale. Then,
+ * and only then, the words.
+ *
+ * That order is the point. A section that fades in while it is still moving up
+ * shows its own top edge crossing the screen, and one straight line is all it
+ * takes to turn a passage into two layers sliding over each other.
+ *
+ * HeroDive marks the crossing on its own root. Only the abnormal state carries
+ * an attribute, so with no script at all this section is simply itself.
  */
 
-.stage {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
+[data-dive-crossing] .stage {
+  transform: scale(2);
+  opacity: 0;
 }
 
-/* Held back to a third of its light, and masked to nothing at the edges: the
-   section is black, so the sky has to end somewhere the frame does not. */
+/* Long, and all of its brake at the end: a camera coming to rest. Held back
+   until the dive says it has painted, so nothing settles at load. */
+[data-dive-ready] .stage {
+  transition:
+    transform 1600ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 600ms ease-out;
+}
+
+/* Going back up the image leaves first and the scale follows in its own time,
+   because what must never be seen is that top edge crossing the screen. */
+[data-dive-ready][data-dive-crossing] .stage {
+  transition:
+    transform 1600ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 120ms ease-out;
+}
+
+/* The section is black, so the sky has to end somewhere the frame does not. */
 .sky {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: calc(var(--dive-arrived, 1) * 0.32);
-  transition: opacity 1400ms ease-out 150ms;
   -webkit-mask-image: radial-gradient(
     72% 62% at 50% 42%,
     #000 0%,
@@ -31,17 +46,18 @@
   mask-image: radial-gradient(72% 62% at 50% 42%, #000 0%, transparent 100%);
 }
 
-/* Two thirds of the height and standing on the floor of the section. Shot from
-   below, so the ground line is what carries the perspective: lifting it off
-   the bottom edge flattens the whole thing. */
-.monument {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  translate: -50% 0;
-  height: 66.667%;
-  width: auto;
-  object-fit: contain;
-  opacity: var(--dive-arrived, 1);
-  transition: opacity 1100ms ease-out 550ms;
+[data-dive-crossing] .copy {
+  opacity: 0;
+}
+
+/* 800 ms, half of the settle above: that brake puts 97 % of the movement in
+   its first half, then spends the rest of its time covering the last 3 %.
+   Waiting for the transition to end is waiting for something nobody sees. */
+[data-dive-ready] .copy {
+  transition: opacity 350ms ease-out 800ms;
+}
+
+/* Leaving is not the reverse of arriving: nothing waits on the way out. */
+[data-dive-ready][data-dive-crossing] .copy {
+  transition: opacity 200ms ease-out;
 }

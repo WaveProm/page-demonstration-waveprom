@@ -1,8 +1,11 @@
 /*
- * Only what Tailwind cannot say: the pin, the two layers stacked on the same
- * pixels, and what the variables HeroDive writes are wired to. The defaults
- * are the state to be left in when the script never runs, which is the page
- * without the movement rather than a page with a hole in it.
+ * Only what Tailwind cannot say: two selectors that reach inside the slot, and
+ * the five values HeroDive writes on every frame. Everything else is in the
+ * JSX next door.
+ *
+ * The defaults are the state to be left in when that script never runs: the
+ * hero at rest and the section behind readable, which is the page minus the
+ * movement.
  */
 
 .dive {
@@ -11,28 +14,17 @@
   --dive-scale: 1;
   --dive-opacity: 1;
   --dive-events: auto;
-
-  position: relative;
-  background: #000;
 }
 
-/* The pinned screen. The negative margin cancels its own height in the flow,
-   so what follows starts at the top of the dive and scrolls underneath it. */
 .surface {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  height: 100vh;
-  margin-bottom: -100vh;
   opacity: var(--dive-opacity);
   pointer-events: var(--dive-events);
 }
 
-/* The two layers of the slot that hold the image, and nothing else. They carry
-   the same box and the same object-fit, so one transform keeps them in
-   register, and the poster is still the right image on a screen whose player
-   has been destroyed. The slot clips them, so a scale of four never widens the
-   page. */
+/* The two layers of the slot that hold the image. Same box and same object-fit,
+   so one transform keeps them in register, and the poster is still the right
+   ground on a screen whose player has been destroyed. The slot clips them, so
+   a scale of four never widens the page. */
 .surface > * > img:first-child,
 .surface > * > video {
   transform: scale(var(--dive-scale));
@@ -46,12 +38,7 @@
   pointer-events: var(--dive-ui-events);
 }
 
-.behind {
-  position: relative;
-  z-index: 0;
-}
-
-/* The scroll the dive costs, written by the runway prop of HeroDive. Every
+/* The scroll the crossing costs, written by the runway prop of HeroDive. Every
    keyframe is a fraction of this length, so shortening it speeds the whole
    movement up without moving anything else. */
 .runway {
