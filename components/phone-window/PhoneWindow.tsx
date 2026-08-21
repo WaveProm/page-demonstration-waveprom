@@ -28,8 +28,8 @@ const WINDOW = {
   // A hair past the edges of the screen, so no edge of the glass survives the
   // rounding and draws itself as a line across the page.
   coverSlack: 1.02,
-  veil: 0.8, // how much black the glass holds at rest
-  veilGone: 0.8, // progress where the glass has cleared to the page
+  lines: 0.35, // how much black each line of the glass holds at rest
+  linesGone: 0.8, // progress where the glass has cleared to the page
   wordsGone: 0.4, // progress where the line above the phone has left
 };
 
@@ -125,9 +125,10 @@ const PhoneWindow = ({ className, children }: PhoneWindowProps) => {
 
       page.style.transform = `translateY(${lead}px) scale(${pageScale})`;
       phone.style.transform = `scale(${phoneScale})`;
-      glass.style.backgroundColor = `rgb(0 0 0 / ${
-        WINDOW.veil * (1 - spanProgress(progress, 0, WINDOW.veilGone))
-      })`;
+      glass.style.setProperty(
+        "--glass-lines",
+        `${WINDOW.lines * (1 - spanProgress(progress, 0, WINDOW.linesGone))}`,
+      );
       words.style.opacity = `${1 - spanProgress(progress, 0, WINDOW.wordsGone)}`;
     };
 
@@ -151,7 +152,10 @@ const PhoneWindow = ({ className, children }: PhoneWindowProps) => {
     // ahead of the lid during the climb is cut at the lid's top edge rather
     // than shown over the section before it. Clip and not hidden: hidden would
     // make this box the scroller the pin is held by, and the pin would die.
-    <div ref={passageRef} className="relative overflow-clip bg-black">
+    <div
+      ref={passageRef}
+      className="relative overflow-clip bg-black border-t border-white/20"
+    >
       {/* The pin: this box is one screen plus the runway, and the negative
           margin keeps it out of the flow so the page starts where it starts. */}
       <div
@@ -176,10 +180,13 @@ const PhoneWindow = ({ className, children }: PhoneWindowProps) => {
               className="relative w-full max-w-[39.5vh] lg:w-[72%] lg:max-w-none"
             >
               {/* One element, both blacks: its shadow hides the page all around
-                  the phone, its own background is the glass. */}
+                  the phone, its own background is the glass. The glass is
+                  scanlines, one line of black in every three, which is what a
+                  screen looks like up close, and the zoom grows the lines with
+                  the screen. The script writes only how much black they hold. */}
               <div
                 ref={glassRef}
-                className="absolute inset-[2.39%_5.52%] rounded-[13.6%/6.3%] shadow-[0_0_0_100vmax_#000] lg:inset-[5.52%_2.39%] lg:rounded-[6.3%/13.6%]"
+                className="absolute inset-[2.39%_5.52%] rounded-[13.6%/6.3%] bg-[image:repeating-linear-gradient(rgb(0_0_0/var(--glass-lines,0))_0_1px,transparent_1px_3px)] shadow-[0_0_0_100vmax_#000] lg:inset-[5.52%_2.39%] lg:rounded-[6.3%/13.6%]"
               />
               {/* The glass minus the camera island, which sits on it: 7.25% of
                   the frame from the top in portrait, from the right in
