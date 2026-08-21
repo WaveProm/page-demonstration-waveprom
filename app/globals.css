@@ -1,14 +1,1 @@
 @import "tailwindcss";
-
-/*
- * Landings. A page that opts in with data-snap-landings gets a scroll that
- * cannot fly past a section marked snap-always: the browser stops the gesture
- * there, and going further costs another one. Proximity rather than mandatory,
- * because a passage is a stretch of scroll with nothing to snap to, and
- * mandatory would throw the reader out of the middle of it.
- *
- * On html because that is the scroll container, which no module can own.
- */
-html:has([data-snap-landings]) {
-  scroll-snap-type: y proximity;
-}

@@ -56,6 +56,14 @@
   height: var(--dive-runway);
 }
 
+/* Everything on the other side, revealed as one screen once the video has gone
+   to black. The negative margin is what puts its top edge out of the way
+   first, so the reveal has no edge to draw. */
+.behind {
+  margin-top: calc(var(--dive-overlap) * -1);
+  opacity: var(--dive-behind-opacity, 1);
+}
+
 /* A zoom of that size is a vestibular trigger. The image still goes out, the
    section still arrives, nothing moves. */
 @media (prefers-reduced-motion: reduce) {
