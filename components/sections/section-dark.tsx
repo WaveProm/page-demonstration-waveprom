@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { SectionHeader, SectionHeadline } from "@/components/section-header";
 import { DesktopBreak } from "@/components/typography/DesktopBreak";
-import CheckerVeil from "@/components/veil/CheckerVeil";
+// import CheckerVeil from "@/components/veil/CheckerVeil";
 import { cn } from "@/lib/utils";
 import styles from "./section-dark.module.css";
 
