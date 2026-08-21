@@ -16,6 +16,8 @@ const DIVE = {
   zoom: 1.75, // how far the hero image is pushed toward the reader
   overlap: "35vh", // how far the section behind is pulled up under the runway
   uiGone: 0.1, // progress where the hero UI has finished leaving
+  brightnessIn: 0.02, // progress where the brightness bar has come in
+  brightnessGone: 0.12, // progress where the brightness bar has left
   zoomEnd: 0.52, // progress where the image stops growing
   fadeStart: 0.45, // progress where the surface starts going out
   fadeEnd: 0.7, // progress where it is gone and the ground is bare
@@ -63,6 +65,11 @@ const HeroDive = ({ surface, children }: HeroDiveProps) => {
       const progress = clamp01(runwayHeight > 0 ? travelled / runwayHeight : 0);
 
       const uiOpacity = 1 - spanProgress(progress, 0, DIVE.uiGone);
+      // No bar at rest. It comes in with the first scroll, fills while the UI
+      // leaves, and goes out the moment the UI has, as fast as it came in.
+      const brightnessOpacity =
+        spanProgress(progress, 0, DIVE.brightnessIn) *
+        (1 - spanProgress(progress, DIVE.uiGone, DIVE.brightnessGone));
       const opacity = 1 - spanProgress(progress, DIVE.fadeStart, DIVE.fadeEnd);
       // Exponential, because a linear scale is read as a zoom slowing down.
       const scale =
@@ -74,6 +81,10 @@ const HeroDive = ({ surface, children }: HeroDiveProps) => {
 
       dive.style.setProperty("--dive-ui-opacity", `${uiOpacity}`);
       dive.style.setProperty("--dive-ui-events", pointerEvents(uiOpacity));
+      dive.style.setProperty(
+        "--dive-brightness-opacity",
+        `${brightnessOpacity}`,
+      );
       dive.style.setProperty("--dive-scale", `${scale}`);
       dive.style.setProperty("--dive-opacity", `${opacity}`);
       dive.style.setProperty("--dive-events", pointerEvents(opacity));
@@ -110,6 +121,28 @@ const HeroDive = ({ surface, children }: HeroDiveProps) => {
       <div className={styles.pinRange}>
         <div className={cn(styles.surface, "sticky top-0 z-10 h-screen")}>
           {surface}
+
+          {/* Brightness, the way the OS shows it. The mask over the video and
+              the words on it go out as the reader scrolls in, and this is the
+              bar filling up to that. Centred on a whole pixel: half of an odd
+              screen is half a pixel, and a four-pixel bar on a half pixel is a
+              blurred bar. The bar is 96px wide, so its own half is whole. */}
+          <div
+            aria-hidden
+            className={cn(
+              styles.brightness,
+              "-translate-x-1/2 pointer-events-none absolute top-5 left-[round(50%,1px)] md:top-7",
+            )}
+          >
+            <div className="h-1 w-24 overflow-hidden rounded-full bg-white/25">
+              <div
+                className={cn(
+                  styles.brightnessFill,
+                  "h-full rounded-full bg-white",
+                )}
+              />
+            </div>
+          </div>
         </div>
       </div>
 

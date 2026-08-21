@@ -1,7 +1,7 @@
 /*
  * Only what Tailwind cannot say: two selectors that reach inside the slot, and
- * the five values HeroDive writes on every frame. Everything else is in the
- * JSX next door.
+ * the values HeroDive writes on every frame. Everything else is in the JSX
+ * next door.
  *
  * The defaults are the state to be left in when that script never runs: the
  * hero at rest and the section behind readable, which is the page minus the
@@ -10,6 +10,7 @@
 
 .dive {
   --dive-ui-opacity: 1;
+  --dive-brightness-opacity: 0;
   --dive-ui-events: auto;
   --dive-scale: 1;
   --dive-opacity: 1;
@@ -36,6 +37,16 @@
 .surface video ~ * {
   opacity: var(--dive-ui-opacity);
   pointer-events: var(--dive-ui-events);
+}
+
+/* The brightness bar is the inverse of that UI: full once the UI is gone.
+   Absent at rest, and absent when the script never runs. */
+.brightness {
+  opacity: var(--dive-brightness-opacity);
+}
+
+.brightnessFill {
+  width: calc((1 - var(--dive-ui-opacity)) * 100%);
 }
 
 /* A sticky element is held by the box that contains it, so the pin lasts
