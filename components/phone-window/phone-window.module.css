@@ -1,0 +1,52 @@
+/*
+ * Only what Tailwind cannot say: the fold the title leaves on, and the one
+ * value PhoneWindow writes for it on every frame.
+ *
+ * The default is the state to be left in when that script never runs, which is
+ * the title standing and readable: the page minus the movement.
+ */
+
+/* The vanishing point every word folds toward, one for the whole title rather
+   than one each, so the words at the edges lean the way a real plate would. */
+.words {
+  --words-progress: 0;
+  perspective: 100vw;
+  transform-style: preserve-3d;
+}
+
+/* Hinged at its top edge and tipped toward the reader, the way a card falls
+   past a camera. The last word lands on the end of the title: the stagger it
+   waits through plus its own fall is the whole span.
+
+   The slant is written rather than left to the projection. A word tipping off
+   the vanishing point shears on its own, but only as far as it sits from that
+   point, and four words on one centred line barely sit anywhere. */
+.word {
+  --word-stagger: 0.15;
+  --word-fall: 0.55;
+  --word-slant: -14deg;
+  --word-progress: clamp(
+    0,
+    (var(--words-progress) - var(--word-index) * var(--word-stagger)) /
+    var(--word-fall),
+    1
+  );
+  display: inline-block;
+  transform: skewX(calc(var(--word-progress) * var(--word-slant)))
+    rotate3d(1, 0, 0, calc(var(--word-progress) * 90deg));
+  transform-origin: top;
+  opacity: calc(1 - var(--word-progress));
+}
+
+/* The space the markup cannot hold: one between two inline blocks, and none
+   welding them, so the title still breaks where the screen is narrow. */
+.word + .word {
+  margin-left: 0.25em;
+}
+
+/* A title turning in space is motion for its own sake. It still leaves. */
+@media (prefers-reduced-motion: reduce) {
+  .word {
+    transform: none;
+  }
+}

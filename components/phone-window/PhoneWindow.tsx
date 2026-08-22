@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
-import { type ReactNode, useEffect, useRef } from "react";
+import { type CSSProperties, type ReactNode, useEffect, useRef } from "react";
 import { parallaxOffset } from "@/lib/parallax";
 import { cn } from "@/lib/utils";
+import styles from "./phone-window.module.css";
 
 // A black lid rising over the screen, a phone on it with the page already
 // running on its glass, and a scroll that walks the reader into it.
@@ -28,10 +29,12 @@ const WINDOW = {
   // A hair past the edges of the screen, so no edge of the glass survives the
   // rounding and draws itself as a line across the page.
   coverSlack: 1.02,
-  lines: 0.35, // how much black each line of the glass holds at rest
-  linesGone: 0.8, // progress where the glass has cleared to the page
   wordsGone: 0.4, // progress where the line above the phone has left
 };
+
+// Split, because each word folds on its own beat, and written as the sentence
+// it is so the words that ship are read as words.
+const TITLE = "Découvrez nos réalisations phares.".split(" ");
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 
@@ -125,11 +128,10 @@ const PhoneWindow = ({ className, children }: PhoneWindowProps) => {
 
       page.style.transform = `translateY(${lead}px) scale(${pageScale})`;
       phone.style.transform = `scale(${phoneScale})`;
-      glass.style.setProperty(
-        "--glass-lines",
-        `${WINDOW.lines * (1 - spanProgress(progress, 0, WINDOW.linesGone))}`,
+      words.style.setProperty(
+        "--words-progress",
+        `${spanProgress(progress, 0, WINDOW.wordsGone)}`,
       );
-      words.style.opacity = `${1 - spanProgress(progress, 0, WINDOW.wordsGone)}`;
     };
 
     const schedule = () => {
@@ -179,14 +181,12 @@ const PhoneWindow = ({ className, children }: PhoneWindowProps) => {
               ref={frameRef}
               className="relative w-full max-w-[39.5vh] lg:w-[72%] lg:max-w-none"
             >
-              {/* One element, both blacks: its shadow hides the page all around
-                  the phone, its own background is the glass. The glass is
-                  scanlines, one line of black in every three, which is what a
-                  screen looks like up close, and the zoom grows the lines with
-                  the screen. The script writes only how much black they hold. */}
+              {/* One element, one black: its shadow hides the page all around
+                  the phone, and its own box is the glass, clear, so what is
+                  behind it is exactly what is shown. */}
               <div
                 ref={glassRef}
-                className="absolute inset-[2.39%_5.52%] rounded-[13.6%/6.3%] bg-[image:repeating-linear-gradient(rgb(0_0_0/var(--glass-lines,0))_0_1px,transparent_1px_3px)] shadow-[0_0_0_100vmax_#000] lg:inset-[5.52%_2.39%] lg:rounded-[6.3%/13.6%]"
+                className="absolute inset-[2.39%_5.52%] rounded-[13.6%/6.3%] shadow-[0_0_0_100vmax_#000] lg:inset-[5.52%_2.39%] lg:rounded-[6.3%/13.6%]"
               />
               {/* The glass minus the camera island, which sits on it: 7.25% of
                   the frame from the top in portrait, from the right in
@@ -218,9 +218,20 @@ const PhoneWindow = ({ className, children }: PhoneWindowProps) => {
 
               <p
                 ref={wordsRef}
-                className="absolute inset-x-0 bottom-full mb-6 text-center font-medium text-[1.05rem] text-white leading-snug tracking-tight md:text-6xl"
+                className={cn(
+                  styles.words,
+                  "absolute inset-x-0 bottom-full mb-6 text-center font-medium text-[1.05rem] text-white leading-snug tracking-tight md:text-6xl",
+                )}
               >
-                Découvrez nos réalisations phares.
+                {TITLE.map((word, index) => (
+                  <span
+                    key={word}
+                    className={styles.word}
+                    style={{ "--word-index": index } as CSSProperties}
+                  >
+                    {word}
+                  </span>
+                ))}
               </p>
             </div>
           </div>
