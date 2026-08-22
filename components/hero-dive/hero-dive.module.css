@@ -51,16 +51,20 @@
   width: calc((1 - var(--dive-ui-opacity)) * 100%);
 }
 
-/* The zoom ruler: absent at rest. Its four measures are written on it by
-   HeroDive, from the numbers the ruler is made of, and the ticks are two
-   repeated gradients laid from the first tick to the last: the tall ones the
-   full height, the small ones two thirds of it, along the bottom. */
+/* One width for both readouts, from the four measures HeroDive writes on
+   their anchor out of the numbers the ruler is made of. */
+.rulerWide {
+  width: calc(var(--ruler-span) + 2 * var(--ruler-inset));
+}
+
+/* The zoom ruler: absent at rest. The ticks are two repeated gradients laid
+   from the first tick to the last: the tall ones the full height, the small
+   ones two thirds of it, along the bottom. */
 .zoom {
   opacity: var(--dive-zoom-opacity);
 }
 
 .zoomRuler {
-  width: calc(var(--ruler-span) + 2 * var(--ruler-inset));
   background-image:
     repeating-linear-gradient(
       to right,
