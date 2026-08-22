@@ -16,14 +16,26 @@ const DIVE = {
   zoom: 1.75, // how far the hero image is pushed toward the reader
   overlap: "35vh", // how far the section behind is pulled up under the runway
   uiGone: 0.1, // progress where the hero UI has finished leaving
-  brightnessIn: 0.02, // progress where the brightness bar has come in
+  hudIn: 0.02, // progress where the readouts over the hero have come in
   brightnessGone: 0.12, // progress where the brightness bar has left
   zoomEnd: 0.52, // progress where the image stops growing
+  zoomGone: 0.56, // progress where the zoom ruler has left
   fadeStart: 0.45, // progress where the surface starts going out
   fadeEnd: 0.7, // progress where it is gone and the ground is bare
   revealStart: 0.7, // progress where the section behind comes out of that ground
   revealEnd: 0.9, // progress where it is all the way there
 };
+
+// The ruler under the zoom factor: what one tick is worth, what one tall tick
+// is worth, and how much room each tick gets. The ruler spans the whole dive,
+// 1 to DIVE.zoom, so its length follows from these and from nothing else.
+const RULER = {
+  tick: 0.05, // zoom factor from one tick to the next
+  major: 0.25, // zoom factor from one tall tick to the next
+  pitch: 6, // px from one tick to the next
+  inset: 4, // px before the first tick and after the last
+};
+const rulerSpan = ((DIVE.zoom - 1) / RULER.tick) * RULER.pitch;
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 
@@ -48,11 +60,13 @@ type HeroDiveProps = {
 const HeroDive = ({ surface, children }: HeroDiveProps) => {
   const diveRef = useRef<HTMLDivElement>(null);
   const runwayRef = useRef<HTMLDivElement>(null);
+  const zoomRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const dive = diveRef.current;
     const runwayElement = runwayRef.current;
-    if (!dive || !runwayElement) return;
+    const zoomLabel = zoomRef.current;
+    if (!dive || !runwayElement || !zoomLabel) return;
 
     let pendingFrame = 0;
 
@@ -65,16 +79,27 @@ const HeroDive = ({ surface, children }: HeroDiveProps) => {
       const progress = clamp01(runwayHeight > 0 ? travelled / runwayHeight : 0);
 
       const uiOpacity = 1 - spanProgress(progress, 0, DIVE.uiGone);
-      // No bar at rest. It comes in with the first scroll, fills while the UI
-      // leaves, and goes out the moment the UI has, as fast as it came in.
-      const brightnessOpacity =
-        spanProgress(progress, 0, DIVE.brightnessIn) *
-        (1 - spanProgress(progress, DIVE.uiGone, DIVE.brightnessGone));
       const opacity = 1 - spanProgress(progress, DIVE.fadeStart, DIVE.fadeEnd);
       // Exponential, because a linear scale is read as a zoom slowing down.
       const scale =
         DIVE.zoom **
         easeInOut(spanProgress(progress, DIVE.uiGone, DIVE.zoomEnd));
+
+      // Nothing over the hero at rest. The readouts come in with the first
+      // scroll, as fast as they go: the bar leaves the moment the UI has, the
+      // ruler the moment the image has stopped growing.
+      const hudIn = spanProgress(progress, 0, DIVE.hudIn);
+      const brightnessOpacity =
+        hudIn * (1 - spanProgress(progress, DIVE.uiGone, DIVE.brightnessGone));
+      const zoomOpacity =
+        hudIn * (1 - spanProgress(progress, DIVE.zoomEnd, DIVE.zoomGone));
+      // The cursor reads the scale itself, not the progress, so the ruler and
+      // the number never disagree with the image.
+      const zoomed = (scale - 1) / (DIVE.zoom - 1);
+      const zoomLabelText = `${scale.toFixed(2)}X`;
+      if (zoomLabel.textContent !== zoomLabelText) {
+        zoomLabel.textContent = zoomLabelText;
+      }
       const behind = easeOut(
         spanProgress(progress, DIVE.revealStart, DIVE.revealEnd),
       );
@@ -85,6 +110,8 @@ const HeroDive = ({ surface, children }: HeroDiveProps) => {
         "--dive-brightness-opacity",
         `${brightnessOpacity}`,
       );
+      dive.style.setProperty("--dive-zoom", `${zoomed}`);
+      dive.style.setProperty("--dive-zoom-opacity", `${zoomOpacity}`);
       dive.style.setProperty("--dive-scale", `${scale}`);
       dive.style.setProperty("--dive-opacity", `${opacity}`);
       dive.style.setProperty("--dive-events", pointerEvents(opacity));
@@ -122,25 +149,59 @@ const HeroDive = ({ surface, children }: HeroDiveProps) => {
         <div className={cn(styles.surface, "sticky top-0 z-10 h-screen")}>
           {surface}
 
-          {/* Brightness, the way the OS shows it. The mask over the video and
-              the words on it go out as the reader scrolls in, and this is the
-              bar filling up to that. Centred on a whole pixel: half of an odd
-              screen is half a pixel, and a four-pixel bar on a half pixel is a
-              blurred bar. The bar is 96px wide, so its own half is whole. */}
+          {/* Two readouts over the hero, the way a camera shows them. Centred
+              on a whole pixel: half of an odd screen is half a pixel, and a
+              four-pixel bar on a half pixel is a blurred bar. The row is 250px
+              wide, so its own half is whole. */}
           <div
             aria-hidden
-            className={cn(
-              styles.brightness,
-              "-translate-x-1/2 pointer-events-none absolute top-5 left-[round(50%,1px)] md:top-7",
-            )}
+            className="-translate-x-1/2 pointer-events-none absolute top-5 left-[round(50%,1px)] flex items-center gap-3 text-white md:top-7"
           >
-            <div className="h-1 w-24 overflow-hidden rounded-full bg-white/25">
+            {/* Brightness. The mask over the video and the words on it go out
+                as the reader scrolls in, and this is the bar filling up to
+                that. */}
+            <div
+              className={cn(
+                styles.brightness,
+                "h-1 w-24 overflow-hidden rounded-full bg-white/25",
+              )}
+            >
               <div
                 className={cn(
                   styles.brightnessFill,
                   "h-full rounded-full bg-white",
                 )}
               />
+            </div>
+
+            {/* Zoom. A straight ruler from 1 to the zoom of the dive, a tick
+                every twentieth, a tall one every quarter, a cursor riding it as
+                the image grows, and the factor to two places. */}
+            <div className={cn(styles.zoom, "flex items-center gap-2")}>
+              <div
+                className={cn(styles.zoomRuler, "relative h-3")}
+                style={
+                  {
+                    "--ruler-pitch": `${RULER.pitch}px`,
+                    "--ruler-major": `${(RULER.major / RULER.tick) * RULER.pitch}px`,
+                    "--ruler-inset": `${RULER.inset}px`,
+                    "--ruler-span": `${rulerSpan}px`,
+                  } as CSSProperties
+                }
+              >
+                <div
+                  className={cn(
+                    styles.zoomCursor,
+                    "-translate-x-1/2 absolute top-0 h-3 w-0.5 bg-white",
+                  )}
+                />
+              </div>
+              <span
+                ref={zoomRef}
+                className="w-9 font-medium text-[11px] leading-none tabular-nums"
+              >
+                1.00X
+              </span>
             </div>
           </div>
         </div>

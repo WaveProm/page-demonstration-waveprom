@@ -11,6 +11,8 @@
 .dive {
   --dive-ui-opacity: 1;
   --dive-brightness-opacity: 0;
+  --dive-zoom: 0;
+  --dive-zoom-opacity: 0;
   --dive-ui-events: auto;
   --dive-scale: 1;
   --dive-opacity: 1;
@@ -47,6 +49,41 @@
 
 .brightnessFill {
   width: calc((1 - var(--dive-ui-opacity)) * 100%);
+}
+
+/* The zoom ruler: absent at rest. Its four measures are written on it by
+   HeroDive, from the numbers the ruler is made of, and the ticks are two
+   repeated gradients laid from the first tick to the last: the tall ones the
+   full height, the small ones two thirds of it, along the bottom. */
+.zoom {
+  opacity: var(--dive-zoom-opacity);
+}
+
+.zoomRuler {
+  width: calc(var(--ruler-span) + 2 * var(--ruler-inset));
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.9) 0 1px,
+      transparent 1px var(--ruler-major)
+    ),
+    repeating-linear-gradient(
+      to right,
+      rgb(255 255 255 / 0.45) 0 1px,
+      transparent 1px var(--ruler-pitch)
+    );
+  background-position:
+    var(--ruler-inset) 0,
+    var(--ruler-inset) bottom;
+  background-size:
+    calc(var(--ruler-span) + 1px) 100%,
+    calc(var(--ruler-span) + 1px) calc(100% * 2 / 3);
+  background-repeat: no-repeat;
+}
+
+/* The cursor rides from the first tick to the last. */
+.zoomCursor {
+  left: calc(var(--ruler-inset) + var(--dive-zoom) * var(--ruler-span));
 }
 
 /* A sticky element is held by the box that contains it, so the pin lasts
