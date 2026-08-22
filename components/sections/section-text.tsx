@@ -1,6 +1,5 @@
 import { CtaButton } from "@/components/cta-button";
 import { SectionHeader, SectionHeadline } from "@/components/section-header";
-// import { Separator } from "../separator/Separator";
 import SectionContentWrapper from "./section-coontent-wrapper";
 
 // No byline: the header names a partner and a trade, and this section has
