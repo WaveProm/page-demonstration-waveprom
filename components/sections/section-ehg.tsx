@@ -6,6 +6,8 @@ import {
   SectionHeadline,
 } from "@/components/section-header";
 import { Separator } from "@/components/separator/Separator";
+import { Testimonial } from "@/components/testimonials/Testimonial";
+import { testimonials } from "@/components/testimonials/testimonials.config";
 import mediaManifest from "@/lib/media-manifest.json";
 import SectionContentWrapper from "./section-coontent-wrapper";
 
@@ -50,6 +52,8 @@ const SectionEhg = () => (
           </div>
         </div>
       </div>
+
+      <Testimonial {...testimonials.ehg} className="mt-12" />
     </SectionContentWrapper>
 
     <VideoSlot

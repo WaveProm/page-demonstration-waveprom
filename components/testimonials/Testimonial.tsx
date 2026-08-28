@@ -22,7 +22,7 @@ export const Testimonial = ({
       <figcaption className="text-base text-gray-400">{author}</figcaption>
     </div>
     <blockquote className="w-full md:max-w-xl text-balance text-base text-gray-600">
-      <p>«&nbsp;{quote}&nbsp;»</p>
+      <p className="whitespace-pre-line">«&nbsp;{quote}&nbsp;»</p>
     </blockquote>
   </figure>
 );

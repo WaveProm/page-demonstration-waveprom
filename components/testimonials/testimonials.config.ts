@@ -13,6 +13,12 @@ export type TestimonialContent = {
 };
 
 export const testimonials = {
+  ehg: {
+    author: "Joshua Voussatiouk",
+    photo: "/peoples/joshua.jpeg",
+    quote:
+      "Très belle expérience de collaboration avec Issao et l’équipe WaveProm. J’ai particulièrement apprécié leur capacité à apporter leur expertise tout en comprenant rapidement les besoins et les enjeux du projet.\n\nUne équipe à l’écoute, professionnelle et force de proposition, avec laquelle les échanges ont été fluides et efficaces. Je recommande !",
+  },
   cigalon: {
     author: "Jean-Marc Bessire",
     photo: "/peoples/jean-marc-bessire.jpg",
