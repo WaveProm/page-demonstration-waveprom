@@ -15,7 +15,7 @@ import { useEffect } from "react";
 
 // EVERY number the feel is made of.
 const SCROLL = {
-  lerp: 0.1, // share of the distance to the target covered on each frame
+  lerp: 0.2, // share of the distance to the target covered on each frame
   wheelMultiplier: 1, // how far one wheel notch moves the target
 };
 
