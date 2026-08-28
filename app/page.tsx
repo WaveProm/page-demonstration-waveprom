@@ -9,6 +9,7 @@ import SectionLeCigalon from "@/components/sections/section-le-cigalon";
 import SectionMinotaures from "@/components/sections/section-minotaures";
 import SectionNicastrosa from "@/components/sections/section-nicastrosa";
 import SectionQuImporte from "@/components/sections/section-qu-importe";
+import SectionTeasing from "@/components/sections/section-teasing";
 
 // The order of the page IS the order of the JSX: adding, removing or moving a
 // section is editing this list, and nothing else anywhere. The enclosing client
@@ -26,6 +27,7 @@ const Page = () => (
     <SectionAgis />
     <SectionGoutatoo />
     <SectionMinotaures />
+    <SectionTeasing />
   </ScenePlayer>
 );
 

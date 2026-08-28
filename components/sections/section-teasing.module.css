@@ -1,0 +1,38 @@
+/*
+ * The thinking-AI sheen: the text is painted by a gradient clipped to its own
+ * glyphs, and the gradient slides so a slightly lighter band sweeps through.
+ * One background-position period per cycle, so the loop has no visible seam:
+ * the band crosses during the first half and the second half is the pause.
+ */
+.shimmer {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-gray-600) 30%,
+    var(--color-gray-400) 50%,
+    var(--color-gray-600) 70%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* The curve holds the band at the edge, whips it through, then lets go. */
+  animation: sweep 3s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+
+@keyframes sweep {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+/* A reader who asked for less motion gets the text in its base colour. */
+@media (prefers-reduced-motion: reduce) {
+  .shimmer {
+    animation: none;
+    background: none;
+    color: var(--color-gray-600);
+  }
+}
