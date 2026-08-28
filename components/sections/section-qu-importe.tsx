@@ -17,7 +17,7 @@ const SectionQuImporte = () => (
       <SectionHeader>
         <SectionHeadline>
           Une 1<sup className="align-[37%] text-[0.5em] leading-none">ère</sup>{" "}
-          impression mémorable, de jour comme de nuit
+          impression mémorable
         </SectionHeadline>
 
         <SectionByline>
