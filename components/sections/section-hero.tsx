@@ -95,7 +95,7 @@ const SectionHero = () => (
         <GoogleReview
           author="Nicastro SA"
           className="md:w-full"
-          otherReviews={17}
+          otherReviews={18}
           quote="Un véritable partenaire stratégique"
         />
 
