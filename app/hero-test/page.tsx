@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import HeroDive from "@/components/hero-dive/HeroDive";
 import ScenePlayer from "@/components/media/ScenePlayer";
 import PhoneWindow from "@/components/phone-window/PhoneWindow";
@@ -5,6 +6,10 @@ import PinAtEnd from "@/components/pin-at-end/PinAtEnd";
 import SectionDark from "@/components/sections/section-dark";
 import SectionEhg from "@/components/sections/section-ehg";
 import SectionHero from "@/components/sections/section-hero";
+
+export const metadata: Metadata = {
+  robots: { index: false },
+};
 
 // A dive, a lid, and a window.
 //

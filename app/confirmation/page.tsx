@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { CtaButton } from "@/components/cta-button";
 import Poster from "@/components/media/Poster";
 import ScenePlayer from "@/components/media/ScenePlayer";
@@ -8,6 +9,10 @@ import {
   SectionHeadline,
 } from "@/components/section-header";
 import mediaManifest from "@/lib/media-manifest.json";
+
+export const metadata: Metadata = {
+  robots: { index: false },
+};
 
 const ConfirmationPage = () => (
   <ScenePlayer>
