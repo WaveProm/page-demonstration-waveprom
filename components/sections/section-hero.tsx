@@ -99,8 +99,8 @@ const SectionHero = () => (
           quote="Un véritable partenaire stratégique"
         />
 
-        <CtaButton className="mt-2" href="/contact">
-          Découvrir mon plan d’attraction offert
+        <CtaButton className="mt-2" href="mailto:info@waveprom.com">
+          Nous contacter
         </CtaButton>
       </div>
 
