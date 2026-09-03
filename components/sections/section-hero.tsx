@@ -81,13 +81,8 @@ const SectionHero = () => (
 
     <div className="absolute inset-0 mx-4 flex flex-col justify-end pb-8 text-white/70 md:justify-center md:pb-0 lg:mx-14">
       <header className="mb-36 md:mb-0">
-        <h1 className="font-medium text-white">
-          <span className="block text-[40px] leading-none lg:text-[116px]">
-            On attire vos clients.
-          </span>
-          <span className="block text-[18px] leading-none lg:text-[48px]">
-            Vous vous concentrez sur votre entreprise.
-          </span>
+        <h1 className="font-['Helvetica_Neue'] font-medium text-[40px] text-white leading-none lg:text-[116px]">
+          On attire vos clients.
         </h1>
       </header>
 
