@@ -28,18 +28,9 @@ const SectionNicastrosa = () => (
       <div>
         <Separator />
 
-        <div className="flex items-baseline gap-x-2 lg:block">
-          <p className="font-medium text-[2rem] text-gray-600 leading-none lg:text-5xl">
-            +250
-          </p>
-          <p className="text-base text-gray-400">
-            Abonnés LinkedIn en 14 jours
-          </p>
-        </div>
-
-        <p className="mt-4 max-w-3xl text-pretty font-medium text-gray-600 text-lg lg:mt-4 lg:text-2xl">
-          — Mise en lumière de leur projets en ville de Genève et du
-          développement de leur entreprise
+        <p className="max-w-3xl text-pretty font-medium text-gray-600 text-lg lg:text-2xl">
+          Conception de la nouvelle identité de marque et refonte des
+          plateformes sociales
         </p>
 
         <Separator />

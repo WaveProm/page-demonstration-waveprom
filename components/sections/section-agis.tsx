@@ -27,25 +27,11 @@ const SectionAgis = () => (
       <div>
         <Separator />
 
-        <div className="flex flex-col gap-2 lg:flex-row lg:gap-6">
-          <div className="flex items-baseline gap-x-2 lg:block">
-            <p className="min-w-[4.6em] font-medium text-[2rem] text-gray-600 leading-none lg:min-w-0 lg:text-5xl">
-              +800 %
-            </p>
-            <p className="text-base text-gray-400">Inscriptions en 14 jours</p>
-          </div>
-          <div className="flex items-baseline gap-x-2 lg:block">
-            <p className="min-w-[4.6em] font-medium text-[2rem] text-gray-600 leading-none lg:min-w-0 lg:text-5xl">
-              +1000
-            </p>
-            <p className="text-base text-gray-400">Inscriptions en tout</p>
-          </div>
-          <div className="flex items-baseline gap-x-2 lg:block">
-            <p className="min-w-[4.6em] font-medium text-[2rem] text-gray-600 leading-none lg:min-w-0 lg:text-5xl">
-              +762’000
-            </p>
-            <p className="text-base text-gray-400">Vues</p>
-          </div>
+        <div className="flex items-baseline gap-x-2 lg:block">
+          <p className="font-medium text-[2rem] text-gray-600 leading-none lg:text-5xl">
+            +132
+          </p>
+          <p className="text-base text-gray-400">inscriptions en 2 semaines</p>
         </div>
 
         <Separator />

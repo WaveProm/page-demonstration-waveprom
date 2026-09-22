@@ -16,7 +16,7 @@ const SectionLeCigalon = () => (
     <SectionContentWrapper>
       <SectionHeader>
         <SectionHeadline>
-          Productions vidéo pour un restaurant du top 50 suisse romande
+          Production vidéo pour un restaurant étoilé top 50 Suisse romande
         </SectionHeadline>
 
         <SectionByline>Le Cigalon&thinsp;/&thinsp;Gastronomie</SectionByline>

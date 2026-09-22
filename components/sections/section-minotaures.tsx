@@ -14,22 +14,25 @@ const SectionMinotaures = () => (
     <SectionContentWrapper>
       <SectionHeader className="mb-8">
         <SectionHeadline>
-          Donner à la référence du baseball en Valais l’image d’une institution
+          Recruter pour les champions romands de baseball
         </SectionHeadline>
 
         <SectionByline>
-          Les Minotaures de Martigny&thinsp;/&thinsp;Club de baseball et
-          Association
+          Les Minotaures de Martigny&thinsp;/&thinsp;Club de baseball
         </SectionByline>
       </SectionHeader>
 
       <div>
         <Separator />
 
-        <ul className="max-w-3xl text-pretty font-medium text-gray-600 text-lg lg:text-2xl">
-          <li>- Fédération Valaisanne de baseball</li>
-          <li>- Champions romands 2023</li>
-        </ul>
+        <div className="flex items-baseline gap-x-2 lg:block">
+          <p className="font-medium text-[2rem] text-gray-600 leading-none lg:text-5xl">
+            +63
+          </p>
+          <p className="text-base text-gray-400">
+            demandes d’inscription en 1 mois
+          </p>
+        </div>
       </div>
     </SectionContentWrapper>
 
