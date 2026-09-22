@@ -18,7 +18,7 @@ export const GoogleReview = ({
     // card and therefore sets its width. That is what lets the row below sit on
     // the quote's own two edges rather than on a number picked to look right.
     className={cn(
-      "flex w-full flex-col gap-3 rounded-2xl border-gray-600/15 border-y bg-gray-600/[0.07] p-4 backdrop-blur-[14px] md:w-fit lg:border-white/15 lg:bg-white/[0.07]",
+      "flex w-full flex-col gap-3 rounded-2xl border-gray-600/15 border-y bg-gray-600/5 p-4 md:w-fit lg:border-white/15 lg:bg-white/[0.07] lg:backdrop-blur-[14px]",
       className,
     )}
   >
