@@ -13,14 +13,15 @@
   --chevron-stagger: 110ms;
 
   /* gray-600 falling into a rich black rather than a flat one, so the pill
-     reads as a material with a light on it. */
+     reads as a material with a light on it. Three values a caller can move,
+     because the same pill has to carry on a white page and over a video. */
   background: radial-gradient(
     120% 125% at 50% 112%,
-    oklch(0.446 0.03 256.802) 0%,
-    #0b0f16 100%
+    var(--cta-bloom, oklch(0.446 0.03 256.802)) 0%,
+    var(--cta-body, #0b0f16) 100%
   );
   border-radius: 14px;
-  color: #ffffff;
+  color: var(--cta-ink, #ffffff);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2);
 }
 
