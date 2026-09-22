@@ -94,7 +94,10 @@ const SectionHero = () => (
           quote="Un véritable partenaire stratégique"
         />
 
-        <CtaButton className="mt-2" href="mailto:info@waveprom.com">
+        <CtaButton
+          className="mt-2 lg:[--cta-bloom:oklch(0.99_0.01_256.802)] lg:[--cta-body:oklch(0.87_0.02_256.802)] lg:[--cta-ink:oklch(0.446_0.03_256.802)]"
+          href="mailto:info@waveprom.com"
+        >
           Nous contacter
         </CtaButton>
       </div>
