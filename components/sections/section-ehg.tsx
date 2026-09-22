@@ -18,7 +18,7 @@ const SectionEhg = () => (
         <SectionHeadline>
           Production vidéo pour la 5
           <sup className="align-[37%] text-[0.5em] leading-none">ème</sup>{" "}
-          meilleure école hôtelière au monde
+          meilleure école hôtelière mondiale
         </SectionHeadline>
 
         <SectionByline>École Hôtelière de Genève</SectionByline>

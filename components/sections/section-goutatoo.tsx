@@ -13,9 +13,7 @@ const SectionGoutatoo = () => (
   <section>
     <SectionContentWrapper>
       <SectionHeader className="mb-8">
-        <SectionHeadline>
-          Un collectif de chefs étoilés et un gala à remplir
-        </SectionHeadline>
+        <SectionHeadline>Remplir un gala de chefs étoilés</SectionHeadline>
 
         <SectionByline>
           Chef’s Goutatoo&thinsp;/&thinsp;Collectif de chefs étoilés
@@ -26,8 +24,7 @@ const SectionGoutatoo = () => (
         <Separator />
 
         <p className="max-w-3xl text-pretty font-medium text-gray-600 text-lg lg:text-2xl">
-          — Une salle complète en 5 jours de publicité, une production vidéo à
-          la hauteur de leur carrière.
+          Une salle complète en 5 jours de publicité.
         </p>
       </div>
     </SectionContentWrapper>

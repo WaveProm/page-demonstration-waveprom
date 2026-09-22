@@ -16,12 +16,11 @@ const SectionQuImporte = () => (
     <SectionContentWrapper>
       <SectionHeader>
         <SectionHeadline>
-          Une 1<sup className="align-[37%] text-[0.5em] leading-none">ère</sup>{" "}
-          impression mémorable
+          Valoriser l’atmosphère unique d’un bar à vin
         </SectionHeadline>
 
         <SectionByline>
-          Qu’importe&thinsp;/&thinsp;Groupe Chuard&thinsp;/&thinsp;Bar à vin
+          Qu’importe (Groupe Chuard)&thinsp;/&thinsp;Bar à vin
         </SectionByline>
       </SectionHeader>
 

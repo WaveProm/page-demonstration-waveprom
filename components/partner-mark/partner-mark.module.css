@@ -1,0 +1,21 @@
+/*
+ * A partner's mark, flattened to one colour. The file is used as a mask rather
+ * than painted, so the silhouette takes the colour of the text around it and
+ * lands exactly on it, where a chain of filters would only approach it.
+ *
+ * Tailwind has no word for a mask whose image is a runtime value, and none for
+ * the prefixed pair WebKit still wants. The ratio comes from the declared size
+ * of the file, so the box reserves its width before anything is fetched.
+ */
+
+.mark {
+  aspect-ratio: var(--partner-mark-ratio);
+  -webkit-mask-image: var(--partner-mark);
+  mask-image: var(--partner-mark);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}

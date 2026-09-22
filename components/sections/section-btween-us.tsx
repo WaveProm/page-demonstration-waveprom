@@ -14,7 +14,7 @@ const SectionBtweenUs = () => (
     <SectionContentWrapper>
       <SectionHeader className="mb-8">
         <SectionHeadline>
-          Immortaliser l’événement d’une agence qui fait vivre l’inoubliable
+          Immortaliser l’expérience d’une agence qui fait vivre l’inoubliable
         </SectionHeadline>
 
         <SectionByline>BtweenUs&thinsp;/&thinsp;Événementiel</SectionByline>

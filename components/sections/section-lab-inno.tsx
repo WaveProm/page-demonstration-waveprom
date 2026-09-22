@@ -16,11 +16,11 @@ const SectionLabInno = () => (
     <SectionContentWrapper>
       <SectionHeader>
         <SectionHeadline>
-          Une entreprise nouvelle à installer auprès de son audience
+          Présenter les technologies de pointe de l’ingénierie
         </SectionHeadline>
 
         <SectionByline>
-          Labinno&thinsp;/&thinsp;Entreprise générale de construction
+          Labinno&thinsp;/&thinsp;Bureau d’étude et ingénierie
         </SectionByline>
       </SectionHeader>
 
@@ -28,7 +28,7 @@ const SectionLabInno = () => (
         <Separator />
 
         <p className="max-w-3xl text-pretty font-medium text-gray-600 text-lg lg:text-2xl">
-          — Une publication par semaine, sur les normes, les lois et <br />
+          Publications hebdomadaires sur les normes, les lois et <br />
           l’actualité de la construction
         </p>
 
