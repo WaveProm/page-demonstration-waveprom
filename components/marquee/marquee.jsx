@@ -1,4 +1,4 @@
-// This textbook demonstrates how to build a component you drop into another project as-is by leveraging a self-contained folder (component + colocated CSS module) whose config stays external (props / children) — the component holds zero client data, and that decoupling is exactly what makes it transferable.
+// This textbook demonstrates how to build a component you drop into another project as-is by leveraging a self-contained folder (component + colocated CSS module) whose config stays external (props / children) - the component holds zero client data, and that decoupling is exactly what makes it transferable.
 
 import { cn } from "@/lib/utils";
 import { MarqueeTrack } from "./marqueeTrack";
