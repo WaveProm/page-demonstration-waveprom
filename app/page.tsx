@@ -1,3 +1,4 @@
+import HeroUnveil from "@/components/hero-unveil/HeroUnveil";
 import ScenePlayer from "@/components/media/ScenePlayer";
 import SectionAgis from "@/components/sections/section-agis";
 import SectionBtweenUs from "@/components/sections/section-btween-us";
@@ -17,7 +18,9 @@ import SectionTeasing from "@/components/sections/section-teasing";
 // content lands on, and carries its slot as a client leaf.
 const Page = () => (
   <ScenePlayer>
-    <SectionHero />
+    <HeroUnveil>
+      <SectionHero />
+    </HeroUnveil>
     <SectionEhg />
     <SectionNicastrosa />
     <SectionLeCigalon />

@@ -3,11 +3,13 @@ import { GoogleReview } from "@/components/google-review/GoogleReview";
 import { Marquee } from "@/components/marquee/marquee";
 import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
+import { PartnerMark } from "@/components/partner-mark/PartnerMark";
+import { TextShimmer } from "@/components/text-shimmer/TextShimmer";
 import mediaManifest from "@/lib/media-manifest.json";
 
-// Every partner whose mark still reads once flattened to white. Two are out:
-// Nicastro SA is a filled block with its name knocked out of it, and the
-// Minotaures mascot is a drawing, so both come back as a white silhouette.
+// Every partner whose mark still reads once flattened to one colour. Two are
+// out: Nicastro SA is a filled block with its name knocked out of it, and the
+// Minotaures mascot is a drawing, so both come back as a silhouette.
 const PARTNERS = [
   { file: "logotype-cigalon.png", name: "Le Cigalon", width: 841, height: 216 },
   {
@@ -59,31 +61,29 @@ const PARTNERS = [
 ];
 
 const SectionHero = () => (
-  <VideoSlot
-    sectionId="hero"
-    prefix={mediaManifest.hero.prefix}
-    poster={<Poster slug="hero" priority />}
-    loop
-    className="h-screen w-full bg-black"
-  >
-    <div className="absolute inset-0 bg-black/50" />
-
-    {/* Out for now. Coming back means bringing back its biome-ignore for
-        lint/performance/noImgElement, which the JSX comment cannot hold.
-
-    <img
-      src="/logotypes/canton-geneve.svg"
-      alt="République et Canton de Genève"
-      className="absolute top-0 left-0 mt-2 ml-4 h-20 w-auto lg:mt-4 lg:ml-14 lg:h-28"
+  <section className="relative overflow-hidden">
+    <VideoSlot
+      sectionId="hero"
+      prefix={mediaManifest.hero.prefix}
+      poster={<Poster slug="hero" priority />}
+      loop
+      className="aspect-video w-full bg-black lg:aspect-auto lg:h-screen"
     />
 
-    */}
-
-    <div className="absolute inset-0 mx-4 flex flex-col justify-end pb-8 text-white/70 md:justify-center md:pb-0 lg:mx-14">
-      <header className="mb-36 md:mb-0">
-        <h1 className="font-['Helvetica_Neue'] font-medium text-[40px] text-white leading-none lg:text-[116px]">
+    <div
+      data-veil
+      className="flex flex-col px-4 py-12 text-gray-600 md:px-16 lg:absolute lg:inset-0 lg:justify-center lg:bg-black/50 lg:px-14 lg:py-0 lg:text-white/70"
+    >
+      <header>
+        <h1 className="font-['Helvetica_Neue'] font-medium text-[40px] text-gray-600 leading-none lg:text-[116px] lg:text-white">
           On attire vos clients.
         </h1>
+
+        <p className="mt-2 font-['Helvetica_Neue'] font-medium text-[22px] italic leading-none lg:mt-4 lg:text-[40px]">
+          <TextShimmer className="lg:[--text-shimmer-base:rgb(255_255_255/0.8)] lg:[--text-shimmer-highlight:#fff]">
+            +1500 demandes générées
+          </TextShimmer>
+        </p>
       </header>
 
       <div className="mt-10 w-full md:w-fit">
@@ -99,21 +99,21 @@ const SectionHero = () => (
         </CtaButton>
       </div>
 
-      <Marquee className="my-8 md:translate-y-6" gap="2rem" duration="150s">
+      <Marquee
+        className="mt-8 lg:my-8 lg:translate-y-6"
+        gap="2rem"
+        duration="150s"
+      >
         {PARTNERS.map((partner) => (
-          // biome-ignore lint/performance/noImgElement: a logotype is served at its own size, never resized by a layer
-          <img
+          <PartnerMark
             key={partner.file}
-            src={`/logotypes/${partner.file}`}
-            alt={partner.name}
-            width={partner.width}
-            height={partner.height}
-            className="h-14 w-auto brightness-0 invert"
+            {...partner}
+            className="h-14 w-auto text-gray-600 lg:text-white"
           />
         ))}
       </Marquee>
     </div>
-  </VideoSlot>
+  </section>
 );
 
 export default SectionHero;

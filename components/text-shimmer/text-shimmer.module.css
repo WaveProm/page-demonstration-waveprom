@@ -1,0 +1,45 @@
+/*
+ * The band that runs through the words: the text is painted by a gradient
+ * clipped to its own glyphs, and the gradient slides so a lighter stretch
+ * crosses it. Keyframes and a clip, which Tailwind has no word for.
+ *
+ * The base and the highlight are variables, so the same sweep works on a light
+ * ground and on a dark one without a second stylesheet. The duration is one
+ * too, because how fast a line reads is the caller's decision.
+ *
+ * One background-position period per cycle, so the loop has no seam: the band
+ * crosses during the first part and what is left is the pause.
+ */
+
+.shimmer {
+  background-image: linear-gradient(
+    100deg,
+    var(--text-shimmer-base, var(--color-gray-600)) 38%,
+    var(--text-shimmer-highlight, var(--color-gray-400)) 50%,
+    var(--text-shimmer-base, var(--color-gray-600)) 62%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer var(--text-shimmer-duration, 1.8s)
+    cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+
+@keyframes text-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+/* A reader who asked for less motion gets the words in the base colour. */
+@media (prefers-reduced-motion: reduce) {
+  .shimmer {
+    animation: none;
+    background: none;
+    color: var(--text-shimmer-base, var(--color-gray-600));
+  }
+}
