@@ -12,7 +12,7 @@ import mediaManifest from "@/lib/media-manifest.json";
 import SectionContentWrapper from "./section-coontent-wrapper";
 
 const SectionLabInno = () => (
-  <section>
+  <section className="bg-white">
     <SectionContentWrapper>
       <SectionHeader>
         <SectionHeadline>
