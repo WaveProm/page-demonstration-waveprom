@@ -10,7 +10,7 @@ import mediaManifest from "@/lib/media-manifest.json";
 import SectionContentWrapper from "./section-coontent-wrapper";
 
 const SectionMinotaures = () => (
-  <section>
+  <section className="bg-white">
     <SectionContentWrapper>
       <SectionHeader className="mb-8">
         <SectionHeadline>
