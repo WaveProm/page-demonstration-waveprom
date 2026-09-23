@@ -61,7 +61,7 @@ const PARTNERS = [
 ];
 
 const SectionHero = () => (
-  <section className="relative overflow-hidden">
+  <section className="relative h-screen overflow-hidden bg-black">
     <VideoSlot
       sectionId="hero"
       prefix={mediaManifest.hero.prefix}
@@ -72,15 +72,15 @@ const SectionHero = () => (
 
     <div
       data-veil
-      className="flex flex-col px-4 py-12 text-gray-600 md:px-16 lg:absolute lg:inset-0 lg:justify-center lg:bg-black/50 lg:px-14 lg:py-0 lg:text-white/70"
+      className="flex flex-col px-4 py-12 text-white/70 md:px-16 lg:absolute lg:inset-0 lg:justify-center lg:bg-black/50 lg:px-14 lg:py-0"
     >
       <header>
-        <h1 className="font-['Helvetica_Neue'] font-medium text-[40px] text-gray-600 leading-none lg:text-[116px] lg:text-white">
+        <h1 className="font-['Helvetica_Neue'] font-medium text-[40px] text-white leading-none lg:text-[116px]">
           On attire vos clients.
         </h1>
 
         <p className="mt-2 font-['Helvetica_Neue'] font-medium text-[22px] italic leading-none lg:mt-4 lg:text-[40px]">
-          <TextShimmer className="lg:[--text-shimmer-base:rgb(255_255_255/0.8)] lg:[--text-shimmer-highlight:#fff]">
+          <TextShimmer className="[--text-shimmer-base:rgb(255_255_255/0.8)] [--text-shimmer-highlight:#fff]">
             +1500 demandes générées
           </TextShimmer>
         </p>
@@ -95,7 +95,7 @@ const SectionHero = () => (
         />
 
         <CtaButton
-          className="mt-2 lg:[--cta-bloom:oklch(0.99_0.01_256.802)] lg:[--cta-body:oklch(0.87_0.02_256.802)] lg:[--cta-ink:oklch(0.446_0.03_256.802)]"
+          className="mt-2 [--cta-bloom:oklch(0.99_0.01_256.802)] [--cta-body:oklch(0.87_0.02_256.802)] [--cta-ink:oklch(0.446_0.03_256.802)]"
           href="mailto:info@waveprom.com"
         >
           Nous contacter
@@ -111,7 +111,7 @@ const SectionHero = () => (
           <PartnerMark
             key={partner.file}
             {...partner}
-            className="h-14 w-auto text-gray-600 lg:text-white"
+            className="h-14 w-auto text-white"
           />
         ))}
       </Marquee>
