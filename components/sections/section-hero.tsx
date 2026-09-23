@@ -86,7 +86,7 @@ const SectionHero = () => (
         </p>
       </header>
 
-      <div className="mt-10 w-full md:w-fit">
+      <div className="mt-10 w-full pt-14 md:w-fit lg:pt-0">
         <GoogleReview
           author="Nicastro SA"
           className="md:w-full"
