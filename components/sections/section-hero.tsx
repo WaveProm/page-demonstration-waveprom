@@ -75,7 +75,7 @@ const SectionHero = () => (
       className="flex flex-col px-4 py-12 text-white/70 md:px-16 lg:absolute lg:inset-0 lg:justify-center lg:bg-black/50 lg:px-14 lg:py-0"
     >
       <header>
-        <h1 className="font-['Helvetica_Neue'] font-medium text-[40px] text-white leading-none lg:text-[116px]">
+        <h1 className="font-['Helvetica_Neue'] font-medium text-[clamp(28px,9.4vw,40px)] text-white leading-none lg:text-[116px]">
           On attire vos clients.
         </h1>
 
