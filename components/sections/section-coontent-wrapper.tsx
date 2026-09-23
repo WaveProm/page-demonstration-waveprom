@@ -3,5 +3,5 @@ export default function SectionContentWrapper({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="mx-4 my-12 md:mx-16">{children}</div>;
+  return <div className="mx-4 mb-12 pt-12 md:mx-16">{children}</div>;
 }
