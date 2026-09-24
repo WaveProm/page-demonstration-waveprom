@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { CtaButton } from "@/components/cta-button";
 import { GoogleReview } from "@/components/google-review/GoogleReview";
 import { Marquee } from "@/components/marquee/marquee";
@@ -5,6 +6,7 @@ import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
 import { PartnerMark } from "@/components/partner-mark/PartnerMark";
 import mediaManifest from "@/lib/media-manifest.json";
+import logoWaveprom from "@/public/logotypes/logo-waveprom.svg";
 
 // Every partner whose mark still reads once flattened to one colour. Two are
 // out: Nicastro SA is a filled block with its name knocked out of it, and the
@@ -73,6 +75,12 @@ const SectionHero = () => (
       data-veil
       className="flex flex-col px-4 py-12 text-white/70 md:px-16 lg:absolute lg:inset-0 lg:justify-center lg:bg-black/50 lg:px-14 lg:py-0"
     >
+      <Image
+        src={logoWaveprom}
+        alt="WaveProm"
+        className="-translate-x-1/2 absolute top-7 left-[round(50%,1px)] hidden h-8 w-auto lg:block"
+      />
+
       <header>
         <h1 className="font-['Helvetica_Neue'] font-medium text-[clamp(28px,9.4vw,40px)] text-white leading-none lg:text-[116px]">
           On attire vos clients.
