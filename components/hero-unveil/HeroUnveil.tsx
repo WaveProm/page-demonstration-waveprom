@@ -80,7 +80,7 @@ const HeroUnveil = ({ children }: HeroUnveilProps) => {
       <div ref={surfaceRef} className="relative lg:sticky lg:top-0">
         {children}
 
-        <BrightnessBar className="-translate-x-1/2 absolute top-7 left-[round(50%,1px)] hidden h-3 w-24 lg:flex" />
+        <BrightnessBar className="-translate-x-1/2 absolute top-18 left-[round(50%,1px)] hidden h-3 w-24 lg:flex" />
       </div>
     </div>
   );

@@ -50,3 +50,5 @@ Sort:
 - Both stylesheets are dropped: Tailwind expresses the veil rule as an arbitrary variant and the bar as arbitrary values, so nothing is left that it cannot say.
 - The claim line under the headline carries the sweep of the closing section, shared as `components/text-shimmer/`, with its two colours passed per ground.
 - The ribbon paints each partner's file as a mask over `bg-current`, so a mark takes the exact colour of the text around it on either ground instead of a chain of filters approaching it.
+- The WaveProm logo sits inside `data-veil` from lg, absolutely placed at the top center, so the unveil fades it with the rest of the veil and nothing in flow moves.
+- The bar moves from `top-7` to `top-18`, right under the logo, whose `top-7` and `h-8` it is placed against, with a gap equal to its own height.
