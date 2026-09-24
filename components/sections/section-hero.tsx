@@ -4,7 +4,6 @@ import { Marquee } from "@/components/marquee/marquee";
 import Poster from "@/components/media/Poster";
 import VideoSlot from "@/components/media/VideoSlot";
 import { PartnerMark } from "@/components/partner-mark/PartnerMark";
-import { TextShimmer } from "@/components/text-shimmer/TextShimmer";
 import mediaManifest from "@/lib/media-manifest.json";
 
 // Every partner whose mark still reads once flattened to one colour. Two are
@@ -79,10 +78,8 @@ const SectionHero = () => (
           On attire vos clients.
         </h1>
 
-        <p className="mt-2 font-['Helvetica_Neue'] font-medium text-[22px] italic leading-none lg:mt-4 lg:text-[40px]">
-          <TextShimmer className="[--text-shimmer-base:rgb(255_255_255/0.8)] [--text-shimmer-highlight:#fff]">
-            +1500 demandes générées
-          </TextShimmer>
+        <p className="mt-2 font-['Helvetica_Neue'] font-medium text-[22px] text-white/80 italic leading-none lg:mt-4 lg:text-[40px]">
+          +1500 demandes générées
         </p>
       </header>
 
