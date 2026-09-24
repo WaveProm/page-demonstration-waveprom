@@ -72,7 +72,7 @@ const HeroUnveil = ({ children }: HeroUnveilProps) => {
     <div
       ref={rootRef}
       className={cn(
-        "lg:h-screen",
+        "lg:h-[calc(100vh+10vh)]",
         "[&_[data-veil]]:opacity-[var(--unveil-veil-opacity,1)]",
         "[&_[data-veil]]:[pointer-events:var(--unveil-veil-events,auto)]",
       )}
