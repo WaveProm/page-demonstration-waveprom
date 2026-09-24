@@ -52,3 +52,4 @@ Sort:
 - The ribbon paints each partner's file as a mask over `bg-current`, so a mark takes the exact colour of the text around it on either ground instead of a chain of filters approaching it.
 - The WaveProm logo sits inside `data-veil` from lg, absolutely placed at the top center, so the unveil fades it with the rest of the veil and nothing in flow moves.
 - The bar moves from `top-7` to `top-18`, right under the logo, whose `top-7` and `h-8` it is placed against, with a gap equal to its own height.
+- Below lg the logo shows too, at `h-5`: the veil is in flow there and unpositioned, so the logo is placed against the section and lands over the top of the video.

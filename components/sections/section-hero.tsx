@@ -78,7 +78,7 @@ const SectionHero = () => (
       <Image
         src={logoWaveprom}
         alt="WaveProm"
-        className="-translate-x-1/2 absolute top-7 left-[round(50%,1px)] hidden h-8 w-auto lg:block"
+        className="-translate-x-1/2 absolute top-7 left-[round(50%,1px)] h-5 w-auto lg:h-8"
       />
 
       <header>
