@@ -60,7 +60,7 @@ const PARTNERS = [
 ];
 
 const SectionHero = () => (
-  <section className="relative h-[110vh] overflow-hidden bg-black">
+  <section className="relative h-[110vh] overflow-hidden bg-black lg:h-screen">
     <VideoSlot
       sectionId="hero"
       prefix={mediaManifest.hero.prefix}
