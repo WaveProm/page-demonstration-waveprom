@@ -7,4 +7,4 @@ Problem and decision are one line each. An error code, a trace id or a ticket nu
 
 | Date | Problem | Decision | Ref |
 | ---- | ------- | -------- | --- |
-| 2026-09-24 | The WaveProm logo and the brightness bar both claim the top center of the hero from lg | The bar sits under the logo: logo at `top-7 h-8` in section-hero.tsx, bar at `top-18` in HeroUnveil.tsx, the two numbers kept in step by tests/hero.spec.ts | |
+| 2026-09-24 | The WaveProm logo and the brightness bar both claim the top center of the hero from lg | The bar sits under the logo: logo at `top-7 h-8` in section-hero.tsx, bar at `top-18` in HeroUnveil.tsx | |
