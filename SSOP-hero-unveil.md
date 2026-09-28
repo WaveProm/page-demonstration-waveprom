@@ -54,3 +54,4 @@ Sort:
 - The bar moves from `top-7` to `top-18`, right under the logo, whose `top-7` and `h-8` it is placed against, with a gap equal to its own height.
 - Below lg the logo shows too, at `h-5`: the veil is in flow there and unpositioned, so the logo is placed against the section and lands over the top of the video.
 - The logo leaves the top center for the top left, at `left-4 md:left-16 lg:left-14`, the padding of the text column, so its left edge lines up with the headline's.
+- The logo blends with `mix-blend-overlay` at every breakpoint, and from lg it drops to `lg:h-6`.
