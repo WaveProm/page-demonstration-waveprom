@@ -1,21 +1,30 @@
-import { unlockCgv } from "@/lib/unlock-cgv";
+import { CtaButton } from "@/components/cta-button";
 
-const PasswordForm = () => (
-  <form action={unlockCgv} className="flex flex-col items-start gap-3">
-    <label className="flex w-full max-w-xs flex-col gap-1">
-      Mot de passe
+type PasswordFormProps = {
+  action: (formData: FormData) => void;
+  refused: boolean;
+};
+
+const PasswordForm = ({ action, refused }: PasswordFormProps) => (
+  <main className="flex min-h-dvh items-center justify-center bg-black px-4 text-white scheme-dark">
+    <form action={action} className="flex w-full max-w-sm flex-col gap-2">
       <input
         type="password"
         name="password"
         required
         autoComplete="current-password"
-        className="border border-black px-3 py-2"
+        aria-label="Mot de passe"
+        placeholder="Mot de passe"
+        className="h-11 w-full rounded-[14px] border border-white/20 bg-transparent px-4 text-[16px] outline-hidden placeholder:text-white/40 focus:border-white/50"
       />
-    </label>
-    <button type="submit" className="border border-black px-4 py-2">
-      Accéder
-    </button>
-  </form>
+      <CtaButton type="submit" className="max-w-none">
+        Accéder
+      </CtaButton>
+      <p role="alert" className="min-h-6 text-center text-red-400">
+        {refused ? "Mot de passe incorrect." : null}
+      </p>
+    </form>
+  </main>
 );
 
 export default PasswordForm;
