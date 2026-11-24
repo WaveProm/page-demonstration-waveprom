@@ -88,8 +88,7 @@ const CgvText = () => (
       courriel. Les nouvelles CGV s'appliquent aux nouvelles Offres dès leur
       publication. Pour les collaborations en cours, elles s'appliquent si le
       Client ne s'y oppose pas par écrit dans les 15 jours suivant l'envoi du
-      courriel. En cas d'opposition, les CGV précédentes restent applicables
-      jusqu'au terme de la Période en cours.
+      courriel.
     </p>
     <h2 className="pt-6 font-bold text-lg">
       Article 4. Engagement et début des Prestations
@@ -119,10 +118,8 @@ const CgvText = () => (
     </p>
     <p>
       4.5 L'Agence décide des moyens mis en œuvre pour exécuter les Prestations.
-      Elle tient compte des demandes du Client lorsqu'elles sont compatibles
-      avec les Prestations et n'entraînent pas de coût supplémentaire. Une
-      demande que l'Agence exécute à la demande expresse du Client, contre son
-      avis, l'est aux risques du Client.
+      Une demande que l'Agence exécute à la demande expresse du Client, contre
+      son avis, l'est aux risques du Client.
     </p>
     <p>
       4.6 Les livrables sont remis sous forme numérique, sauf mention contraire
@@ -349,12 +346,8 @@ const CgvText = () => (
       rachat.
     </p>
     <p>
-      10.6 Sur demande écrite du Client reçue dans les 30 jours suivant la fin
-      de la collaboration, et après paiement de tous les montants dus, l'Agence
-      lui remet un export, dans un format courant, des données de ses clients et
-      prospects contenues dans les Éléments de l'Agence, et lui restitue les
-      accès d'administration de ses propres comptes. Passé ce délai, l'Agence
-      n'est pas tenue de conserver ces données ni aucun livrable.
+      10.6 L'Agence n'est pas tenue de conserver les informations, données et
+      livrables du Client après la fin de la collaboration.
     </p>
     <p>
       10.7 Les images, vidéos, sons et polices issus de banques ou de tiers sont
@@ -362,11 +355,12 @@ const CgvText = () => (
       que dans le cadre prévu lors de leur acquisition.
     </p>
     <p>
-      10.8 L'Agence peut faire figurer sur les sites et pages qu'elle réalise
-      une mention discrète indiquant qu'elle en est l'auteur, à l'exclusion des
-      éléments d'identité de marque du Client. Le Client s'engage à ne pas la
-      retirer, la masquer ni la modifier sans l'accord écrit de l'Agence ; son
-      retrait peut faire l'objet d'une offre.
+      10.8 L'Agence peut apposer sur les livrables qu'elle réalise pour le
+      Client, tels que les éléments graphiques, les sites et les pages, une
+      mention indiquant qu'elle en est l'auteur, par exemple un logo, un lien ou
+      une courte phrase. Le Client s'engage à ne pas la retirer, la masquer ni
+      la modifier sans l'accord écrit de l'Agence ; son retrait peut faire
+      l'objet d'une offre.
     </p>
     <h2 className="pt-6 font-bold text-lg">
       Article 11. Références et communication
@@ -378,22 +372,21 @@ const CgvText = () => (
       présentations commerciales, pendant et après la collaboration.
     </p>
     <p>
-      11.2 L'Agence ne divulgue jamais les données sensibles, confidentielles ou
-      stratégiques du Client, telles que ses données financières, ses
-      informations internes, ses bases de données ou ses accès techniques.
+      11.2 L'Agence ne divulgue jamais les données sensibles ou confidentielles
+      du Client, telles que ses données financières, ses informations internes,
+      ses bases de données ou ses accès techniques.
     </p>
     <h2 className="pt-6 font-bold text-lg">
       Article 12. Confidentialité et non-sollicitation
     </h2>
     <p>
-      12.1 Chaque partie garde confidentielles les informations non publiques de
-      l'autre partie dont elle a connaissance pendant la collaboration. Pour le
-      Client, cela comprend notamment l'Offre, ses conditions et ses prix, les
-      présentes CGV, ainsi que les méthodes, processus et outils de l'Agence.
-      L'obligation de l'Agence dure pendant la collaboration et cinq ans après
-      sa fin ; celle du Client dure sans limitation de durée. Elle ne s'applique
-      pas aux informations publiques ni à celles dont la communication est
-      exigée par la loi ou nécessaire à un conseiller tenu au secret.
+      12.1 Le Client garde confidentielles les informations non publiques de
+      l'Agence dont il a connaissance, notamment l'Offre, ses conditions et ses
+      prix, les présentes CGV, ainsi que les méthodes, processus et outils de
+      l'Agence, pendant la collaboration et sans limitation de durée après sa
+      fin. Cette obligation ne s'applique pas aux informations publiques ni à
+      celles dont la communication est exigée par la loi ou nécessaire à un
+      conseiller tenu au secret.
     </p>
     <p>
       12.2 Pendant la collaboration et douze mois après sa fin, le Client
@@ -450,7 +443,7 @@ const CgvText = () => (
     </ul>
     <p>
       13.3 Dans tous les cas, la responsabilité de l'Agence est limitée au
-      montant que le Client lui a payé pendant les trois mois précédant le fait
+      montant que le Client lui a payé pendant les deux mois précédant le fait
       dommageable. Les limitations du présent article ne s'appliquent pas en cas
       de dol ou de faute grave de l'Agence.
     </p>
@@ -462,17 +455,15 @@ const CgvText = () => (
     </p>
     <h2 className="pt-6 font-bold text-lg">Article 14. Force majeure</h2>
     <p>
-      14.1 Aucune partie ne répond d'un retard ou d'une inexécution causés par
-      un événement imprévisible et indépendant de sa volonté, notamment une
+      14.1 L'Agence ne répond pas d'un retard ou d'une inexécution causés par un
+      événement imprévisible et indépendant de sa volonté, notamment une
       catastrophe naturelle, une pandémie, une décision des autorités, une panne
       générale de réseau ou d'énergie, ou la suspension d'une plateforme
       publicitaire qui n'est pas imputable à l'Agence.
     </p>
     <p>
-      14.2 Les obligations concernées sont suspendues pendant la durée de
-      l'événement. Les obligations de paiement du Client pour les Prestations
-      déjà exécutées ou engagées ne sont pas suspendues. Si l'événement dure
-      plus de 90 jours, chaque partie peut résilier la collaboration par écrit.
+      14.2 L'exécution des Prestations est suspendue pendant la durée de
+      l'événement. Les obligations de paiement du Client ne sont pas suspendues.
     </p>
     <h2 className="pt-6 font-bold text-lg">
       Article 15. Résiliation par l'Agence
@@ -533,8 +524,7 @@ const CgvText = () => (
     <p>
       17.3 Le Client autorise l'Agence à recourir aux sous-traitants nécessaires
       aux Prestations, notamment les fournisseurs d'hébergement, de gestion de
-      la relation client, d'automatisation, d'analyse et de publicité. L'Agence
-      en communique la liste sur demande.
+      la relation client, d'automatisation, d'analyse et de publicité.
     </p>
     <p>
       17.4 L'Agence informe le Client dans les meilleurs délais de toute
