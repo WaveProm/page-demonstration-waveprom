@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     qualities: [75, 80, 90, 100],
   },
+  headers: async () => [
+    {
+      source: "/cgvwp",
+      headers: [{ key: "Cache-Control", value: "no-store" }],
+    },
+  ],
 };
 
 export default nextConfig;
