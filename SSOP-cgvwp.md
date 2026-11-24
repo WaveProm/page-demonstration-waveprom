@@ -44,3 +44,7 @@ Sort:
 | Whether the visitor typed the right password | The cookie `cgvwp`, written and read by the server only | hasCgvAccess | grantCgvAccess |
 | The password | The environment variable `CGV_PASSWORD` | lib/cgv-access.ts | The human, in Vercel and in `.env.local` |
 | The password being typed, not yet sent | The password field, uncontrolled | The browser, on submit | The visitor |
+
+## Amendments
+
+- `grantCgvAccess` becomes `grantCgvAccessIfValid`, returns `Promise<void>`, and `unlockCgv` redirects to `/cgvwp` on every submit, because a form posted without JavaScript re-renders the page inside the action when it does not redirect, and `cookies()` there throws a Next 16.3.0 invariant.
